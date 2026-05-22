@@ -12,9 +12,12 @@ Restore the current task state from truth sources before reasoning or acting.
 ## Required Flow
 
 1. Locate the working directory, project root, relevant task directories, and
-   applicable instruction files.
-2. Read local truth sources before drawing conclusions: `AGENTS.md`, project
-   docs, task records, git state, code, tests, logs, and artifacts.
+   applicable instruction files, including `~/.codex/AGENTS.md` when present
+   and any `AGENTS.md` from the workspace/project root down to the relevant
+   task paths.
+2. Read those instruction files before drawing conclusions, then read local
+   truth sources: project docs, task records, git state, code, tests, logs, and
+   artifacts.
 3. If taskmaster or another task tracker is present, treat its task-state file
    as the execution-state source of truth.
 4. Cross-check docs against code, tests, and artifacts. Mark stale or
