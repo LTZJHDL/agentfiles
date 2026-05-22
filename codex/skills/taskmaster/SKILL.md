@@ -1,20 +1,14 @@
 ---
 name: taskmaster
 description: >
-  Unified task tracking protocol with CSV checkpointing, verification gates,
-  and context-recovery. Two modes: LITE (3-8 steps, lightweight CSV at project
-  root) and FULL (5-15 steps, four-file system in .codex-tasks/<task-name>/
-  with spec freeze + validation gates + decision audit log + compaction recovery).
+  Unified task tracking protocol with CSV checkpointing, verification gates, and context-recovery.
+  Two modes: LITE (3-8 steps, lightweight CSV at project root) and FULL (5-15 steps, four-file system in .codex-tasks/<task-name>/ with spec freeze + validation gates + decision audit log + compaction recovery).
 
-  WHEN TO USE: user asks to "track tasks", "create todo list", "make a plan",
-  "track progress", "long task", "big project", "build from scratch",
-  "autonomous session", "跟踪任务", "自主执行", "长时任务", "从零开始",
-  "任务管理", "做个计划", "大工程", or when a task clearly requires 3+ ordered
-  steps that produce file changes.
+  WHEN TO USE: user asks to "track tasks", "create todo list", "make a plan", "track progress", "long task", "big project", "build from scratch", "autonomous session", "跟踪任务", "自主执行", "长时任务", "从零开始", "任务管理", "做个计划", "大工程",
+  or when a task clearly requires 3+ ordered steps that produce file changes.
 
-  DO NOT USE: single-step fixes, pure Q&A, code review, explaining code,
-  search/research tasks, tasks with fewer than 3 steps, or tasks that don't
-  produce file changes. For research use deep-research skill instead.
+  DO NOT USE: single-step fixes, pure Q&A, code review, explaining code, search/research tasks, tasks with fewer than 3 steps, or tasks that don't produce file changes.
+  For research use deep-research skill instead.
 version: 4.0.0
 ---
 
@@ -87,39 +81,29 @@ Every status update must include:
 
 ## FULL Mode
 
-Complete long-horizon protocol with verification gates, decision audit trail,
-context protection, and compaction recovery. Based on the four-file system
-proven in production autonomous coding sessions (25+ hours, 30k+ lines):
+Complete long-horizon protocol with verification gates, decision audit trail, context protection, and compaction recovery.
+Based on the four-file system proven in production autonomous coding sessions (25+ hours, 30k+ lines):
 
 - **SPEC.md** — Frozen goal (what to build, what NOT to build)
 - **TODO.csv** — Milestone tracker with verification gates (what to do next)
 - **PROGRESS.md** — Decision log + audit trail (what happened and why)
 - **Implement rules** — Embedded in this skill (how to behave)
 
-All task artifacts live in `<project-root>/.codex-tasks/<task-name>/` to prevent
-polluting the project source tree. Each task gets its own subdirectory, enabling
-multiple long tasks to coexist without conflict.
+All task artifacts live in `<project-root>/.codex-tasks/<task-name>/` to prevent polluting the project source tree.
+Each task gets its own subdirectory, enabling multiple long tasks to coexist without conflict.
 
 ### Core Rules
 
-1. **CSV is single source of truth** — Re-read TODO.csv from disk before starting
-   each new step. Never rely on in-context memory of the CSV.
-2. **No step is DONE without verification** — Every step must pass its
-   `validation_command` before being marked DONE.
-3. **Stop-and-fix on failure** — If validation fails, mark status as FAILED,
-   increment `retry_count`, append error to notes, fix, then re-validate.
+1. **CSV is single source of truth** — Re-read TODO.csv from disk before starting each new step. Never rely on in-context memory of the CSV.
+2. **No step is DONE without verification** — Every step must pass its `validation_command` before being marked DONE.
+3. **Stop-and-fix on failure** — If validation fails, mark status as FAILED, increment `retry_count`, append error to notes, fix, then re-validate.
    Never skip a failed step.
 4. **Retry limit = 5** — If `retry_count` reaches 5, try an alternative approach
-   (different implementation strategy, skip and revisit later, or decompose into
-   smaller sub-steps). Log the decision in PROGRESS.md. Only request human
-   intervention if ALL alternative approaches also fail.
-5. **Scope discipline** — Only work on the current IN_PROGRESS step. Do not
-   "helpfully" fix unrelated code or refactor things outside the plan.
-6. **External logging** — Write verbose reasoning to PROGRESS.md, not into the
-   conversation. Keep the conversation lean.
-7. **Cache before process** — When fetching external data (APIs, web pages, docs),
-   write raw results to `.codex-tasks/<task-name>/raw/` first. Subsequent
-   processing reads from local cache to avoid redundant requests.
+   (different implementation strategy, skip and revisit later, or decompose into smaller sub-steps). Log the decision in PROGRESS.md. Only request human intervention if ALL alternative approaches also fail.
+5. **Scope discipline** — Only work on the current IN_PROGRESS step. Do not "helpfully" fix unrelated code or refactor things outside the plan.
+6. **External logging** — Write verbose reasoning to PROGRESS.md, not into the conversation. Keep the conversation lean.
+7. **Cache before process** — When fetching external data (APIs, web pages, docs), write raw results to `.codex-tasks/<task-name>/raw/` first.
+   Subsequent processing reads from local cache to avoid redundant requests.
 8. **Idempotent runs** — Each task creates a unique `<task-name>` directory.
    Never overwrite another task's artifacts.
 
@@ -150,8 +134,7 @@ Generate a semantic, unique task name:
 ```
 
 - `.codex-tasks/` lives at the **project root**, not the global `~/.codex/`.
-- On first use, auto-create `.codex-tasks/.gitignore` with content: `*`
-  (ignores all task artifacts by default).
+- On first use, auto-create `.codex-tasks/.gitignore` with content: `*` (ignores all task artifacts by default).
 - If the user explicitly wants task artifacts committed, remove the gitignore.
 - When the task completes, ask the user whether to keep or delete the task dir.
 
@@ -174,8 +157,7 @@ Generate a semantic, unique task name:
    - Demo flow (how to verify the finished product)
 6. **Log SPEC.md to conversation** for visibility, then **continue immediately**.
    Do NOT wait for user approval — autonomous execution is the default.
-   SPEC.md is the reference anchor; if scope needs adjustment mid-task,
-   update SPEC.md directly and log the change reason in PROGRESS.md.
+   SPEC.md is the reference anchor; if scope needs adjustment mid-task, update SPEC.md directly and log the change reason in PROGRESS.md.
 
 #### Phase 1: Plan
 
@@ -222,8 +204,7 @@ For each step, repeat:
 6. NEXT      → Go to step 1 for next TODO row
 ```
 
-**Compaction recovery**: If you lose context mid-task, follow the
-Context Recovery Protocol (see below) to restore state and resume.
+**Compaction recovery**: If you lose context mid-task, follow the Context Recovery Protocol (see below) to restore state and resume.
 
 #### Phase 3: Handle plan changes
 
@@ -237,12 +218,9 @@ Context Recovery Protocol (see below) to restore state and resume.
 
 1. Verify ALL rows are DONE.
 2. Run a final integration validation if defined in SPEC.md's done-when.
-3. Write final summary in PROGRESS.md (total milestones, failures, recoveries,
-   human interventions, key learnings).
-4. Auto-delete `.codex-tasks/<task-name>/` by default. If the task was complex
-   or produced valuable learnings, keep it and log the reason in PROGRESS.md.
-5. If all tasks in `.codex-tasks/` are completed and deleted, remove the
-   `.codex-tasks/` directory itself to leave the project clean.
+3. Write final summary in PROGRESS.md (total milestones, failures, recoveries, human interventions, key learnings).
+4. Auto-delete `.codex-tasks/<task-name>/` by default. If the task was complex or produced valuable learnings, keep it and log the reason in PROGRESS.md.
+5. If all tasks in `.codex-tasks/` are completed and deleted, remove the `.codex-tasks/` directory itself to leave the project clean.
 
 ### Context Protection
 
@@ -252,27 +230,22 @@ These rules prevent context degradation during long sessions:
   Always load `.codex-tasks/<task-name>/TODO.csv` from disk.
 - **Keep conversation lean**: Reasoning and verbose output go to PROGRESS.md.
   The conversation should only contain status updates (Output Contract format).
-- **Cache external data**: When fetching docs, APIs, or web pages, save raw
-  results to `.codex-tasks/<task-name>/raw/` first. Process from local cache.
+- **Cache external data**: When fetching docs, APIs, or web pages, save raw results to `.codex-tasks/<task-name>/raw/` first. Process from local cache.
   Never fetch the same URL twice — check raw/ first.
-- **No task drift**: Only work on the current IN_PROGRESS row. Ignore temptations
-  to "improve" other parts of the codebase. If you spot an unrelated issue,
-  note it in PROGRESS.md under "Recommendations" but do NOT fix it now.
-- **Session handoff**: If stopping mid-task, ensure PROGRESS.md's Context
-  Recovery Block is up-to-date so the next session can resume instantly.
+- **No task drift**: Only work on the current IN_PROGRESS row. Ignore temptations to "improve" other parts of the codebase.
+  If you spot an unrelated issue, note it in PROGRESS.md under "Recommendations" but do NOT fix it now.
+- **Session handoff**: If stopping mid-task, ensure PROGRESS.md's Context Recovery Block is up-to-date so the next session can resume instantly.
 
 ### Context Recovery Protocol
 
 When you lose context (compaction, session restart, manual resume, or `/continue`):
 
-1. **Detect** — If you don't have clear knowledge of the current task state,
-   you have lost context. Do NOT guess or hallucinate previous progress.
+1. **Detect** — If you don't have clear knowledge of the current task state, you have lost context. Do NOT guess or hallucinate previous progress.
 2. **Locate** — Find the task directory: `ls .codex-tasks/`
 3. **Recover** — Read all three files in order:
    - `SPEC.md` → restore goal understanding and constraints
    - `TODO.csv` → find current progress (first non-DONE row = resume point)
-   - `PROGRESS.md` → read the **Context Recovery Block** first (top of file),
-     then skim recent milestone entries for decision context
+   - `PROGRESS.md` → read the **Context Recovery Block** first (top of file), then skim recent milestone entries for decision context
 4. **Verify** — Cross-check: does the CSV state match PROGRESS.md's last entry?
    If not, CSV wins (it's the source of truth).
 5. **Resume** — Continue from the first non-DONE row in TODO.csv.
@@ -291,10 +264,8 @@ When you lose context (compaction, session restart, manual resume, or `/continue
 
 ### Project Hygiene
 
-- On first FULL mode use in a project, auto-create `.codex-tasks/.gitignore`
-  with content `*` to prevent task artifacts from being committed.
-- Task artifacts are gitignored by default. Only remove the gitignore if the
-  user explicitly asks to commit task artifacts.
+- On first FULL mode use in a project, auto-create `.codex-tasks/.gitignore` with content `*` to prevent task artifacts from being committed.
+- Task artifacts are gitignored by default. Only remove the gitignore if the user explicitly asks to commit task artifacts.
 - When all tasks complete, auto-delete `.codex-tasks/` to leave the project clean.
 
 ### Output Contract
