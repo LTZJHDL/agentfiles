@@ -1,0 +1,19 @@
+[agents]
+# The limit does not include the root agent.
+max_concurrent_threads_per_session = 10
+default_subagent_model = "gpt-5.6-sol"
+default_subagent_reasoning_effort = "xhigh"
+
+[features.multi_agent_v2]
+# Keep role selection visible, but hide service-tier/nickname metadata and prevent
+# per-spawn model or reasoning overrides. Role files are the source of truth.
+hide_spawn_agent_metadata = true
+expose_spawn_agent_model_overrides = false
+
+# This is the current Codex default and is pinned here intentionally.
+# Back to default settting
+# tool_namespace = "collaboration"
+
+min_wait_timeout_ms = 10000
+default_wait_timeout_ms = 60000
+max_wait_timeout_ms = 300000

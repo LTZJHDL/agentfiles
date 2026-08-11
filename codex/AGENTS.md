@@ -155,12 +155,12 @@ A subagent may locate relevant sections in foundational material, but the main a
 Select roles by `agent_type` and choose the least-capable role that can complete the task. The role files are the source of truth for model, reasoning, and developer instructions.
 
 - `explorer`: read-only exploration, search, and evidence-backed verification.
-- `worker`: exploration and execution without modifying pre-existing files; it may manage only temporary artifacts created during its own turn.
+- `runner`: exploration and execution without modifying pre-existing files; it may manage only temporary artifacts created during its own turn.
 - `default`: bounded implementation that requires modifying existing files or other state within the delegated scope.
 
-Always pass `agent_type` explicitly and set `fork_turns = "none"`. Do not override role-file settings by passing `model`, `reasoning_effort`, or `service_tier`. Do not use full-history forks.
+Always pass `agent_type` explicitly and set `fork_turns = "none"`.
 
-Spawned agents inherit the main agent's runtime permission profile. The narrower `explorer` and `worker` boundaries are behavioral constraints, not separate sandboxes. Never describe them as hard security boundaries. If strict isolation is required, use a separately created top-level task or environment with its own permission profile.
+The current role files do not define per-role sandboxes, so subagents inherit the parent turn's live runtime permissions. The `explorer` and `runner` write restrictions are behavioral constraints, not security boundaries.
 
 ### Dispatch and Lifecycle
 

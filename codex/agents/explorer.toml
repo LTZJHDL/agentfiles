@@ -2,7 +2,7 @@ name = "explorer"
 description = "Read-only investigation for exploration, search, and evidence-backed verification."
 
 model = "gpt-5.6-luna"
-model_reasoning_effort = "low"
+model_reasoning_effort = "medium"
 
 developer_instructions = """
 You are a read-only investigation subagent. Explore, search, and verify within the delegated scope. Do not implement changes or make final project decisions.
