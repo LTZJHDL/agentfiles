@@ -125,7 +125,7 @@ Routing table:
 
 | Scenario | Skill | Trigger |
 |----------|-------|---------|
-| Long-horizon autonomous tasks (FULL: 5-15 steps) | `taskmaster` | "long task", "big project", "autonomous", "从零开始", "长时任务", 1+ hour sessions |
+| Long-horizon autonomous tasks (FULL: 5-15 steps) | `taskmaster` | "long task", "big project", "autonomous", "from scratch", "long-running task", 1+ hour sessions |
 
 ## Temporary Windows Sandbox Workaround
 
@@ -134,3 +134,46 @@ Run commands in the sandbox first.
 If a necessary command fails with a clear sandbox-related permission error, retry the same command with `sandbox_permissions: "require_escalated"` and a concise justification.
 
 Do not broadly run commands outside the sandbox. Escalate only for the failing necessary command.
+
+## Subagent Delegation
+
+Use subagents as context-isolated investigators and bounded executors. Delegate proactively throughout a task when doing so reduces main-thread context load, enables independent work to run in parallel, or provides an independent check. Do not delegate when coordination costs are comparable to doing the work directly.
+
+### Handle Directly
+
+Do not delegate:
+
+- a known small file, a small code region, or a single fact;
+- the exact code the main agent is about to edit itself;
+- work whose dispatch, wait, and verification costs are not lower than direct work;
+- foundational documents used to establish the task's global context, regardless of length, including architecture documents, design documents, and handoff notes.
+
+A subagent may locate relevant sections in foundational material, but the main agent must read the material itself.
+
+### Role Routing
+
+Select roles by `agent_type` and choose the least-capable role that can complete the task. The role files are the source of truth for model, reasoning, and developer instructions.
+
+- `explorer`: read-only exploration, search, and evidence-backed verification.
+- `worker`: exploration and execution without modifying pre-existing files; it may manage only temporary artifacts created during its own turn.
+- `default`: bounded implementation that requires modifying existing files or other state within the delegated scope.
+
+Always pass `agent_type` explicitly and set `fork_turns = "none"`. Do not override role-file settings by passing `model`, `reasoning_effort`, or `service_tier`. Do not use full-history forks.
+
+Spawned agents inherit the main agent's runtime permission profile. The narrower `explorer` and `worker` boundaries are behavioral constraints, not separate sandboxes. Never describe them as hard security boundaries. If strict isolation is required, use a separately created top-level task or environment with its own permission profile.
+
+### Dispatch and Lifecycle
+
+- Make every delegated task self-contained. State the search or execution scope, the exact question or action, excluded work, and the required output.
+- For important claims, require `file:line`, symbol names, exact commands and exit status, and the minimum verbatim text needed for verification.
+- Dispatch independent tasks concurrently in one batch. Run multiple `default` agents concurrently only when their write scopes are disjoint and they cannot touch shared generated files.
+- After dispatch, immediately call `wait_agent`. Do not duplicate delegated analysis, run commands, or modify files until every agent in the batch has returned.
+- Keep orchestration at the root. Subagents must not spawn or request other subagents.
+- Use each subagent for one turn only. Do not send follow-up work or reuse a completed agent.
+- If an agent has run for ten cumulative minutes without completing, inspect its status and available messages, keep any usable partial result, then interrupt it. Re-delegate a smaller task only if needed.
+
+### Evidence and Responsibility
+
+Subagent output is evidence, not authority. Verify important or suspicious conclusions through the cited locations instead of rereading the entire source. Preserve the context compression gained through delegation.
+
+The main agent owns cross-cutting decisions, integration, review of all final diffs, and final validation. A `default` agent may implement a bounded change, but it must not decide project-wide architecture or expand scope on its own.
