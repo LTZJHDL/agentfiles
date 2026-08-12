@@ -2,7 +2,7 @@
 
 These standards provide default engineering principles for human-authored production code, tests, scripts, and migrations.
 
-They guide judgment rather than prescribe every situation. When principles compete, prefer the design that makes correctness easiest to understand, verify, and change.
+They guide judgment rather than prescribe every situation. Each principle states a desired property and the conditions that make it useful; prohibitions are reserved for boundaries where ambiguity would compromise correctness or safety. When principles compete, prefer the design that makes correctness easiest to understand, verify, and change.
 
 ## Directness and clarity
 
@@ -10,49 +10,49 @@ Prefer straightforward code whose behavior is evident from its names, signatures
 
 Make correctness-relevant dependencies, assumptions, and side effects explicit. Express critical constraints in code and interfaces. Use documentation to preserve rationale and tradeoffs that code cannot express.
 
-A useful abstraction, dependency, framework, or configuration layer serves a concrete current need or clearly reduces total conceptual complexity. Keep the direct form when indirection merely relocates logic or increases the context required to understand it.
+Choose the simplest mechanism that satisfies the current requirement. Add an abstraction, dependency, framework, or configuration layer when it directly serves that requirement and its benefit outweighs the added indirection and maintenance cost.
 
-Reuse existing code when it already represents the same rule. Similar-looking code with different reasons to change may be better kept separate.
+Reuse or extend existing code when it already owns the same rule and remains the natural place for the behavior. Similar-looking code with different reasons to change may be better kept separate.
 
 Treat large files or functions, deep nesting, high branch complexity, and long parameter lists as review signals, not automatic violations. Refactor when it improves clarity, locality, testability, or responsibility boundaries rather than merely satisfying a number.
 
-Give domain-significant values meaningful names.
+Name a value when it expresses a domain rule or a non-obvious constraint that a literal cannot communicate.
 
 Use comments to preserve non-obvious intent, invariants, constraints, or tradeoffs. Let clear code explain what it does.
 
 ## Change discipline
 
-Make the smallest coherent change that corrects the root cause at its source of truth. Measure scope by conceptual focus, not by file count.
+Let the agreed requirement define the behavior to add. Make the smallest coherent change that corrects the root cause at its source of truth, measuring scope by conceptual focus rather than file count.
 
-Keep the change conceptually focused: leave unrelated refactors, renames, formatting, dependency updates, and features outside it. Preserve the surrounding style and architecture unless they obscure or cause the problem.
+Leave unrelated refactors, renames, formatting, dependency updates, and features outside the change. Preserve the surrounding style and architecture unless they cause the problem or prevent a clear root-cause correction. When the intended design is unclear, clarify it before restructuring the code.
 
-Prefer one direct correction over outer wrappers, special cases, compatibility adapters, or duplicated logic.
+When the source can be changed directly, prefer one correction there over outer wrappers, special cases, compatibility adapters, or duplicated logic.
 
-Let the current change define the behavior to add. Extend existing primitives when they naturally own that behavior.
-
-Treat compatibility for public APIs, persisted data, and external protocols as a product decision. Preserve an established contract unless the current change explicitly replaces it; when no contract exists, prefer removing obsolete paths to layering adapters.
+Before adding or preserving compatibility behavior, identify the agreed requirement, versioning policy, or established external contract it serves. Without one, replace the obsolete path rather than extending it with adapters or branches.
 
 ## Failure behavior
 
-Make failures explicit, local, and diagnosable. In code, fail where an invalid state first becomes knowable; in verification, use targeted assertions or logs that identify the violated condition.
+Make failures explicit, local, and diagnosable. Fail where an invalid state first becomes knowable.
 
-Validate external input at system boundaries and fail fast when an internal invariant is violated.
+Represent expected boundary failures in terms callers can handle. Fail fast when an internal invariant is violated.
 
-Treat fallbacks, retries, recovery, and resilience as deliberate product or architecture choices with defined failure semantics and tests.
+Require an agreed product or architecture requirement before adding fallbacks, retries, recovery, or resilience behavior. Define and test their failure semantics.
 
 Never conceal failure with swallowed errors, silent defaults, or mock success paths.
 
-## Coupling and state
+## Dependencies and effects
 
-Separate business rules from infrastructure and I/O so their behavior can be understood and tested without external systems. Make clocks, randomness, network clients, and other external effects explicit at the boundary that owns them.
+Make time, randomness, I/O, and external-service dependencies explicit when behavior depends on them. Keep decision logic understandable and testable without requiring the real external system.
 
-Prefer immutable input and output flow. When mutation is the clearer choice, make ownership explicit and keep mutable state local.
+Keep mutable state local and make its ownership clear. Prefer immutable value flow when it makes state transitions easier to follow.
 
-## Security boundaries
+## Trust boundaries
 
-Load secrets through the environment or a secret store. Never hardcode secrets or expose them in logs.
+Parse and validate untrusted input at trust boundaries before relying on it.
 
-Use parameterized queries and process APIs that keep arguments separate from command text. Never concatenate untrusted input into SQL or shell commands.
+Obtain secrets through the system's designated secret channel. Never place secrets in source code or logs.
+
+Use structured APIs that keep untrusted data separate from executable code, queries, and commands. Never interpolate untrusted data into executable text.
 
 ## Verification
 
@@ -62,4 +62,4 @@ Test observable behavior through stable interfaces. Prefer tests that survive in
 
 Choose unit, integration, and end-to-end tests, type checks, static analysis, and formatting according to the failure modes each can detect. Passing a weaker check is not evidence for behavior it cannot exercise.
 
-For a bug fix, preserve a regression test when a stable seam can reproduce the defect. If no such seam exists, treat that as design information rather than forcing a brittle test.
+For a bug fix, preserve a regression test when the defect can be reproduced through a stable observable interface. If no such interface exists, treat that absence as design information rather than forcing a brittle test.
