@@ -1,89 +1,65 @@
 # Coding Standards
 
-These standards define how human-authored production code, tests, scripts, and migrations should be changed and reviewed.
+These standards provide default engineering principles for human-authored production code, tests, scripts, and migrations.
 
-## Debug-First Failure Handling
+They guide judgment rather than prescribe every situation. When principles compete, prefer the design that makes correctness easiest to understand, verify, and change.
 
-Do not add fallback behavior, compatibility paths, defensive wrappers, retries, silent defaults, mock success paths, or error swallowing just to make a failing path appear to work.
+## Directness and clarity
 
-Surface failures at the point closest to the root cause through explicit errors, failing tests, or clear logs.
+Prefer straightforward code whose behavior is evident from its names, signatures, data shapes, and control flow. Use familiar language and standard-library features when they fit the problem.
 
-Use fail-fast behavior for invalid internal states. Preserve required validation at external boundaries.
+Make correctness-relevant dependencies, assumptions, and side effects explicit. Express critical constraints in code and interfaces. Use documentation to preserve rationale and tradeoffs that code cannot express.
 
-Do not add incidental robustness, recovery, or special-case handling outside the current task.
+A useful abstraction, dependency, framework, or configuration layer serves a concrete current need or clearly reduces total conceptual complexity. Keep the direct form when indirection merely relocates logic or increases the context required to understand it.
 
-Treat error handling, resilience, compatibility, and recovery behavior as product or architecture decisions. Do not add them incidentally while fixing another issue unless explicitly requested.
+Reuse existing code when it already represents the same rule. Similar-looking code with different reasons to change may be better kept separate.
 
-## Clarity And Complexity
+Treat large files or functions, deep nesting, high branch complexity, and long parameter lists as review signals, not automatic violations. Refactor when it improves clarity, locality, testability, or responsibility boundaries rather than merely satisfying a number.
 
-Do not transfer complexity to callers, readers, hidden state, documentation, or future maintainers.
+Give domain-significant values meaningful names.
 
-Make correctness-relevant dependencies explicit in names, signatures, data flow, and control flow. Do not hide core behavior behind mechanisms intended for ancillary concerns.
+Use comments to preserve non-obvious intent, invariants, constraints, or tradeoffs. Let clear code explain what it does.
 
-Use abstractions only within clear problem boundaries. Add indirection only when it reduces real conceptual complexity.
+## Change discipline
 
-Keep the direct form when an abstraction only moves code elsewhere, hides dependencies, or increases required context.
+Make the smallest coherent change that corrects the root cause at its source of truth. Measure scope by conceptual focus, not by file count.
 
-Do not refactor unclear designs before clarifying the problem. Refactor only when the intended design is clear but poorly expressed.
+Keep the change conceptually focused: leave unrelated refactors, renames, formatting, dependency updates, and features outside it. Preserve the surrounding style and architecture unless they obscure or cause the problem.
 
-After changing code, remove avoidable hidden assumptions through clearer structure, names, signatures, or tests.
+Prefer one direct correction over outer wrappers, special cases, compatibility adapters, or duplicated logic.
 
-## Implementation Baseline
+Let the current change define the behavior to add. Extend existing primitives when they naturally own that behavior.
 
-Write dumb, obvious code.
+Treat compatibility for public APIs, persisted data, and external protocols as a product decision. Preserve an established contract unless the current change explicitly replaces it; when no contract exists, prefer removing obsolete paths to layering adapters.
 
-Use clear names, direct control flow, explicit data shapes, boring standard-library solutions, and high human readability.
+## Failure behavior
 
-Keep unrelated responsibilities separate. Extract shared logic only when it represents the same rule, not merely similar code.
+Make failures explicit, local, and diagnosable. In code, fail where an invalid state first becomes knowable; in verification, use targeted assertions or logs that identify the violated condition.
 
-Reuse existing code before adding new code. Do not introduce new dependencies or speculative abstractions unless the current task requires them.
+Validate external input at system boundaries and fail fast when an internal invariant is violated.
 
-Do not introduce frameworks, patterns, configuration layers, or generic helpers unless they are required by the current task or reduce real conceptual complexity.
+Treat fallbacks, retries, recovery, and resilience as deliberate product or architecture choices with defined failure semantics and tests.
 
-## Change Scope
+Never conceal failure with swallowed errors, silent defaults, or mock success paths.
 
-Make the smallest change that solves the root problem.
+## Coupling and state
 
-Do not refactor unrelated code, rename unrelated symbols, reformat untouched files, reorganize modules, update dependencies, or add features unless required by the task.
+Separate business rules from infrastructure and I/O so their behavior can be understood and tested without external systems. Make clocks, randomness, network clients, and other external effects explicit at the boundary that owns them.
 
-Preserve the surrounding style and architecture unless they are the root cause of the issue.
+Prefer immutable input and output flow. When mutation is the clearer choice, make ownership explicit and keep mutable state local.
 
-## Root-Cause Fixes
+## Security boundaries
 
-Fix problems at the source of truth.
+Load secrets through the environment or a secret store. Never hardcode secrets or expose them in logs.
 
-Do not patch symptoms with outer wrappers, special-case branches, compatibility adapters, or duplicated logic when the underlying cause can be corrected directly.
+Use parameterized queries and process APIs that keep arguments separate from command text. Never concatenate untrusted input into SQL or shell commands.
 
-Prefer deleting obsolete paths over preserving them with additional branching, unless compatibility is explicitly required.
+## Verification
 
-## Compatibility
+Match verification to risk. Start with the narrowest reproducible check that could falsify the changed behavior, then broaden when the change crosses module or system boundaries.
 
-Do not preserve backward compatibility, legacy behavior, old APIs, migration paths, or deprecated options unless explicitly required.
+Test observable behavior through stable interfaces. Prefer tests that survive internal refactoring and derive expected results from an independent source of truth.
 
-## Feature Discipline
+Choose unit, integration, and end-to-end tests, type checks, static analysis, and formatting according to the failure modes each can detect. Passing a weaker check is not evidence for behavior it cannot exercise.
 
-Do not add unrequested features.
-
-Before adding a feature, confirm that it directly improves the project's core capability and composes with existing capabilities.
-
-Prefer strengthening existing primitives over adding isolated one-off behavior.
-
-## Complexity Signals
-
-Treat large files or functions, deep nesting, high branch complexity, and long parameter lists as review signals, not automatic reasons to split code.
-
-Avoid magic numbers when a value carries domain meaning.
-
-Refactor only when it improves clarity, locality, testability, or responsibility boundaries.
-
-## Readability And Comments
-
-Make code readable through names, signatures, structure, and straightforward flow first.
-
-Use comments only to explain non-obvious intent, invariants, constraints, or tradeoffs. Do not comment on what the code already says.
-
-## Testing And Validation
-
-Keep code testable and verify with automated checks whenever feasible.
-
-Prefer static checks, formatting, and reproducible verification.
+For a bug fix, preserve a regression test when a stable seam can reproduce the defect. If no such seam exists, treat that as design information rather than forcing a brittle test.
