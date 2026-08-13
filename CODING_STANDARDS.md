@@ -2,13 +2,13 @@
 
 These standards provide default engineering principles for human-authored production code, tests, scripts, and migrations.
 
-They guide judgment rather than prescribe every situation. Each principle states a desired property and the conditions that make it useful; prohibitions are reserved for boundaries where ambiguity would compromise correctness or safety. When principles compete, prefer the design that makes correctness easiest to understand, verify, and change.
+They guide judgment rather than prescribe every situation. When principles compete, prefer the design that makes correctness easiest to understand, verify, and change.
 
 ## Directness and clarity
 
 Prefer straightforward code whose behavior is evident from its names, signatures, data shapes, and control flow. Use familiar language and standard-library features when they fit the problem.
 
-Make correctness-relevant dependencies, assumptions, and side effects explicit. Express critical constraints in code and interfaces. Use documentation to preserve rationale and tradeoffs that code cannot express.
+Make correctness-relevant dependencies, assumptions, and side effects explicit. Keep mutable state local, with clear ownership and lifetime. Express critical constraints in code and interfaces. Use documentation to preserve rationale and tradeoffs that code cannot express.
 
 Choose the simplest mechanism that satisfies the current requirement. Add an abstraction, dependency, framework, or configuration layer when it directly serves that requirement and its benefit outweighs the added indirection and maintenance cost.
 
@@ -36,23 +36,17 @@ Make failures explicit, local, and diagnosable. Fail where an invalid state firs
 
 Represent expected boundary failures in terms callers can handle. Fail fast when an internal invariant is violated.
 
-Require an agreed product or architecture requirement before adding fallbacks, retries, recovery, or resilience behavior. Define and test their failure semantics.
+Treat fallbacks, retries, recovery, and other resilience mechanisms as product or architecture behavior. Add them only when an explicit requirement or architecture decision calls for them, and define and test their failure semantics.
 
 Never conceal failure with swallowed errors, silent defaults, or mock success paths.
 
-## Dependencies and effects
-
-Make time, randomness, I/O, and external-service dependencies explicit when behavior depends on them. Keep decision logic understandable and testable without requiring the real external system.
-
-Keep mutable state local and make its ownership clear. Prefer immutable value flow when it makes state transitions easier to follow.
-
 ## Trust boundaries
 
-Parse and validate untrusted input at trust boundaries before relying on it.
+Treat data received across a trust boundary as untrusted. Validate it against the constraints of its intended use before relying on it.
 
-Obtain secrets through the system's designated secret channel. Never place secrets in source code or logs.
+Keep untrusted data separate from executable syntax through structured APIs. Never let untrusted data define executable syntax.
 
-Use structured APIs that keep untrusted data separate from executable code, queries, and commands. Never interpolate untrusted data into executable text.
+Obtain secrets through the system's designated secret mechanism. Never place them in source code or logs.
 
 ## Verification
 
