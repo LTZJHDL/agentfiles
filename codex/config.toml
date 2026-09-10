@@ -2,7 +2,7 @@
 # The limit does not include the root agent.
 max_concurrent_threads_per_session = 10
 default_subagent_model = "gpt-6-astra"
-default_subagent_reasoning_effort = "medium"
+default_subagent_reasoning_effort = "xhigh"
 
 [features.multi_agent_v2]
 # Keep role selection visible, but hide service-tier/nickname metadata and prevent
