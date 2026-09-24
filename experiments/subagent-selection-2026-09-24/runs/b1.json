@@ -1,0 +1,21 @@
+{
+  "run_id": "b1",
+  "decisions": [
+    {"id":"T01","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Precise evidence retrieval needs little interpretation; the economical scout fits directly."},
+    {"id":"T02","choice":"worker","runner_up":"operator","confidence":"high","reason":"Normal implementation and integration benefit from strong execution without premium deliberation."},
+    {"id":"T03","choice":"professor","runner_up":"worker","confidence":"high","reason":"Editorial emphasis and restrained voice favor good taste and clear expression."},
+    {"id":"T04","choice":"operator","runner_up":"explorer","confidence":"medium","reason":"Executing supplied commands and recording results suits quick, economical procedural assistance."},
+    {"id":"T05","choice":"kami","runner_up":"professor","confidence":"high","reason":"Interacting failure states and independent proof demand sustained, deeply reflective reasoning."},
+    {"id":"T06","choice":"professor","runner_up":"worker","confidence":"high","reason":"Conceptual coherence and durable boundaries depend on sharp judgment and design taste."},
+    {"id":"T07","choice":"operator","runner_up":"worker","confidence":"high","reason":"An exact mapping and existing script make this a procedural execution task."},
+    {"id":"T08","choice":"worker","runner_up":"operator","confidence":"high","reason":"Known corrective behavior still requires dependable integration across multiple modules."},
+    {"id":"T09","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Exact documented values and citations are a precise scouting assignment."},
+    {"id":"T10","choice":"professor","runner_up":"kami","confidence":"high","reason":"Reframing ambiguous needs benefits from broad understanding and sharp judgment, without prolonged investigation."},
+    {"id":"T11","choice":"operator","runner_up":"worker","confidence":"high","reason":"Complete occurrence lists and supplied checks keep the mechanical change within modest reasoning needs."},
+    {"id":"T12","choice":"worker","runner_up":"professor","confidence":"high","reason":"Migration integration and ordinary compatibility fixes require versatile execution and pragmatic judgment."},
+    {"id":"T13","choice":"kami","runner_up":"worker","confidence":"high","reason":"Contradictory evidence and surviving hypotheses justify tenacious independent causal investigation."},
+    {"id":"T14","choice":"professor","runner_up":"worker","confidence":"medium","reason":"Sensitive wording requires precise expression and taste despite the small output."},
+    {"id":"T15","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established patterns across components and tests favor capable execution at balanced cost."},
+    {"id":"T16","choice":"kami","runner_up":"professor","confidence":"high","reason":"Failed approaches and consequential adversarial reasoning justify the deepest sustained independent thought."}
+  ]
+}

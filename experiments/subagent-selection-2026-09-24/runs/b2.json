@@ -1,0 +1,21 @@
+{
+  "run_id": "b2",
+  "decisions": [
+    {"id":"T16","choice":"kami","runner_up":"professor","confidence":"high","reason":"Failed approaches and consequential adversarial reasoning justify sustained independent thought and its higher cost."},
+    {"id":"T15","choice":"worker","runner_up":"operator","confidence":"high","reason":"Strong execution and dependable judgment fit integration across established components and tests."},
+    {"id":"T14","choice":"professor","runner_up":"worker","confidence":"medium","reason":"Sensitive wording benefits from good taste and clear expression despite the small deliverable."},
+    {"id":"T13","choice":"kami","runner_up":"professor","confidence":"high","reason":"Contradictory evidence and interacting mechanisms require tenacious, sustained independent causal reasoning."},
+    {"id":"T12","choice":"worker","runner_up":"professor","confidence":"high","reason":"Versatile execution and pragmatic judgment suit guided migration and ordinary compatibility fixes."},
+    {"id":"T11","choice":"operator","runner_up":"worker","confidence":"high","reason":"Complete occurrence lists and explicit checks make economical, direct execution sufficient."},
+    {"id":"T10","choice":"professor","runner_up":"kami","confidence":"high","reason":"Broad understanding and sharp judgment suit reframing an ambiguous need without excessive investigation."},
+    {"id":"T09","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Precise evidence retrieval and concise reporting directly match exact defaults and citations."},
+    {"id":"T08","choice":"worker","runner_up":"operator","confidence":"high","reason":"Known diagnosis still requires reliable coordination across callers and validation."},
+    {"id":"T07","choice":"operator","runner_up":"worker","confidence":"high","reason":"An existing script and exact procedure favor economical execution with straightforward count checks."},
+    {"id":"T06","choice":"professor","runner_up":"kami","confidence":"high","reason":"Conceptual coherence and durable boundaries reward broad understanding, sharp judgment, and taste."},
+    {"id":"T05","choice":"kami","runner_up":"professor","confidence":"high","reason":"Interacting state machines and failure interleavings warrant deep independent reasoning toward proof or counterexample."},
+    {"id":"T04","choice":"operator","runner_up":"explorer","confidence":"medium","reason":"Running supplied commands and recording outputs needs quick, economical execution with minimal reasoning."},
+    {"id":"T03","choice":"professor","runner_up":"worker","confidence":"high","reason":"Emphasis, restraint, and natural voice benefit from good taste and clear expression."},
+    {"id":"T02","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established patterns keep costs bounded while integration and verification benefit from strong execution."},
+    {"id":"T01","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Exact repository locations and values are a precise scout's economical evidence-gathering task."}
+  ]
+}

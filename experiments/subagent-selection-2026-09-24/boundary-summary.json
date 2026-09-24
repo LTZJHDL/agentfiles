@@ -1,0 +1,89 @@
+{
+  "scenario_count": 8,
+  "run_count": 6,
+  "selection_counts": {
+    "a1-boundary": {
+      "worker": 4,
+      "operator": 3,
+      "explorer": 1
+    },
+    "a2-boundary": {
+      "worker": 4,
+      "operator": 4
+    },
+    "b1-boundary": {
+      "worker": 5,
+      "operator": 2,
+      "professor": 1
+    },
+    "b2-boundary": {
+      "professor": 1,
+      "worker": 4,
+      "operator": 3
+    },
+    "c1-boundary": {
+      "worker": 4,
+      "operator": 3,
+      "explorer": 1
+    },
+    "c2-boundary": {
+      "worker": 4,
+      "explorer": 1,
+      "operator": 3
+    }
+  },
+  "agreement_with_parent_preferences": null,
+  "paired_changes": {
+    "a1-boundary_to_b1-boundary": [
+      {
+        "id": "B02",
+        "before": "operator",
+        "after": "worker"
+      },
+      {
+        "id": "B05",
+        "before": "operator",
+        "after": "worker"
+      },
+      {
+        "id": "B06",
+        "before": "explorer",
+        "after": "operator"
+      },
+      {
+        "id": "B08",
+        "before": "worker",
+        "after": "professor"
+      }
+    ],
+    "a2-boundary_to_b2-boundary": [
+      {
+        "id": "B05",
+        "before": "operator",
+        "after": "worker"
+      },
+      {
+        "id": "B08",
+        "before": "worker",
+        "after": "professor"
+      }
+    ],
+    "a1-boundary_to_c1-boundary": [],
+    "a2-boundary_to_c2-boundary": [
+      {
+        "id": "B06",
+        "before": "operator",
+        "after": "explorer"
+      }
+    ]
+  },
+  "within_condition_disagreements": {
+    "a": [
+      "B06"
+    ],
+    "b": [
+      "B02"
+    ],
+    "c": []
+  }
+}

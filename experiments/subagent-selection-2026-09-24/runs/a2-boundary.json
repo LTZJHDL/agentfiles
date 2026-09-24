@@ -1,0 +1,13 @@
+{
+  "run_id": "a2-boundary",
+  "decisions": [
+    {"id":"B08","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Routine decision scrutiny needs pragmatic judgment; premium deliberation seems disproportionate."},
+    {"id":"B07","choice":"worker","runner_up":"professor","confidence":"high","reason":"Cross-file simplification needs practical implementation judgment and dependable behavior preservation."},
+    {"id":"B06","choice":"operator","runner_up":"explorer","confidence":"medium","reason":"Straightforward supplied facts need economical synthesis with practical prioritization."},
+    {"id":"B05","choice":"operator","runner_up":"worker","confidence":"medium","reason":"Three bounded naming decisions suit practical judgment and a light touch."},
+    {"id":"B04","choice":"worker","runner_up":"operator","confidence":"medium","reason":"Small implementation still combines product choices, integration, and behavioral verification."},
+    {"id":"B03","choice":"operator","runner_up":"worker","confidence":"high","reason":"Existing commands and straightforward fixture repairs favor nimble, economical execution."},
+    {"id":"B02","choice":"operator","runner_up":"worker","confidence":"high","reason":"A proportionate polish of ordinary prose suits economical judgment and a light touch."},
+    {"id":"B01","choice":"worker","runner_up":"operator","confidence":"medium","reason":"Evaluating clarity and producing a behavior-preserving replacement fit a capable pragmatic colleague."}
+  ]
+}

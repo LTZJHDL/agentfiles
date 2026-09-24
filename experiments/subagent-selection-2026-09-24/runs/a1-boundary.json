@@ -1,0 +1,13 @@
+{
+  "run_id": "a1-boundary",
+  "decisions": [
+    {"id":"B01","choice":"worker","runner_up":"operator","confidence":"medium","reason":"Behavior-preserving code improvement combines judgment and implementation, favoring a pragmatic colleague."},
+    {"id":"B02","choice":"operator","runner_up":"professor","confidence":"high","reason":"A proportionate edit to ordinary prose favors practical judgment and a light touch over premium deliberation."},
+    {"id":"B03","choice":"operator","runner_up":"worker","confidence":"medium","reason":"Defined test execution and straightforward fixture repairs fit economical operation with limited judgment."},
+    {"id":"B04","choice":"worker","runner_up":"operator","confidence":"medium","reason":"A small integrated feature needs implementation, sensible product choices, and verification within an established pattern."},
+    {"id":"B05","choice":"operator","runner_up":"professor","confidence":"medium","reason":"Three local naming decisions are bounded enough for economical practical judgment."},
+    {"id":"B06","choice":"explorer","runner_up":"operator","confidence":"medium","reason":"A straightforward factual handoff closely matches faithful evidence handling and concise reporting."},
+    {"id":"B07","choice":"worker","runner_up":"professor","confidence":"high","reason":"Simplifying six integrated files requires pragmatic implementation and dependable behavior preservation."},
+    {"id":"B08","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Routine tradeoff review benefits from pragmatic judgment without necessarily warranting premium deliberation."}
+  ]
+}

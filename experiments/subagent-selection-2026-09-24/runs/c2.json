@@ -1,0 +1,21 @@
+{
+  "run_id": "c2",
+  "decisions": [
+    {"id":"T16","choice":"kami","runner_up":"professor","confidence":"high","reason":"Failed approaches and design-critical adversarial reasoning justify sustained independent thought despite the highest cost."},
+    {"id":"T15","choice":"worker","runner_up":"operator","confidence":"high","reason":"Dependable implementation across components and tests fits a pragmatic colleague working within established patterns."},
+    {"id":"T14","choice":"professor","runner_up":"operator","confidence":"medium","reason":"Sensitive wording rewards good taste and clear expression, although the small scope makes premium cost debatable."},
+    {"id":"T13","choice":"kami","runner_up":"worker","confidence":"high","reason":"Contradictory evidence and interacting mechanisms demand tenacious, sustained independent causal reasoning."},
+    {"id":"T12","choice":"worker","runner_up":"operator","confidence":"high","reason":"Normal compatibility problems require persistent practical implementation with attention to overall working behavior."},
+    {"id":"T11","choice":"operator","runner_up":"worker","confidence":"high","reason":"Explicit occurrences and a supplied check make this mechanical change a good economical operation."},
+    {"id":"T10","choice":"professor","runner_up":"kami","confidence":"high","reason":"Broad perspective and discernment suit reframing an underlying need without unnecessary system design."},
+    {"id":"T09","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Precise evidence retrieval and concise reporting directly match version-specific defaults, citations, and documentation gaps."},
+    {"id":"T08","choice":"worker","runner_up":"operator","confidence":"high","reason":"Known behavior still needs dependable coordination across modules and verification of the resulting correction."},
+    {"id":"T07","choice":"operator","runner_up":"worker","confidence":"high","reason":"An exact mapping and existing procedure favor economical execution with straightforward count and rejection checks."},
+    {"id":"T06","choice":"professor","runner_up":"kami","confidence":"high","reason":"Conceptual coherence and understandable boundaries call for broad perspective and good design taste."},
+    {"id":"T05","choice":"kami","runner_up":"professor","confidence":"high","reason":"Interacting state machines and failure schedules justify deeply reflective independent analysis to establish safety or refute it."},
+    {"id":"T04","choice":"operator","runner_up":"explorer","confidence":"medium","reason":"Running supplied commands and recording outcomes suits a direct economical operator; evidence reporting also favors the scout."},
+    {"id":"T03","choice":"professor","runner_up":"operator","confidence":"medium","reason":"Choosing emphasis and achieving restrained natural prose benefit from good taste and clear expression despite premium cost."},
+    {"id":"T02","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established patterns with normal integration and verification suit dependable pragmatic implementation."},
+    {"id":"T01","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Exact repository values and locations require a precise economical scout, with interpretation reserved for the parent."}
+  ]
+}

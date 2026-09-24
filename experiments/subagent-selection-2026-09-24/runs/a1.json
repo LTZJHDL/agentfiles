@@ -1,0 +1,21 @@
+{
+  "run_id": "a1",
+  "decisions": [
+    {"id":"T01","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Exact repository facts and concise evidence reporting match the economical scout."},
+    {"id":"T02","choice":"worker","runner_up":"operator","confidence":"high","reason":"Routine feature integration and verification reward dependable execution with pragmatic cost awareness."},
+    {"id":"T03","choice":"professor","runner_up":"operator","confidence":"medium","reason":"Emphasis, restraint, and natural expression benefit from good taste despite the premium cost."},
+    {"id":"T04","choice":"operator","runner_up":"explorer","confidence":"high","reason":"Running a defined command and recording outcomes fits economical, direct operation."},
+    {"id":"T05","choice":"kami","runner_up":"professor","confidence":"high","reason":"Interacting failure semantics and independent proof search justify sustained reflection and the highest cost."},
+    {"id":"T06","choice":"professor","runner_up":"kami","confidence":"high","reason":"Conceptual coherence and lasting boundaries favor discerning judgment and broad perspective."},
+    {"id":"T07","choice":"operator","runner_up":"worker","confidence":"high","reason":"A specified script and clear count checks need efficient operation rather than extensive deliberation."},
+    {"id":"T08","choice":"worker","runner_up":"operator","confidence":"high","reason":"Known cause with several affected modules requires dependable implementation and validation."},
+    {"id":"T09","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Version-specific facts, citations, and documentation gaps directly suit precise evidence retrieval."},
+    {"id":"T10","choice":"professor","runner_up":"kami","confidence":"high","reason":"Reframing ambiguous needs benefits from broad perspective and discernment within a bounded scope."},
+    {"id":"T11","choice":"operator","runner_up":"worker","confidence":"high","reason":"Complete locations and mechanical success criteria suit a nimble, economical operator."},
+    {"id":"T12","choice":"worker","runner_up":"kami","confidence":"high","reason":"Migration integration and ordinary compatibility fixes call for persistent, pragmatic execution."},
+    {"id":"T13","choice":"kami","runner_up":"worker","confidence":"high","reason":"Contradictory evidence and interacting causes warrant sustained independent causal reasoning and experimentation."},
+    {"id":"T14","choice":"professor","runner_up":"operator","confidence":"medium","reason":"Sensitive, ambiguous wording rewards clear expression and good taste even for a small deliverable."},
+    {"id":"T15","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established patterns across multiple components and tests fit dependable, cost-conscious implementation."},
+    {"id":"T16","choice":"kami","runner_up":"professor","confidence":"high","reason":"Failed natural approaches and consequential adversarial reasoning justify the most reflective independent collaborator."}
+  ]
+}

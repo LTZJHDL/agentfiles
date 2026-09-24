@@ -1,0 +1,66 @@
+[
+  {
+    "id": "T01",
+    "task": "Find the three places in a repository that define the request timeout. Return exact values and file locations; the parent will interpret their relationship."
+  },
+  {
+    "id": "T02",
+    "task": "Implement CSV export in an existing reporting page. Requirements and the existing export pattern are clear; the work includes normal integration and appropriate verification."
+  },
+  {
+    "id": "T03",
+    "task": "Rewrite an awkward 150-word product introduction. The facts are supplied. It must sound natural, restrained, and confident; choosing what to emphasize matters more than length."
+  },
+  {
+    "id": "T04",
+    "task": "Run an existing validation command against four supplied fixtures. Record exit codes and the relevant error messages. No diagnosis or fix is requested."
+  },
+  {
+    "id": "T05",
+    "task": "Examine a proposed distributed protocol with four interacting state machines. Determine whether its safety claim holds under reordering, retries, and partial failures; provide a proof or concrete counterexample. The parent is pursuing a separate approach."
+  },
+  {
+    "id": "T06",
+    "task": "Choose between two public API designs. Both work and pass tests. Assess which concepts and boundaries will make the API feel coherent and remain understandable as it grows."
+  },
+  {
+    "id": "T07",
+    "task": "Normalize 12,000 records using a supplied exact field mapping and an existing script. Check record counts and report rejected rows. The procedure and expected format are already defined."
+  },
+  {
+    "id": "T08",
+    "task": "Fix a reproduced missing-configuration bug across three modules. The cause and intended behavior are known; update the affected callers and validate the correction."
+  },
+  {
+    "id": "T09",
+    "task": "Retrieve the official documented defaults for five named options at a specified library version. Return exact values, citations, and any missing documentation."
+  },
+  {
+    "id": "T10",
+    "task": "A project proposal asks for a dashboard, but its stated goals and complaints may point to a different underlying need. Identify the real problem and the most useful framing without designing a whole system."
+  },
+  {
+    "id": "T11",
+    "task": "Rename a specified configuration key in eight explicitly listed files using a complete occurrence list. Update the corresponding fixtures and run the supplied check. The change is mechanical and its success condition is clear."
+  },
+  {
+    "id": "T12",
+    "task": "Upgrade a library by one major version using its migration guide. Update integration code, resolve normal compatibility issues, and make the existing application work correctly."
+  },
+  {
+    "id": "T13",
+    "task": "Investigate a rare data corruption bug involving transactions, retries, and cache invalidation. Several plausible explanations have survived initial checks, and the existing evidence is contradictory. Develop and test a coherent causal explanation independently of the parent."
+  },
+  {
+    "id": "T14",
+    "task": "Write three short button labels for a sensitive confirmation flow. The behavior is fixed; the wording must be unambiguous, calm, and consistent with the product voice. There is no single prescribed answer."
+  },
+  {
+    "id": "T15",
+    "task": "Build a complete settings form using the existing design system and supplied validation rules. The work spans several components and tests, but its behavior and structure follow established patterns."
+  },
+  {
+    "id": "T16",
+    "task": "Resolve a difficult algorithmic question: either establish a proposed invariant under a subtle adversarial input model or find a counterexample. Several natural approaches have failed, and the result determines whether a larger design is viable."
+  }
+]

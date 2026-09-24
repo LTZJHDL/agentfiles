@@ -1,0 +1,67 @@
+{
+  "scenario_count": 16,
+  "run_count": 6,
+  "selection_counts": {
+    "a1": {
+      "explorer": 2,
+      "worker": 4,
+      "professor": 4,
+      "operator": 3,
+      "kami": 3
+    },
+    "a2": {
+      "kami": 3,
+      "worker": 4,
+      "professor": 4,
+      "operator": 3,
+      "explorer": 2
+    },
+    "b1": {
+      "explorer": 2,
+      "worker": 4,
+      "professor": 4,
+      "operator": 3,
+      "kami": 3
+    },
+    "b2": {
+      "kami": 3,
+      "worker": 4,
+      "professor": 4,
+      "operator": 3,
+      "explorer": 2
+    },
+    "c1": {
+      "explorer": 2,
+      "worker": 4,
+      "professor": 4,
+      "operator": 3,
+      "kami": 3
+    },
+    "c2": {
+      "kami": 3,
+      "worker": 4,
+      "professor": 4,
+      "operator": 3,
+      "explorer": 2
+    }
+  },
+  "agreement_with_parent_preferences": {
+    "a1": 16,
+    "a2": 16,
+    "b1": 16,
+    "b2": 16,
+    "c1": 16,
+    "c2": 16
+  },
+  "paired_changes": {
+    "a1_to_b1": [],
+    "a2_to_b2": [],
+    "a1_to_c1": [],
+    "a2_to_c2": []
+  },
+  "within_condition_disagreements": {
+    "a": [],
+    "b": [],
+    "c": []
+  }
+}

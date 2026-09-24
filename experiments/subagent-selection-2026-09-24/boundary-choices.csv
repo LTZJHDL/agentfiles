@@ -1,0 +1,9 @@
+id,task,parent_preference,a1-boundary,a2-boundary,b1-boundary,b2-boundary,c1-boundary,c2-boundary
+B01,"Review a 70-line helper that works and passes tests. The parent finds it clumsy. Decide whether it can be made clearer and provide a replacement if worthwhile, preserving behavior.",,worker,worker,worker,worker,worker,worker
+B02,Improve the opening paragraph of an ordinary internal document before it is shared with the team. The facts are correct; the prose feels slightly stiff. Use your judgment and keep the edit proportionate.,,operator,operator,worker,operator,operator,operator
+B03,Run the existing unit suite and deal with any straightforward fixture mismatches exposed by the output. Return the result and identify failures that remain unexplained.,,operator,operator,operator,operator,operator,operator
+B04,"Add a small user-facing toggle following an existing settings pattern. Decide a suitable label and placement as part of the implementation, then verify its behavior.",,worker,worker,worker,worker,worker,worker
+B05,Choose clearer names for three internal functions from their supplied bodies. Callers can be updated freely; the goal is that a maintainer immediately understands each function.,,operator,operator,worker,worker,operator,operator
+B06,Summarize a supplied two-page incident report into five useful handoff bullets. Preserve the facts and next actions. The report is straightforward and no outside research is needed.,,explorer,operator,operator,operator,explorer,explorer
+B07,A working change touches six files and feels unnecessarily elaborate. Simplify the implementation while preserving its behavior and fitting the existing project.,,worker,worker,worker,worker,worker,worker
+B08,Check a short proposed rationale for a routine design decision. Identify assumptions or missing tradeoffs that would materially affect the decision and explain your judgment concisely.,,worker,worker,professor,professor,worker,worker

@@ -1,0 +1,61 @@
+{
+  "run_id": "c1-boundary",
+  "decisions": [
+    {
+      "id": "B01",
+      "choice": "worker",
+      "runner_up": "professor",
+      "confidence": "high",
+      "reason": "A pragmatic worker can judge local clarity and deliver a behavior-preserving replacement at proportionate cost."
+    },
+    {
+      "id": "B02",
+      "choice": "operator",
+      "runner_up": "worker",
+      "confidence": "high",
+      "reason": "A small, ordinary prose edit calls for practical judgment and a light touch."
+    },
+    {
+      "id": "B03",
+      "choice": "operator",
+      "runner_up": "worker",
+      "confidence": "high",
+      "reason": "Routine execution and straightforward fixture corrections suit an economical operator."
+    },
+    {
+      "id": "B04",
+      "choice": "worker",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Implementation, modest interface judgment, and verification fit a capable pragmatic colleague."
+    },
+    {
+      "id": "B05",
+      "choice": "operator",
+      "runner_up": "worker",
+      "confidence": "medium",
+      "reason": "Three supplied function bodies need concise practical naming judgment, with little sustained work."
+    },
+    {
+      "id": "B06",
+      "choice": "explorer",
+      "runner_up": "operator",
+      "confidence": "medium",
+      "reason": "Straightforward factual condensation favors faithful evidence handling and concise reporting."
+    },
+    {
+      "id": "B07",
+      "choice": "worker",
+      "runner_up": "professor",
+      "confidence": "high",
+      "reason": "Simplifying a working multi-file change requires pragmatic implementation judgment and persistence."
+    },
+    {
+      "id": "B08",
+      "choice": "worker",
+      "runner_up": "professor",
+      "confidence": "medium",
+      "reason": "Routine tradeoff assessment merits capable practical judgment without automatically paying for premium deliberation."
+    }
+  ]
+}

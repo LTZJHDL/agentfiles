@@ -1,0 +1,13 @@
+{
+  "run_id": "c2-boundary",
+  "decisions": [
+    {"id":"B08","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Routine design scrutiny needs practical judgment; a premium broad perspective seems unnecessary for this bounded rationale."},
+    {"id":"B07","choice":"worker","runner_up":"professor","confidence":"high","reason":"Simplifying six integrated files calls for pragmatic implementation and dependable behavior preservation within the existing project."},
+    {"id":"B06","choice":"explorer","runner_up":"operator","confidence":"medium","reason":"Faithful evidence handling and concise reporting suit extracting established facts and next actions from a straightforward report."},
+    {"id":"B05","choice":"operator","runner_up":"worker","confidence":"medium","reason":"Naming three supplied functions is bounded practical judgment suited to an economical operator's light touch."},
+    {"id":"B04","choice":"worker","runner_up":"operator","confidence":"medium","reason":"Implementation, modest interface judgment, and verification fit a capable pragmatic colleague following an established pattern."},
+    {"id":"B03","choice":"operator","runner_up":"worker","confidence":"high","reason":"Running tests and correcting straightforward fixture mismatches are direct operations with clearly bounded troubleshooting."},
+    {"id":"B02","choice":"operator","runner_up":"professor","confidence":"high","reason":"A slight prose adjustment rewards a light touch and practical judgment without premium deliberation."},
+    {"id":"B01","choice":"worker","runner_up":"operator","confidence":"medium","reason":"Assessing and replacing a small helper requires pragmatic code judgment and dependable preservation of behavior."}
+  ]
+}

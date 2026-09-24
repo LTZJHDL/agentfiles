@@ -1,0 +1,21 @@
+{
+  "run_id": "a2",
+  "decisions": [
+    {"id":"T16","choice":"kami","runner_up":"professor","confidence":"high","reason":"Failed approaches and adversarial subtleties justify sustained independent thought despite its cost."},
+    {"id":"T15","choice":"worker","runner_up":"operator","confidence":"high","reason":"Dependable implementation and verification across components suit a pragmatic colleague."},
+    {"id":"T14","choice":"professor","runner_up":"operator","confidence":"medium","reason":"Sensitive wording benefits from clear expression and discerning taste, despite the small deliverable."},
+    {"id":"T13","choice":"kami","runner_up":"worker","confidence":"high","reason":"Contradictory evidence and interacting mechanisms demand tenacious, sustained independent reasoning."},
+    {"id":"T12","choice":"worker","runner_up":"operator","confidence":"high","reason":"Normal compatibility work needs persistent practical implementation at a reasonable cost."},
+    {"id":"T11","choice":"operator","runner_up":"worker","confidence":"high","reason":"An exact occurrence list and clear check favor economical, direct execution."},
+    {"id":"T10","choice":"professor","runner_up":"kami","confidence":"high","reason":"Broad perspective and discernment fit reframing an ambiguous underlying need."},
+    {"id":"T09","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Precise documented facts and citations favor economical evidence gathering."},
+    {"id":"T08","choice":"worker","runner_up":"operator","confidence":"high","reason":"Known cause still requires dependable coordinated code changes and verification."},
+    {"id":"T07","choice":"operator","runner_up":"worker","confidence":"high","reason":"A defined script and mapping make this economical procedural execution."},
+    {"id":"T06","choice":"professor","runner_up":"kami","confidence":"high","reason":"Conceptual coherence and future comprehensibility reward broad perspective and good taste."},
+    {"id":"T05","choice":"kami","runner_up":"professor","confidence":"high","reason":"Interacting state machines and failure modes justify deep independent proof or counterexample work."},
+    {"id":"T04","choice":"operator","runner_up":"explorer","confidence":"medium","reason":"Running supplied commands and recording results calls for direct, economical execution."},
+    {"id":"T03","choice":"professor","runner_up":"worker","confidence":"medium","reason":"Editorial emphasis and natural voice make taste and clear expression worth the premium."},
+    {"id":"T02","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established patterns with integration and verification fit dependable pragmatic implementation."},
+    {"id":"T01","choice":"explorer","runner_up":"operator","confidence":"high","reason":"Exact locations and values require faithful evidence retrieval with minimal interpretation."}
+  ]
+}

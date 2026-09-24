@@ -1,0 +1,117 @@
+{
+  "run_id": "c1",
+  "decisions": [
+    {
+      "id": "T01",
+      "choice": "explorer",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Exact locations and values favor precise, economical evidence retrieval."
+    },
+    {
+      "id": "T02",
+      "choice": "worker",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Dependable implementation and integration suit a pragmatic worker."
+    },
+    {
+      "id": "T03",
+      "choice": "professor",
+      "runner_up": "worker",
+      "confidence": "medium",
+      "reason": "Editorial emphasis and restrained voice reward good taste and clear expression despite premium cost."
+    },
+    {
+      "id": "T04",
+      "choice": "operator",
+      "runner_up": "explorer",
+      "confidence": "high",
+      "reason": "Executing defined commands and recording results needs economical, direct operation."
+    },
+    {
+      "id": "T05",
+      "choice": "kami",
+      "runner_up": "professor",
+      "confidence": "high",
+      "reason": "Interacting failure modes and independent proof demand sustained, tenacious reasoning."
+    },
+    {
+      "id": "T06",
+      "choice": "professor",
+      "runner_up": "kami",
+      "confidence": "high",
+      "reason": "Conceptual coherence and growing boundaries favor broad perspective and discerning design judgment."
+    },
+    {
+      "id": "T07",
+      "choice": "operator",
+      "runner_up": "worker",
+      "confidence": "high",
+      "reason": "A defined script and exact mapping favor efficient execution with straightforward checks."
+    },
+    {
+      "id": "T08",
+      "choice": "worker",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Known-cause changes across modules require dependable integration and validation."
+    },
+    {
+      "id": "T09",
+      "choice": "explorer",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Version-specific documented facts and citations favor faithful evidence retrieval."
+    },
+    {
+      "id": "T10",
+      "choice": "professor",
+      "runner_up": "kami",
+      "confidence": "high",
+      "reason": "Reframing ambiguous needs benefits from broad perspective without requiring prolonged investigation."
+    },
+    {
+      "id": "T11",
+      "choice": "operator",
+      "runner_up": "worker",
+      "confidence": "high",
+      "reason": "A complete occurrence list and supplied check make economical mechanical execution sufficient."
+    },
+    {
+      "id": "T12",
+      "choice": "worker",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Migration and normal compatibility work suit persistent, pragmatic implementation."
+    },
+    {
+      "id": "T13",
+      "choice": "kami",
+      "runner_up": "worker",
+      "confidence": "high",
+      "reason": "Contradictory evidence and interacting mechanisms justify costly, sustained independent causal investigation."
+    },
+    {
+      "id": "T14",
+      "choice": "professor",
+      "runner_up": "operator",
+      "confidence": "medium",
+      "reason": "Sensitive, unconstrained wording benefits from discerning taste and precise expression."
+    },
+    {
+      "id": "T15",
+      "choice": "worker",
+      "runner_up": "operator",
+      "confidence": "high",
+      "reason": "Established patterns across components and tests call for dependable implementation."
+    },
+    {
+      "id": "T16",
+      "choice": "kami",
+      "runner_up": "professor",
+      "confidence": "high",
+      "reason": "Failed approaches and subtle adversarial reasoning warrant the strongest sustained independent thought."
+    }
+  ]
+}

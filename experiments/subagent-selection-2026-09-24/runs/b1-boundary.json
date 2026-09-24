@@ -1,0 +1,13 @@
+{
+  "run_id": "b1-boundary",
+  "decisions": [
+    {"id":"B01","choice":"worker","runner_up":"professor","confidence":"medium","reason":"A bounded clarity refactor needs dependable judgment and execution; premium deliberation offers limited additional value."},
+    {"id":"B02","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Routine prose polishing calls for proportionate judgment at balanced cost."},
+    {"id":"B03","choice":"operator","runner_up":"worker","confidence":"medium","reason":"Running tests and correcting straightforward fixtures fit practical assistance, with unexplained failures explicitly left for escalation."},
+    {"id":"B04","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established settings patterns plus minor wording decisions suit versatile implementation and dependable judgment."},
+    {"id":"B05","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Three internal names need pragmatic semantic judgment, without enough ambiguity to justify higher cost."},
+    {"id":"B06","choice":"operator","runner_up":"worker","confidence":"medium","reason":"A straightforward supplied report permits economical summarization with modest reasoning and practical prioritization."},
+    {"id":"B07","choice":"worker","runner_up":"professor","confidence":"high","reason":"Simplification across six files combines execution, project fit, and behavior preservation within a capable generalist's strengths."},
+    {"id":"B08","choice":"professor","runner_up":"worker","confidence":"medium","reason":"The output centers on assessing assumptions and tradeoffs, where sharp judgment adds value despite the routine scope."}
+  ]
+}

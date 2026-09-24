@@ -1,0 +1,34 @@
+[
+  {
+    "id": "B01",
+    "task": "Review a 70-line helper that works and passes tests. The parent finds it clumsy. Decide whether it can be made clearer and provide a replacement if worthwhile, preserving behavior."
+  },
+  {
+    "id": "B02",
+    "task": "Improve the opening paragraph of an ordinary internal document before it is shared with the team. The facts are correct; the prose feels slightly stiff. Use your judgment and keep the edit proportionate."
+  },
+  {
+    "id": "B03",
+    "task": "Run the existing unit suite and deal with any straightforward fixture mismatches exposed by the output. Return the result and identify failures that remain unexplained."
+  },
+  {
+    "id": "B04",
+    "task": "Add a small user-facing toggle following an existing settings pattern. Decide a suitable label and placement as part of the implementation, then verify its behavior."
+  },
+  {
+    "id": "B05",
+    "task": "Choose clearer names for three internal functions from their supplied bodies. Callers can be updated freely; the goal is that a maintainer immediately understands each function."
+  },
+  {
+    "id": "B06",
+    "task": "Summarize a supplied two-page incident report into five useful handoff bullets. Preserve the facts and next actions. The report is straightforward and no outside research is needed."
+  },
+  {
+    "id": "B07",
+    "task": "A working change touches six files and feels unnecessarily elaborate. Simplify the implementation while preserving its behavior and fitting the existing project."
+  },
+  {
+    "id": "B08",
+    "task": "Check a short proposed rationale for a routine design decision. Identify assumptions or missing tradeoffs that would materially affect the decision and explain your judgment concisely."
+  }
+]

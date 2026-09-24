@@ -1,0 +1,13 @@
+{
+  "run_id": "b2-boundary",
+  "decisions": [
+    {"id":"B08","choice":"professor","runner_up":"worker","confidence":"medium","reason":"Sharp judgment and broad understanding help expose consequential assumptions while keeping the critique concise."},
+    {"id":"B07","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Pragmatic judgment and strong execution balance project-wide simplification with reliable behavior preservation."},
+    {"id":"B06","choice":"operator","runner_up":"worker","confidence":"high","reason":"Straightforward supplied facts and actions need economical, direct summarization rather than deep analysis."},
+    {"id":"B05","choice":"worker","runner_up":"professor","confidence":"medium","reason":"Dependable practical judgment should produce clear internal names at proportionate cost."},
+    {"id":"B04","choice":"worker","runner_up":"operator","confidence":"high","reason":"Established implementation patterns plus ordinary labeling judgment fit versatile, dependable execution."},
+    {"id":"B03","choice":"operator","runner_up":"worker","confidence":"medium","reason":"Routine suite execution and straightforward fixture repairs fit practical judgment, with unexplained failures explicitly reported."},
+    {"id":"B02","choice":"operator","runner_up":"worker","confidence":"medium","reason":"A slight stiffness edit to ordinary prose warrants quick, proportionate practical judgment."},
+    {"id":"B01","choice":"worker","runner_up":"professor","confidence":"medium","reason":"A small behavior-preserving refactor benefits from dependable judgment and execution without substantial deliberation costs."}
+  ]
+}

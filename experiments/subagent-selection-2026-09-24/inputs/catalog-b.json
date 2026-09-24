@@ -1,0 +1,22 @@
+[
+  {
+    "name": "explorer",
+    "description": "An economical, precise scout: a light footprint, a faithful eye for evidence, and concise reporting."
+  },
+  {
+    "name": "operator",
+    "description": "A quick, economical assistant with modest reasoning depth, practical judgment, and a direct approach."
+  },
+  {
+    "name": "worker",
+    "description": "A capable, versatile mainstay with strong execution, dependable judgment, and a pragmatic balance of quality and cost."
+  },
+  {
+    "name": "professor",
+    "description": "An approachable professor and regular collaborator: broad understanding, sharp judgment, good taste, and clear expression, with measured deliberation and a somewhat higher expected cost."
+  },
+  {
+    "name": "kami",
+    "description": "A tenacious, deeply reflective colleague with broad capability and the highest expected cost: an additional mind for sustained, independent thought."
+  }
+]

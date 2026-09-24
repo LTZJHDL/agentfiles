@@ -1,0 +1,54 @@
+{
+  "purpose": "Probe role selection from descriptions, not task execution quality or real deployment frequency.",
+  "selector": "Six fresh default subagents; current session default is GPT-6 Astra medium. No conversation history is forked.",
+  "conditions": {
+    "a": "Current descriptions.",
+    "b": "Role portraits clarify lightweight operator, versatile worker, and regularly consulted professor.",
+    "c": "Current descriptions with only godlike added to kami."
+  },
+  "replicates": 2,
+  "ordering": "Run 1 follows file order; run 2 reverses both scenario and catalog order.",
+  "preferred_roles_before_results": {
+    "explorer": [
+      "T01",
+      "T09"
+    ],
+    "operator": [
+      "T04",
+      "T07",
+      "T11"
+    ],
+    "worker": [
+      "T02",
+      "T08",
+      "T12",
+      "T15"
+    ],
+    "professor": [
+      "T03",
+      "T06",
+      "T10",
+      "T14"
+    ],
+    "kami": [
+      "T05",
+      "T13",
+      "T16"
+    ]
+  },
+  "interpretation": "Preferred roles express the user intent as interpreted by the parent, not an objective answer key; roles may overlap.",
+  "limits": [
+    "Only names and descriptions are provided; model settings and child instructions are omitted.",
+    "All work items are assumed worth delegating to isolate role choice.",
+    "Synthetic cases and two runs per condition do not estimate real-world usage rates.",
+    "The parent authored cases and alternatives; the selectors are context-isolated but retain normal runtime instructions."
+  ],
+  "boundary_followup": {
+    "reason": "The first 16 distinct scenarios produced identical first choices in all six runs; subtler everyday cases remain unresolved.",
+    "scenario_count": 8,
+    "expectations": "No single correct role is prescribed. Compare ambiguity, role overlap, and changes across descriptions.",
+    "selector_context": "Continue the same six selectors with their own prior choices, without sharing any other results or expected answers.",
+    "ordering": "Replicate 1 uses file order; replicate 2 reverses it.",
+    "timing": "Cases were written after examining the first-stage results and before any boundary results."
+  }
+}
