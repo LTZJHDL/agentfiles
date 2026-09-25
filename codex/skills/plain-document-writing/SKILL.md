@@ -33,7 +33,7 @@ Choose a form that makes the important relationships easy to see or follow. Fami
 | Steps, repetition, or branching | Pseudocode |
 | Motivation, interpretation, or qualifications | Prose |
 
-Combine forms where they complement each other. A visual is useful when its layout makes the intended relationship easier to grasp; crowded layouts or obscure symbols may need simplification or a different form. Let the reader's task and familiarity guide the choice.
+Combine forms where they complement each other. When a table or plot already shows the detail clearly, use prose to identify the key finding, explain its meaning, or supply context needed to read it. A visual is useful when its layout makes the intended relationship easier to grasp; crowded layouts or obscure symbols may need simplification or a different form. Let the reader's task and familiarity guide the choice.
 
 ## Language
 
@@ -46,6 +46,8 @@ When translating, use natural target-language sentences and consistent terminolo
 ## Summaries
 
 When a summary is needed, write for someone who may stop there. Give them a coherent account of the main information and enough context to use it or decide where to read further. Include cases, identifiers, measurements, and limitations when they significantly affect understanding or use.
+
+In a document hierarchy, let each summary answer the question at its own level, linking to lower-level material for supporting detail.
 
 ## Factual Boundaries
 

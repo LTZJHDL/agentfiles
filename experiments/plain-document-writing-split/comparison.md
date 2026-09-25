@@ -1,10 +1,10 @@
 # 表达规范拆分试验
 
-这份草稿让 AGENTS.md 和文档写作 skill 共用一份表达规范。通用原则集中维护，两个入口分别说明何时使用，文档专属要求保留在 SKILL.md 中。草稿尚未替换正式 AGENTS.md 或已安装的 skill，也未提交。
+这份草稿让 AGENTS.md 和文档写作 skill 共用一份表达规范。通用原则集中维护，两个入口分别说明何时使用，文档专属要求保留在 SKILL.md 中。草稿尚未替换正式 AGENTS.md 或已安装的 skill。
 
 ## 阅读入口
 
-- [原版 SKILL.md](../../codex/skills/plain-document-writing/SKILL.md)：完整的文档写作指导。
+- [未拆分的 SKILL.md](../../codex/skills/plain-document-writing/SKILL.md)：完整的文档写作指导，通用原则与拆分版本同步。
 - [共享表达规范](plain-document-writing/references/human-facing-expression.md)：从原版整体迁移的表达原则，适用范围扩展到对话和进度更新。
 - [拆分后的 SKILL.md](plain-document-writing/SKILL.md)：引用共享规范，保留文档任务的上下文准备和文件交付要求。
 - [AGENTS.md 的 Response Style 草稿](AGENTS.excerpt.md)：以必读入口替换原来的简短表达要求，保留其余个人偏好。链接按试验目录布局编写，正式采用时需按实际文件位置调整。
@@ -16,7 +16,7 @@
 | 表达目标、信息密度与阅读负担、共享知识 | 整段移入共享规范，正文不变 |
 | 读者知识、信息组织、详略 | 留在共享规范；受众判断加入对话上下文 |
 | 默认受众、源材料阅读范围、修改范围 | 放在 SKILL 的 Document Context 中；保留原版的默认受众条件和整篇阅读条件 |
-| 形式、语言、翻译、摘要 | 整段移入共享规范，正文不变；保留文档场景的例子 |
+| 形式、语言、翻译、摘要 | 与未拆分版本保持一致，包括图文分工和各层摘要回答本层问题的要求；保留文档场景的例子 |
 | 事实边界 | 整段移入共享规范，正文不变，包括保留代码块、命令、路径和标识符的原句 |
 | 读者视角检查 | 放在共享规范；“document”改为适用于不同内容的“content” |
 | diff、格式检查、Markdown 源文件换行、提交状态 | 保留在 SKILL 的 File Delivery 中 |
@@ -46,4 +46,4 @@ SKILL 保留文档上下文、源材料阅读范围和文件交付要求，并�
 
 ## 检查范围
 
-已逐段对照原文，检查本地引用、frontmatter 和正文要求的保留情况，并确认正式 AGENTS.md 和 SKILL.md 未被修改。skill-creator 自带的 quick_validate.py 已通过。独立子代理复核未发现实质性的原意丢失、条件错配或依赖不清。检查范围限于文件结构、引用和文本语义，未做模型输出质量的对照测试。
+已对照未拆分版本，检查本地引用、frontmatter 和通用段落的一致性。两版均通过 skill-creator 自带的 quick_validate.py 校验。拆分结构此前经过独立子代理复核，未发现实质性的原意丢失、条件错配或依赖不清。检查范围限于文件结构、引用和文本语义，未做模型输出质量的对照测试。
