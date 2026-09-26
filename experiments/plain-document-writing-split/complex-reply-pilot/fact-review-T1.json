@@ -1,0 +1,222 @@
+[
+  {
+    "answer_id": "E01",
+    "facts": [
+      {
+        "id": "F1",
+        "status": "correct",
+        "evidence": "答案说明频道 ID 与讨论串时间戳生成稳定 thread ID，同一 Slack 讨论复用逻辑会话；与 T1-S02:266–270、S03:731 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F2",
+        "status": "correct",
+        "evidence": "答案明确区分已入队消息与所示 Slack runs.create 路径，指出 interrupt 配置，并说明完成后同 thread 新 run；没有保证即时终止 shell 或回滚。依据 T1-S03:810–816、S04:1007–1015、S05:49–135。",
+        "impact": "none"
+      },
+      {
+        "id": "F3",
+        "status": "correct",
+        "evidence": "答案区分对话状态与代码执行环境，说明按 thread 缓存、按 sandbox ID 重连、失联可重建；与 T1-S06:257–359 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F4",
+        "status": "correct",
+        "evidence": "答案把 agent 解释为模型、工具、沙箱 backend 和中间件的组合，简化的模型—工具循环符合材料，未将每个子代理拥有独立沙箱当作事实。依据 T1-S01:38–49、77、90 及 S07:368–394。",
+        "impact": "none"
+      },
+      {
+        "id": "F5",
+        "status": "correct",
+        "evidence": "答案说明准备仓库后读取沙箱内根目录 AGENTS.md，非空内容注入系统指令，未声称递归加载子目录；与 T1-S07:368–378、S08:18–34、S12:286–299 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F6",
+        "status": "correct",
+        "evidence": "答案说明正常提交和 Slack 回报流程，区分 README 所述测试要求与具体提示中的格式化、lint、diff 检查，并正确指出 PR 兜底没有测试或 CI 门槛。依据 T1-S01:73、110–112、S09:59–157、S10:201–216、S11:236–256。",
+        "impact": "none"
+      },
+      {
+        "id": "F7",
+        "status": "correct",
+        "evidence": "答案指出无可用 commit_and_open_pr 返回载荷则退出，存在 success 键也退出而不判断真假，并提到沙箱、仓库、改动及 token 等条件；与 T1-S09:39–56、74–113、133–151 一致，未承诺无条件自动开 PR。",
+        "impact": "none"
+      },
+      {
+        "id": "F8",
+        "status": "correct",
+        "evidence": "答案正确描述已入队消息在模型调用前合并为一条用户消息并清空队列，且明确区分队列消费与 Slack 入口。T1-S05:79–94、105–135 支持该描述；未把概述中的叙述顺序当作事务保证。",
+        "impact": "none"
+      }
+    ],
+    "other_issues": [],
+    "overall": "核心事实均与给定材料一致。正确区分 Slack 入口的 interrupt 运行策略与消息队列消费，说明 thread/run/沙箱关系、根目录 AGENTS.md 的注入位置，并依据代码限制自动开 PR 兜底的适用范围。未把 PR 产生等同于测试通过；未发现需要记录的事实错误。"
+  },
+  {
+    "answer_id": "E05",
+    "facts": [
+      {
+        "id": "F1",
+        "status": "correct",
+        "evidence": "答案说明频道 ID 与讨论串时间戳生成稳定 thread ID，同一 Slack 讨论复用逻辑会话；与 T1-S02:266–270、S03:731 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F2",
+        "status": "correct",
+        "evidence": "答案明确区分已入队消息与所示 Slack runs.create 路径，指出 interrupt 配置，并说明完成后同 thread 新 run；没有保证即时终止 shell 或回滚。依据 T1-S03:810–816、S04:1007–1015、S05:49–135。",
+        "impact": "none"
+      },
+      {
+        "id": "F3",
+        "status": "correct",
+        "evidence": "答案区分对话状态与代码执行环境，说明按 thread 缓存、按 sandbox ID 重连、失联可重建；与 T1-S06:257–359 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F4",
+        "status": "correct",
+        "evidence": "答案把 agent 解释为模型、工具、沙箱 backend 和中间件的组合，简化的模型—工具循环符合材料，未将每个子代理拥有独立沙箱当作事实。依据 T1-S01:38–49、77、90 及 S07:368–394。",
+        "impact": "none"
+      },
+      {
+        "id": "F5",
+        "status": "correct",
+        "evidence": "答案说明准备仓库后读取沙箱内根目录 AGENTS.md，非空内容注入系统指令，未声称递归加载子目录；与 T1-S07:368–378、S08:18–34、S12:286–299 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F6",
+        "status": "correct",
+        "evidence": "答案说明正常提交和 Slack 回报流程，区分 README 所述测试要求与具体提示中的格式化、lint、diff 检查，并正确指出 PR 兜底没有测试或 CI 门槛。依据 T1-S01:73、110–112、S09:59–157、S10:201–216、S11:236–256。",
+        "impact": "none"
+      },
+      {
+        "id": "F7",
+        "status": "correct",
+        "evidence": "答案指出无可用 commit_and_open_pr 返回载荷则退出，存在 success 键也退出而不判断真假，并提到沙箱、仓库、改动及 token 等条件；与 T1-S09:39–56、74–113、133–151 一致，未承诺无条件自动开 PR。",
+        "impact": "none"
+      },
+      {
+        "id": "F8",
+        "status": "correct",
+        "evidence": "答案正确描述已入队消息在模型调用前合并为一条用户消息并清空队列，且明确区分队列消费与 Slack 入口。T1-S05:79–94、105–135 支持该描述；未把概述中的叙述顺序当作事务保证。",
+        "impact": "none"
+      }
+    ],
+    "other_issues": [],
+    "overall": "核心事实均与给定材料一致。正确区分 Slack 入口的 interrupt 运行策略与消息队列消费，说明 thread/run/沙箱关系、根目录 AGENTS.md 的注入位置，并依据代码限制自动开 PR 兜底的适用范围。未把 PR 产生等同于测试通过；未发现需要记录的事实错误。"
+  },
+  {
+    "answer_id": "E07",
+    "facts": [
+      {
+        "id": "F1",
+        "status": "correct",
+        "evidence": "答案说明频道 ID 与讨论串时间戳生成稳定 thread ID，同一 Slack 讨论复用逻辑会话；与 T1-S02:266–270、S03:731 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F2",
+        "status": "correct",
+        "evidence": "答案明确区分已入队消息与所示 Slack runs.create 路径，指出 interrupt 配置，并说明完成后同 thread 新 run；没有保证即时终止 shell 或回滚。依据 T1-S03:810–816、S04:1007–1015、S05:49–135。",
+        "impact": "none"
+      },
+      {
+        "id": "F3",
+        "status": "correct",
+        "evidence": "答案区分对话状态与代码执行环境，说明按 thread 缓存、按 sandbox ID 重连、失联可重建；与 T1-S06:257–359 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F4",
+        "status": "correct",
+        "evidence": "答案把 agent 解释为模型、工具、沙箱 backend 和中间件的组合，简化的模型—工具循环符合材料，未将每个子代理拥有独立沙箱当作事实。依据 T1-S01:38–49、77、90 及 S07:368–394。",
+        "impact": "none"
+      },
+      {
+        "id": "F5",
+        "status": "correct",
+        "evidence": "答案说明准备仓库后读取沙箱内根目录 AGENTS.md，非空内容注入系统指令，未声称递归加载子目录；与 T1-S07:368–378、S08:18–34、S12:286–299 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F6",
+        "status": "correct",
+        "evidence": "答案说明正常提交和 Slack 回报流程，区分 README 所述测试要求与具体提示中的格式化、lint、diff 检查，并正确指出 PR 兜底没有测试或 CI 门槛。依据 T1-S01:73、110–112、S09:59–157、S10:201–216、S11:236–256。",
+        "impact": "none"
+      },
+      {
+        "id": "F7",
+        "status": "correct",
+        "evidence": "答案指出无可用 commit_and_open_pr 返回载荷则退出，存在 success 键也退出而不判断真假，并提到沙箱、仓库、改动及 token 等条件；与 T1-S09:39–56、74–113、133–151 一致，未承诺无条件自动开 PR。",
+        "impact": "none"
+      },
+      {
+        "id": "F8",
+        "status": "correct",
+        "evidence": "答案正确描述已入队消息在模型调用前合并为一条用户消息并清空队列，且明确区分队列消费与 Slack 入口。T1-S05:79–94、105–135 支持该描述；未把概述中的叙述顺序当作事务保证。",
+        "impact": "none"
+      }
+    ],
+    "other_issues": [],
+    "overall": "核心事实均与给定材料一致。正确区分 Slack 入口的 interrupt 运行策略与消息队列消费，说明 thread/run/沙箱关系、根目录 AGENTS.md 的注入位置，并依据代码限制自动开 PR 兜底的适用范围。未把 PR 产生等同于测试通过；未发现需要记录的事实错误。"
+  },
+  {
+    "answer_id": "E12",
+    "facts": [
+      {
+        "id": "F1",
+        "status": "correct",
+        "evidence": "答案说明频道 ID 与讨论串时间戳生成稳定 thread ID，同一 Slack 讨论复用逻辑会话；与 T1-S02:266–270、S03:731 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F2",
+        "status": "correct",
+        "evidence": "答案明确区分已入队消息与所示 Slack runs.create 路径，指出 interrupt 配置，并说明完成后同 thread 新 run；没有保证即时终止 shell 或回滚。依据 T1-S03:810–816、S04:1007–1015、S05:49–135。",
+        "impact": "none"
+      },
+      {
+        "id": "F3",
+        "status": "correct",
+        "evidence": "答案区分对话状态与代码执行环境，说明按 thread 缓存、按 sandbox ID 重连、失联可重建；与 T1-S06:257–359 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F4",
+        "status": "correct",
+        "evidence": "答案把 agent 解释为模型、工具、沙箱 backend 和中间件的组合，简化的模型—工具循环符合材料，未将每个子代理拥有独立沙箱当作事实。依据 T1-S01:38–49、77、90 及 S07:368–394。",
+        "impact": "none"
+      },
+      {
+        "id": "F5",
+        "status": "correct",
+        "evidence": "答案说明准备仓库后读取沙箱内根目录 AGENTS.md，非空内容注入系统指令，未声称递归加载子目录；与 T1-S07:368–378、S08:18–34、S12:286–299 一致。",
+        "impact": "none"
+      },
+      {
+        "id": "F6",
+        "status": "correct",
+        "evidence": "答案说明正常提交和 Slack 回报流程，区分 README 所述测试要求与具体提示中的格式化、lint、diff 检查，并正确指出 PR 兜底没有测试或 CI 门槛。依据 T1-S01:73、110–112、S09:59–157、S10:201–216、S11:236–256。",
+        "impact": "none"
+      },
+      {
+        "id": "F7",
+        "status": "correct",
+        "evidence": "答案指出无可用 commit_and_open_pr 返回载荷则退出，存在 success 键也退出而不判断真假，并提到沙箱、仓库、改动及 token 等条件；与 T1-S09:39–56、74–113、133–151 一致，未承诺无条件自动开 PR。",
+        "impact": "none"
+      },
+      {
+        "id": "F8",
+        "status": "correct",
+        "evidence": "答案正确描述已入队消息在模型调用前合并为一条用户消息并清空队列，且明确区分队列消费与 Slack 入口。T1-S05:79–94、105–135 支持该描述；未把概述中的叙述顺序当作事务保证。",
+        "impact": "none"
+      }
+    ],
+    "other_issues": [],
+    "overall": "核心事实均与给定材料一致。正确区分 Slack 入口的 interrupt 运行策略与消息队列消费，说明 thread/run/沙箱关系、根目录 AGENTS.md 的注入位置，并依据代码限制自动开 PR 兜底的适用范围。未把 PR 产生等同于测试通过；未发现需要记录的事实错误。"
+  }
+]

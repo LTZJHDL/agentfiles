@@ -1,0 +1,110 @@
+[
+  {
+    "run": "R01",
+    "answer_id": "E07",
+    "task": "T1",
+    "condition": "C",
+    "replicate": 1,
+    "non_whitespace_characters": 2229,
+    "sha256": "9bd73d315aaf36d80ef28a47d804646e4f10731453670283de1acaf8e9f3a014"
+  },
+  {
+    "run": "R02",
+    "answer_id": "E05",
+    "task": "T1",
+    "condition": "G",
+    "replicate": 1,
+    "non_whitespace_characters": 2411,
+    "sha256": "8a0d0ea7eaca6a8aa1b654e23e1a0702394107b6e49b311b8b8d4fb78a77d587"
+  },
+  {
+    "run": "R03",
+    "answer_id": "E08",
+    "task": "T2",
+    "condition": "G",
+    "replicate": 1,
+    "non_whitespace_characters": 2163,
+    "sha256": "b52472c7bcc31003a208d9c950f223311e84644a42f0fa51c2479b81fd74749b"
+  },
+  {
+    "run": "R04",
+    "answer_id": "E02",
+    "task": "T2",
+    "condition": "C",
+    "replicate": 1,
+    "non_whitespace_characters": 2195,
+    "sha256": "7b41eb45e07da847fd274afc91b9a2b7f6d520f3c881a5c79b5baa8f9ab7dc4d"
+  },
+  {
+    "run": "R05",
+    "answer_id": "E04",
+    "task": "T3",
+    "condition": "C",
+    "replicate": 1,
+    "non_whitespace_characters": 1931,
+    "sha256": "63d7f01416e34bfd55cb9f4399125cf98398ef196acbdf9e763d7b266ad6d999"
+  },
+  {
+    "run": "R06",
+    "answer_id": "E03",
+    "task": "T3",
+    "condition": "G",
+    "replicate": 1,
+    "non_whitespace_characters": 2223,
+    "sha256": "e548cf76096f3de9076c221cfbc212ccb7c5c70196827800ba20bfb66653da48"
+  },
+  {
+    "run": "R07",
+    "answer_id": "E12",
+    "task": "T1",
+    "condition": "G",
+    "replicate": 2,
+    "non_whitespace_characters": 2125,
+    "sha256": "91eb8c0bd1bd773e56677c4e8fb2c6516e1250241af21a71c628e6d7e5ec3a3b"
+  },
+  {
+    "run": "R08",
+    "answer_id": "E01",
+    "task": "T1",
+    "condition": "C",
+    "replicate": 2,
+    "non_whitespace_characters": 2317,
+    "sha256": "25ec3179a05b9ca169fe72fbdf122e6e6c3a956681c05745a44a0931c07fdb1f"
+  },
+  {
+    "run": "R09",
+    "answer_id": "E11",
+    "task": "T2",
+    "condition": "C",
+    "replicate": 2,
+    "non_whitespace_characters": 2345,
+    "sha256": "e303999c15e5d09ce645c9f547fde3576489c1b9ff1f3a29da8e04b2f9c7669b"
+  },
+  {
+    "run": "R10",
+    "answer_id": "E09",
+    "task": "T2",
+    "condition": "G",
+    "replicate": 2,
+    "non_whitespace_characters": 2118,
+    "sha256": "aa2d0b8147cda07a9aad474c292c3cab4636a5006519957d97eead17a3f07e87"
+  },
+  {
+    "run": "R11",
+    "answer_id": "E06",
+    "task": "T3",
+    "condition": "G",
+    "replicate": 2,
+    "non_whitespace_characters": 2085,
+    "sha256": "a7d7f914dff0dc71209d3c228a0b818bfeb7eef2380869d76ec218c25d416f8d"
+  },
+  {
+    "run": "R12",
+    "answer_id": "E10",
+    "task": "T3",
+    "condition": "C",
+    "replicate": 2,
+    "non_whitespace_characters": 1806,
+    "sha256": "f8b2a5ebb92ba1cb16c6f0b51a555e41971538e4015747fffed6f533bf77efe7"
+  }
+]

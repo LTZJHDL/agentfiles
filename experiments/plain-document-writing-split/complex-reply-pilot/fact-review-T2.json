@@ -1,0 +1,62 @@
+[
+  {
+    "answer_id": "E02",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"称 deepagents 为 Python agent 运行骨架，列出规划、文件、子代理、上下文管理和可配置执行后端，并明确 create_deep_agent 返回编译好的 LangGraph 图；与 S01–S03 相符，未把执行能力说成缺失。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"明确给出 Open SWE → deepagents → LangGraph，说明通过构造函数传入工具、后端和钩子进行组合，与 S04–S05 相符。","impact":"none"},
+      {"id":"F3","status":"correct","evidence":"覆盖 Slack/Linear、PR 评论反馈、线程复用沙箱、AGENTS.md 和草稿 PR，均有 S05–S07 支持。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"将入口、任务映射、仓库、沙箱生命周期、PR 和结果回传列为需配置或补齐的应用工作，保留 deepagents 的执行后端能力，符合 S01–S05 的层次区别。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"列出通用框架、Web、Gateway、四种渠道、技能、记忆及执行环境；对 harness/app 分层和渠道线程映射的描述有 S08–S12 支持。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"明确 DeerFlow 完整代码到 PR 流程、对 deepagents 的依赖及现成组合均未获材料证明，并将服务间调用标为架构设想。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"按代码 PR 主需求、入口和通用任务需求给出条件选择，明确无法量化改造工作量或比较可靠性、性能、成本和成功率。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"区分提示驱动测试、开 PR 兜底和确定性 CI；另按 S09 区分 Aio 容器与 Local 目录映射，未承诺自动测试通过或安全绝对保证。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "事实和架构关系与给定材料一致，推荐有明确条件，也交代了材料不能确定的实现与比较结论。未发现实质事实错误。"
+  },
+  {
+    "answer_id": "E08",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"说明可编程 agent、规划、文件、子代理、上下文压缩和 LangGraph 运行图；后文说明 Open SWE 使用这些工具执行命令，未否认 deepagents 的执行能力。符合 S01–S03。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"明确 Open SWE 通过 Python create_deep_agent 组合底层能力，无需另外建立 deepagents 服务；S04–S05 支持。","impact":"none"},
+      {"id":"F3","status":"correct","evidence":"沿 Slack 任务、稳定线程、仓库克隆、沙箱复用、AGENTS.md、草稿 PR 和审查反馈描述流程，与 S05–S07 一致。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"将沟通接入、消息会话对应、仓库准备、隔离环境配置和 GitHub 交付列为应用层工作，且指出 SDK 材料未展示完整链路；没有将内置工具判为缺失。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"描述 DeerFlow 的 Gateway/Web、四种渠道、技能、长期记忆、子代理及沙箱，并区分框架包与应用层，与 S08–S12 一致。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"对 DeerFlow 代码到 PR、依赖 deepagents、与 Open SWE 现成连接均保留不确定性；定制组合被明确写作设想。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"按目标匹配程度推荐 Open SWE，按通用需求及入口比较 DeerFlow，未作成功率、成本或并发容量排名。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"明确自动 PR 不等于质量检查通过，要求将 CI 和审查要求落实为检查；Aio/Local 区别及子代理上下文不等于独立容器均符合材料边界。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "核心事实、应用层缺口及组合关系核验通过；合理区分已有能力和待确认流程，没有将材料未展示的实现当作已知事实。"
+  },
+  {
+    "answer_id": "E09",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"列出 deepagents 的 Python 接口、模型工具配置、规划、文件、子代理、上下文和 LangGraph 图；对隔离后端接入的要求没有否认内置执行工具，与 S01–S03 相容。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"明确 Open SWE → deepagents → LangGraph，并以 create_deep_agent 的工具、沙箱后端、中间件解释组合，符合 S04–S05。","impact":"none"},
+      {"id":"F3","status":"correct","evidence":"覆盖 Slack/Linear、PR 评论、线程云沙箱、仓库规则与草稿 PR，S05–S07 支持这些用于选型的要点。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"列出从 deepagents 搭产品所需的入口、路由、仓库、隔离环境接入和提交 PR 集成，未把其 shell 或子代理误列为完全没有。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"给出 DeerFlow 框架与完整应用、Web/Gateway、四渠道、技能记忆及执行能力，并描述 harness/app 分层，符合 S08–S12。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"未认定 DeerFlow 已接好代码交付流程或依赖 deepagents，指出三者不应被当作现成三层架构，定制组合成本无法从材料判断。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"依据 Slack/GitHub、飞书钉钉和自定架构需求进行条件比较，拒绝在修复率、成本、稳定性及生产安全性上排名。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"明确提示式测试与 PR 兜底不能证明检查通过，需确定性 CI；同时区分容器、目录和子代理上下文隔离，S05/S09 支持。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "事实核验未发现错误。所提权限、审计和部署安全性均作为待核查边界，未超出材料作确定性断言；省略部分运行细节不影响用户选型判断。"
+  },
+  {
+    "answer_id": "E11",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"称 deepagents 为可配置模型、工具、后端的 Python agent 骨架，返回 LangGraph 运行图，并在流程中明确其文件、命令与子代理工具，符合 S01–S03/S05。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"明确 Open SWE 已采用 deepagents，组合是现有关系，可通过工具提示中间件定制，符合 S04–S05。","impact":"none"},
+      {"id":"F3","status":"correct","evidence":"完整描述 Slack/Linear、固定线程、复用沙箱、AGENTS.md、草稿 PR、追加消息和同分支反馈修订，均可在 S05–S07 找到依据。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"将入口、消息任务关系、仓库和隔离后端、PR、团队规则列为需补配置和应用流程，未否认 deepagents 已内置命令等能力。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"DeerFlow 的 Next.js、Gateway、技能、长期记忆、沙箱与四渠道及双层后端架构由 S08–S12 支持。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"明确材料不证明 DeerFlow 已有完整代码到 PR 流程或依赖另外两者；两系统调用仅为需自行设计的方案，不称为现成集成。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"建议按入口与代码 PR 或通用任务目标选择，明确成本、性能、成功率及实际部署表现无法确定。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"将测试提示、补开 PR 钩子和 CI 硬门槛分开，且对 Local/Aio 执行边界作正确说明，没有把沙箱宣称等同于实际安全保证。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "回答的产品关系、现有工作流和需补能力均受材料支持，代码交付与隔离、验证边界说明准确。未发现实质事实错误或需计入缺陷的遗漏。"
+  }
+]

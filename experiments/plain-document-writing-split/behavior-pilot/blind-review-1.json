@@ -1,0 +1,16 @@
+[
+  {"pair_id":"P01","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都先说明完整演示尚不可用，交代只有登录已验证、列表未验证、导出仍报错，以及无法估计完成时间。开头和结尾的顺序差异不影响判断。"},
+  {"pair_id":"P02","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都正确给出约38%的下降，并解释同时改变缓存和worker_count且仅运行一次的限制。Y补充160 ms和减半应为210 ms，X的说明也足以纠正原判断。"},
+  {"pair_id":"P03","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都按环境、依赖、配置、后端和服务的顺序组织，保留命令、配置名及后端未运行会导致数据请求失败的限制。Y增加标题、代码标记和项目目录提示，但实际启动过程在两者中同样清楚。"},
+  {"pair_id":"P04","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都保留关键测量、目标、一次运行和未做对照及生产测试的限制，并明确B本次达标不等于证明缓存效果或支持上线。Y拆开配置列并标注A缓存未说明，X合并配置列也没有擅自断言A未启用缓存，判断依据相当。"},
+  {"pair_id":"P05","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都区分约38%的下降与减半，并指出不能将同时改变两个因素的一次测试归因于缓存。Y补充相同请求及210 ms的参照，没有改变核心结论或显著降低理解负担。"},
+  {"pair_id":"P06","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"答案完全相同，直接说明修改已保存但未执行git commit，准确回应提交状态。"},
+  {"pair_id":"P07","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都安排五分钟回复预约、十五分钟休息，并解释空档不足以核对材料。X最后补充留到完整二十五分钟空档，Y已通过不开始核对表达当前安排，阅读体验相当。"},
+  {"pair_id":"P08","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都解释确认丢失导致同event_id重发，以及同一事务和唯一约束如何阻止重复创建任务，并限制保证范围。Y先介绍队列传递路径并分步说明，X直接区分处理成功与收到确认，均能回答两个问题。"},
+  {"pair_id":"P09","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者均明确只有登录确认可用、完整演示尚未就绪，且无可靠完成时间。X末句使用“有失败风险”较弱，但前文已明确导出仍报错和完整演示不具备条件，不造成整体理解差异。"},
+  {"pair_id":"P10","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"答案完全相同，均准确说明两个文件已保存但尚未提交，没有加入与确认提交状态无关的信息。"},
+  {"pair_id":"P11","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"X从队列传递过程讲起，Y较快进入确认丢失的原因；两者均讲清相同event_id、事务内写记录与建任务、唯一约束冲突及实际发货的保证边界。Y开头“支付成功和通知送达”稍概括，但紧接着的处理成功与确认丢失解释消除了歧义。"},
+  {"pair_id":"P12","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都选B，说明B和C达标而B内存更少，A因错误率超标被排除。X算出少180 MB，Y明确限定为这次测试和给定约束，均完整支持选择。"},
+  {"pair_id":"P13","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"论证和数值相同，均按达标后少占内存选B并排除A。X使用指标名并写出0.5%上限，Y使用中文指标名，未形成实质理解差异。"},
+  {"pair_id":"P14","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者的时间安排及理由相同：五分钟回复，十五分钟休息，材料等完整二十五分钟空档。差异仅在“被迫中断”与“做不完”等措辞，均符合给定时间限制。"}
+]

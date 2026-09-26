@@ -1,0 +1,104 @@
+[
+  {
+    "answer_id": "E05",
+    "task": "T1",
+    "questions": [
+      {
+        "question_id": "Q1",
+        "answer": "运行中，已经进入当前 thread 队列的补充消息会在下一次模型调用前按顺序合成用户消息并清空队列；如果在 Slack 再次提及机器人，展示的入口会创建新 run，对已有 run 采用中断策略。运行完成后，在原讨论再次提及机器人会在同一个 thread 启动新 run 并尝试复用沙箱。材料不能保证没有提及机器人的普通回复会入队或启动新一轮。",
+        "support_quote": ["`check_message_queue_before_model` 在下一次模型调用前读取队列，按顺序把内容合成一条新的用户消息加入会话，并清空队列。", "入口创建新的 run，并设置 `multitask_strategy=\"interrupt\"`。若已有 run 在执行，采用中断策略", "在相同 thread 上启动新 run，并尝试复用关联沙箱，接着处理新要求", "因此无法断言你工作中发出的每一句普通回复都会进入队列。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q2",
+        "answer": "thread 持续保存任务会话上下文，run 是会话上的一次执行；沙箱是关联于 thread 的仓库和命令执行环境。补充消息并不意味着新建环境，同一 Slack 讨论回到同一 thread，优先复用或重连沙箱；没有沙箱或沙箱不可达时可能新建、重建，所以未提交文件不保证永久保留。",
+        "support_quote": ["thread 是持续保存任务上下文的会话；run 是在这个会话上启动的一次执行。", "沙箱则是与 thread 关联的代码工作环境。", "服务优先复用该 thread 的沙箱连接，或通过记录的沙箱 ID 重连；没有沙箱时新建，并在里面克隆仓库。", "沙箱不可达时可以重建，因此“持久复用”不等于沙箱里的所有未提交文件永远不会丢失。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q3",
+        "answer": "仓库准备好后，创建 agent、构造系统指令时读取沙箱内仓库根目录的 AGENTS.md，把非空内容加入系统指令的 <agents_md> 区块，使约定、测试和架构要求成为模型依据。未展示递归读取子目录文件，也不会自动转成强制测试程序。",
+        "support_quote": "仓库准备好后，服务读取沙箱中仓库根目录的 `AGENTS.md`，把非空内容放进系统指令的 `<agents_md>` 区块。编码约定、测试要求、架构约束因此会成为模型工作的依据。这里展示的是根目录文件读取，没有展示对子目录 `AGENTS.md` 的递归查找；这些文字也不会自动变成强制执行的测试程序。",
+        "status": "explicit",
+        "navigation": "local"
+      },
+      {
+        "question_id": "Q4",
+        "answer": "不能。兜底代码既不运行测试也不检查测试结果；对 agent 的检查要求不是测试失败便禁止开 PR 的程序门槛。PR 链接不能证明测试已运行或通过，应查看实际执行结果和 CI。",
+        "support_quote": ["这段兜底代码没有运行测试，也没有检查测试结果。", "这些要求本身不构成“测试失败就禁止开 PR”的程序门槛。", "是否跑过测试、哪些测试通过，要看实际执行结果和 CI，不能从自动开 PR 推断。"],
+        "status": "explicit",
+        "navigation": "local"
+      }
+    ]
+  },
+  {
+    "answer_id": "E11",
+    "task": "T2",
+    "questions": [
+      {
+        "question_id": "Q1",
+        "answer": "Open SWE 已采用 deepagents 作为通用 agent 底座，并在上面增加面向代码任务的应用流程；选择 Open SWE 就已经使用 deepagents，无须重新集成两者。",
+        "support_quote": ["deepagents 是它已经采用的通用 agent 底座", "**Open SWE + deepagents 是现有关系**，不是需要你重新设计的集成。选择 Open SWE，就已经在使用 deepagents"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q2",
+        "answer": "Open SWE 最直接提供 Slack/Linear 入口、上下文收集、线程沙箱、提交及 GitHub 草稿 PR 和回报流程。从较底层的 deepagents 搭建还要补沟通入口、消息任务对应关系、仓库准备、隔离执行后端、GitHub 提交与 PR 流程、团队权限及验证规则。选择 Open SWE 仍要做部署配置、环境与权限凭据设置、强制 CI 和审查门槛；飞书或钉钉入口也需适配。",
+        "support_quote": ["在 deepagents 上加入面向代码任务的流程：Slack/Linear 发起任务、收集来源上下文、按线程使用云沙箱、提交代码并创建 GitHub 草稿 PR、向原会话回报", "工作沟通工具入口、消息与任务的对应关系、仓库准备、隔离执行后端、GitHub 提交与 PR 流程，以及团队权限和验证规则。", "部署和接入配置、仓库及沙箱环境、团队访问权限、凭据范围，以及强制执行的 CI 和审查门槛。若入口是飞书或钉钉，材料未展示现成支持，需要适配。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q3",
+        "answer": "不能。DeerFlow 有通用 agent、沙箱与应用接入能力，但材料未证明已组成开箱即用的代码助手流程；仍需补仓库准备、分支管理、提交与 PR 工具、审查反馈处理、测试及权限策略。",
+        "support_quote": "面向代码的仓库准备、分支管理、提交与 PR 工具、PR 审查反馈处理，以及测试和权限策略。给定材料没有证明这些已经组成开箱可用的代码助手流程。",
+        "status": "explicit",
+        "navigation": "local"
+      },
+      {
+        "question_id": "Q4",
+        "answer": "两种理解都不对：三者有重叠但层次不同。Open SWE 已建立在 deepagents 上；DeerFlow 是另一条应用路线，没有证据表明它基于另两者。三者不必全部叠加，DeerFlow 与 Open SWE 的额外组合也非现成能力，需要另行设计消息路由、线程归属、沙箱生命周期和结果回传。",
+        "support_quote": ["三者有重叠，但不处于完全相同的层次。", "**Open SWE + deepagents 是现有关系**", "**DeerFlow 是另一条构建应用的路线**。", "没有证据表明它基于 deepagents 或 Open SWE。", "**把 DeerFlow 和 Open SWE 再叠起来并非现成能力**。可以设想让一个应用调用另一个服务，但消息路由、线程归属、沙箱生命周期和结果回传都需要明确设计。"],
+        "status": "explicit",
+        "navigation": "combine"
+      }
+    ]
+  },
+  {
+    "answer_id": "E06",
+    "task": "T3",
+    "questions": [
+      {
+        "question_id": "Q1",
+        "answer": "不会自动继承全部主对话。子代理初始消息由自身系统提示、加载的技能和主代理给的 task 构成，主代理须在 task 中说明目标、约束和资料位置。子代理继承 sandbox、thread_data、thread_id，可在工具权限范围内读取同线程的共享文件。",
+        "support_quote": ["子代理启动时，消息列表由自己的系统提示、加载的技能和主代理传入的 `task` 构成，代码没有复制主代理的历史消息。", "主代理必须在任务中交代研究目标、相关约束和所需资料位置", "子代理会继承父代理的 `sandbox`、`thread_data` 和 `thread_id`，所以它们可以在工具权限允许的范围内使用同一线程的文件环境。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q2",
+        "answer": "uploads 存上传参考资料，workspace 存研究笔记等工作及中间文件，outputs 存最终报告等交付物。上下文压缩为当前长对话继续运行，将较早消息总结成摘要并保留近期或受保护消息，替换当前消息列表；它不把整个文件系统纳入摘要，也不等于永久记忆所有资料。启用记忆时，压缩前筛选的消息可进入记忆队列，但不保证保留每个细节。",
+        "support_quote": ["| `/mnt/user-data/uploads/` | 上传的参考资料 |", "| `/mnt/user-data/workspace/` | 工作文件，例如研究笔记、中间整理结果 |", "| `/mnt/user-data/outputs/` | 最终交付物，例如报告 |", "将较早消息总结成摘要，保留近期消息及部分需要保护的上下文。实现会用“摘要消息 + 保留的消息”替换当前消息列表。", "压缩操作也不会把整个文件系统装入摘要，或把文件搬到新线程", "较早内容有机会被提取成长期记忆，但并不保证其中每个细节都会保存。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q3",
+        "answer": "开启长期记忆后，一轮结束时筛选用户输入和最终回复，加入后台队列，由模型提取背景、偏好、目标、知识等摘要事实写入 memory.json；默认有 30 秒防抖，压缩前也能提交筛选消息。默认按用户存储，也支持按用户及代理分别存储；对应范围启用注入后，新对话首轮通过 HumanMessage 获得有数量和 token 限制的记忆，不是恢复旧对话。它不自动带来旧线程的上传文件，新线程有自己的路径，需重新提供文件或明确的转移访问机制。",
+        "support_quote": ["会筛选用户输入和最终回复，放入后台更新队列，再由模型提取用户背景、偏好、目标、知识等摘要和事实，写入本地 `memory.json`。默认队列有 30 秒的防抖等待", "默认记忆按用户存储，也支持按用户、按代理分别存储", "注入有数量及 token 限制，不是恢复整个旧对话。", "具体代码是在首轮插入一条包含记忆和日期的独立 `HumanMessage` 提醒", "新线程会计算自己的 `uploads/workspace/outputs` 路径，材料没有展示自动挂载或复制旧线程文件的机制。", "长期记忆即使记住了研究主题，也不会因此带来原始附件。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q4",
+        "answer": "子代理上下文隔离指消息列表独立、不复制主对话历史，但同线程文件环境可共享。线程目录隔离指将文件路径映射到各线程的宿主机目录；本地模式提供这一层隔离，并在同线程复用 LocalSandbox，子代理继承父线程沙箱，并不各有容器。容器执行隔离是 AioSandboxProvider 用隔离容器运行 shell；本地模式不是安全执行边界，宿主机 bash 默认关闭，材料也未承诺 Aio 按子代理分配容器。",
+        "support_quote": ["**消息上下文各自独立，文件环境可以共享。**", "本地模式的隔离发生在**线程目录和路径映射**这一层", "将 `/mnt/user-data/...` 映射到该线程的宿主机目录；同一线程会复用对应的 `LocalSandbox`。", "子代理又继承了父线程的沙箱状态，因此不能据此推导出“每个子代理一个独立容器”。", "本地模式不是安全的执行隔离边界，宿主机 `bash` 默认关闭；使用隔离容器执行 shell 的是 `AioSandboxProvider`，材料同样没有承诺按子代理分配容器。"],
+        "status": "explicit",
+        "navigation": "combine"
+      }
+    ]
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "pair_id": "P01",
+    "case_id": "C4",
+    "replicate": 2,
+    "label": "X",
+    "run": "chat-guide-2",
+    "non_whitespace_characters": 92
+  },
+  {
+    "pair_id": "P01",
+    "case_id": "C4",
+    "replicate": 2,
+    "label": "Y",
+    "run": "chat-control-2",
+    "non_whitespace_characters": 99
+  },
+  {
+    "pair_id": "P02",
+    "case_id": "C5",
+    "replicate": 2,
+    "label": "X",
+    "run": "chat-control-2",
+    "non_whitespace_characters": 119
+  },
+  {
+    "pair_id": "P02",
+    "case_id": "C5",
+    "replicate": 2,
+    "label": "Y",
+    "run": "chat-guide-2",
+    "non_whitespace_characters": 137
+  },
+  {
+    "pair_id": "P03",
+    "case_id": "D2",
+    "replicate": 1,
+    "label": "X",
+    "run": "doc-split",
+    "non_whitespace_characters": 464
+  },
+  {
+    "pair_id": "P03",
+    "case_id": "D2",
+    "replicate": 1,
+    "label": "Y",
+    "run": "doc-original",
+    "non_whitespace_characters": 484
+  },
+  {
+    "pair_id": "P04",
+    "case_id": "D1",
+    "replicate": 1,
+    "label": "X",
+    "run": "doc-split",
+    "non_whitespace_characters": 458
+  },
+  {
+    "pair_id": "P04",
+    "case_id": "D1",
+    "replicate": 1,
+    "label": "Y",
+    "run": "doc-original",
+    "non_whitespace_characters": 480
+  },
+  {
+    "pair_id": "P05",
+    "case_id": "C5",
+    "replicate": 1,
+    "label": "X",
+    "run": "chat-control-1",
+    "non_whitespace_characters": 118
+  },
+  {
+    "pair_id": "P05",
+    "case_id": "C5",
+    "replicate": 1,
+    "label": "Y",
+    "run": "chat-guide-1",
+    "non_whitespace_characters": 143
+  },
+  {
+    "pair_id": "P06",
+    "case_id": "C1",
+    "replicate": 1,
+    "label": "X",
+    "run": "chat-control-1",
+    "non_whitespace_characters": 32
+  },
+  {
+    "pair_id": "P06",
+    "case_id": "C1",
+    "replicate": 1,
+    "label": "Y",
+    "run": "chat-guide-1",
+    "non_whitespace_characters": 32
+  },
+  {
+    "pair_id": "P07",
+    "case_id": "C6",
+    "replicate": 2,
+    "label": "X",
+    "run": "chat-guide-2",
+    "non_whitespace_characters": 79
+  },
+  {
+    "pair_id": "P07",
+    "case_id": "C6",
+    "replicate": 2,
+    "label": "Y",
+    "run": "chat-control-2",
+    "non_whitespace_characters": 63
+  },
+  {
+    "pair_id": "P08",
+    "case_id": "C2",
+    "replicate": 2,
+    "label": "X",
+    "run": "chat-control-2",
+    "non_whitespace_characters": 278
+  },
+  {
+    "pair_id": "P08",
+    "case_id": "C2",
+    "replicate": 2,
+    "label": "Y",
+    "run": "chat-guide-2",
+    "non_whitespace_characters": 335
+  },
+  {
+    "pair_id": "P09",
+    "case_id": "C4",
+    "replicate": 1,
+    "label": "X",
+    "run": "chat-control-1",
+    "non_whitespace_characters": 98
+  },
+  {
+    "pair_id": "P09",
+    "case_id": "C4",
+    "replicate": 1,
+    "label": "Y",
+    "run": "chat-guide-1",
+    "non_whitespace_characters": 98
+  },
+  {
+    "pair_id": "P10",
+    "case_id": "C1",
+    "replicate": 2,
+    "label": "X",
+    "run": "chat-control-2",
+    "non_whitespace_characters": 32
+  },
+  {
+    "pair_id": "P10",
+    "case_id": "C1",
+    "replicate": 2,
+    "label": "Y",
+    "run": "chat-guide-2",
+    "non_whitespace_characters": 32
+  },
+  {
+    "pair_id": "P11",
+    "case_id": "C2",
+    "replicate": 1,
+    "label": "X",
+    "run": "chat-guide-1",
+    "non_whitespace_characters": 322
+  },
+  {
+    "pair_id": "P11",
+    "case_id": "C2",
+    "replicate": 1,
+    "label": "Y",
+    "run": "chat-control-1",
+    "non_whitespace_characters": 245
+  },
+  {
+    "pair_id": "P12",
+    "case_id": "C3",
+    "replicate": 2,
+    "label": "X",
+    "run": "chat-guide-2",
+    "non_whitespace_characters": 85
+  },
+  {
+    "pair_id": "P12",
+    "case_id": "C3",
+    "replicate": 2,
+    "label": "Y",
+    "run": "chat-control-2",
+    "non_whitespace_characters": 96
+  },
+  {
+    "pair_id": "P13",
+    "case_id": "C3",
+    "replicate": 1,
+    "label": "X",
+    "run": "chat-guide-1",
+    "non_whitespace_characters": 96
+  },
+  {
+    "pair_id": "P13",
+    "case_id": "C3",
+    "replicate": 1,
+    "label": "Y",
+    "run": "chat-control-1",
+    "non_whitespace_characters": 80
+  },
+  {
+    "pair_id": "P14",
+    "case_id": "C6",
+    "replicate": 1,
+    "label": "X",
+    "run": "chat-control-1",
+    "non_whitespace_characters": 83
+  },
+  {
+    "pair_id": "P14",
+    "case_id": "C6",
+    "replicate": 1,
+    "label": "Y",
+    "run": "chat-guide-1",
+    "non_whitespace_characters": 90
+  }
+]

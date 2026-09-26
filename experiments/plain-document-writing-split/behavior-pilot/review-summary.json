@@ -1,0 +1,546 @@
+{
+  "totals": {
+    "1": {
+      "C": {
+        "readability_preference": {
+          "tie": 12
+        },
+        "overall_preference": {
+          "tie": 12
+        }
+      },
+      "D": {
+        "readability_preference": {
+          "tie": 2
+        },
+        "overall_preference": {
+          "tie": 2
+        }
+      }
+    },
+    "2": {
+      "C": {
+        "readability_preference": {
+          "tie": 12
+        },
+        "overall_preference": {
+          "tie": 12
+        }
+      },
+      "D": {
+        "readability_preference": {
+          "tie": 2
+        },
+        "overall_preference": {
+          "tie": 2
+        }
+      }
+    }
+  },
+  "reviews": [
+    {
+      "pair_id": "P01",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都先说明完整演示尚不可用，交代只有登录已验证、列表未验证、导出仍报错，以及无法估计完成时间。开头和结尾的顺序差异不影响判断。",
+      "reviewer": 1,
+      "case_id": "C4",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-2",
+        "Y": "chat-control-2"
+      }
+    },
+    {
+      "pair_id": "P02",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都正确给出约38%的下降，并解释同时改变缓存和worker_count且仅运行一次的限制。Y补充160 ms和减半应为210 ms，X的说明也足以纠正原判断。",
+      "reviewer": 1,
+      "case_id": "C5",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-2",
+        "Y": "chat-guide-2"
+      }
+    },
+    {
+      "pair_id": "P03",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都按环境、依赖、配置、后端和服务的顺序组织，保留命令、配置名及后端未运行会导致数据请求失败的限制。Y增加标题、代码标记和项目目录提示，但实际启动过程在两者中同样清楚。",
+      "reviewer": 1,
+      "case_id": "D2",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "doc-split",
+        "Y": "doc-original"
+      }
+    },
+    {
+      "pair_id": "P04",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都保留关键测量、目标、一次运行和未做对照及生产测试的限制，并明确B本次达标不等于证明缓存效果或支持上线。Y拆开配置列并标注A缓存未说明，X合并配置列也没有擅自断言A未启用缓存，判断依据相当。",
+      "reviewer": 1,
+      "case_id": "D1",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "doc-split",
+        "Y": "doc-original"
+      }
+    },
+    {
+      "pair_id": "P05",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都区分约38%的下降与减半，并指出不能将同时改变两个因素的一次测试归因于缓存。Y补充相同请求及210 ms的参照，没有改变核心结论或显著降低理解负担。",
+      "reviewer": 1,
+      "case_id": "C5",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-1",
+        "Y": "chat-guide-1"
+      }
+    },
+    {
+      "pair_id": "P06",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "答案完全相同，直接说明修改已保存但未执行git commit，准确回应提交状态。",
+      "reviewer": 1,
+      "case_id": "C1",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-1",
+        "Y": "chat-guide-1"
+      }
+    },
+    {
+      "pair_id": "P07",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都安排五分钟回复预约、十五分钟休息，并解释空档不足以核对材料。X最后补充留到完整二十五分钟空档，Y已通过不开始核对表达当前安排，阅读体验相当。",
+      "reviewer": 1,
+      "case_id": "C6",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-2",
+        "Y": "chat-control-2"
+      }
+    },
+    {
+      "pair_id": "P08",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都解释确认丢失导致同event_id重发，以及同一事务和唯一约束如何阻止重复创建任务，并限制保证范围。Y先介绍队列传递路径并分步说明，X直接区分处理成功与收到确认，均能回答两个问题。",
+      "reviewer": 1,
+      "case_id": "C2",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-2",
+        "Y": "chat-guide-2"
+      }
+    },
+    {
+      "pair_id": "P09",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者均明确只有登录确认可用、完整演示尚未就绪，且无可靠完成时间。X末句使用“有失败风险”较弱，但前文已明确导出仍报错和完整演示不具备条件，不造成整体理解差异。",
+      "reviewer": 1,
+      "case_id": "C4",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-1",
+        "Y": "chat-guide-1"
+      }
+    },
+    {
+      "pair_id": "P10",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "答案完全相同，均准确说明两个文件已保存但尚未提交，没有加入与确认提交状态无关的信息。",
+      "reviewer": 1,
+      "case_id": "C1",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-2",
+        "Y": "chat-guide-2"
+      }
+    },
+    {
+      "pair_id": "P11",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "X从队列传递过程讲起，Y较快进入确认丢失的原因；两者均讲清相同event_id、事务内写记录与建任务、唯一约束冲突及实际发货的保证边界。Y开头“支付成功和通知送达”稍概括，但紧接着的处理成功与确认丢失解释消除了歧义。",
+      "reviewer": 1,
+      "case_id": "C2",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-1",
+        "Y": "chat-control-1"
+      }
+    },
+    {
+      "pair_id": "P12",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都选B，说明B和C达标而B内存更少，A因错误率超标被排除。X算出少180 MB，Y明确限定为这次测试和给定约束，均完整支持选择。",
+      "reviewer": 1,
+      "case_id": "C3",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-2",
+        "Y": "chat-control-2"
+      }
+    },
+    {
+      "pair_id": "P13",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "论证和数值相同，均按达标后少占内存选B并排除A。X使用指标名并写出0.5%上限，Y使用中文指标名，未形成实质理解差异。",
+      "reviewer": 1,
+      "case_id": "C3",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-1",
+        "Y": "chat-control-1"
+      }
+    },
+    {
+      "pair_id": "P14",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者的时间安排及理由相同：五分钟回复，十五分钟休息，材料等完整二十五分钟空档。差异仅在“被迫中断”与“做不完”等措辞，均符合给定时间限制。",
+      "reviewer": 1,
+      "case_id": "C6",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-1",
+        "Y": "chat-guide-1"
+      }
+    },
+    {
+      "pair_id": "P14",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都建议先用五分钟处理预约、余下十五分钟休息，并说明连续二十五分钟的核对不适合现在开始；措辞差异不影响安排或理解。",
+      "reviewer": 2,
+      "case_id": "C6",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-1",
+        "Y": "chat-control-1"
+      }
+    },
+    {
+      "pair_id": "P13",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "都选 B，给出两项达标数值、比 C 少 180 MB 以及 A 错误率超标的理由；中文指标名与字段名的差别不改变阅读体验。",
+      "reviewer": 2,
+      "case_id": "C3",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-1",
+        "Y": "chat-guide-1"
+      }
+    },
+    {
+      "pair_id": "P12",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "X 分段排除 A、比较 C，Y 直接给出 B 比 C 少 180 MB；两者都清楚完整地应用先达标再省内存的条件。",
+      "reviewer": 2,
+      "case_id": "C3",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-2",
+        "Y": "chat-guide-2"
+      }
+    },
+    {
+      "pair_id": "P11",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都解释确认丢失导致重发、event_id 不变、同一事务及唯一约束，并将保证限定为不重复创建任务。Y 补充队列接收过程，X 更紧凑，均能理解。",
+      "reviewer": 2,
+      "case_id": "C2",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-1",
+        "Y": "chat-guide-1"
+      }
+    },
+    {
+      "pair_id": "P10",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "答案完全相同，直接说明已保存但未执行 git commit，符合只确认提交状态的提问。",
+      "reviewer": 2,
+      "case_id": "C1",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-2",
+        "Y": "chat-control-2"
+      }
+    },
+    {
+      "pair_id": "P09",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都先说明无法完整演示、仅登录确认可用，再列出列表未验证和导出报错，并明确没有可靠完成时间；结尾强调方式不同但结论一致。",
+      "reviewer": 2,
+      "case_id": "C4",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-1",
+        "Y": "chat-control-1"
+      }
+    },
+    {
+      "pair_id": "P08",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "X 按首次处理和重复处理分步解释，Y 用连贯段落说明相同机制；都保留确认丢失、事务、唯一约束及实际发货保证范围，理解负担相当。",
+      "reviewer": 2,
+      "case_id": "C2",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-2",
+        "Y": "chat-control-2"
+      }
+    },
+    {
+      "pair_id": "P07",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者对当前二十分钟的建议一致。Y 多一句留到完整二十五分钟空档再核对，X 已说明空档不足，不构成必要信息差异。",
+      "reviewer": 2,
+      "case_id": "C6",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-2",
+        "Y": "chat-guide-2"
+      }
+    },
+    {
+      "pair_id": "P06",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "答案完全相同，明确未提交且文件修改已保存，没有偏离用户确认提交状态的问题。",
+      "reviewer": 2,
+      "case_id": "C1",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-1",
+        "Y": "chat-control-1"
+      }
+    },
+    {
+      "pair_id": "P05",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "都指出下降约 38%、缓存与 worker_count 同时变化以及单次运行的限制。X 补充减少 160 ms、减半为 210 ms 和相同请求，Y 的现有信息也足以支持相同判断。",
+      "reviewer": 2,
+      "case_id": "C5",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-1",
+        "Y": "chat-control-1"
+      }
+    },
+    {
+      "pair_id": "P04",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者均保留配置、指标、目标、单次开发机测试、缓存命中数、未做的对照和原始链接，并纠正缓存归因及上线结论。X 表格拆列并标注达标，Y 合并配置列，均清楚可读。",
+      "reviewer": 2,
+      "case_id": "D1",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "doc-original",
+        "Y": "doc-split"
+      }
+    },
+    {
+      "pair_id": "P03",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者均按环境、依赖、配置、后端和服务启动排序，保留命令、配置名、地址及日志。X 增加项目目录提示和行内代码格式，Y 的步骤及前置条件同样清楚。",
+      "reviewer": 2,
+      "case_id": "D2",
+      "replicate": 1,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "doc-original",
+        "Y": "doc-split"
+      }
+    },
+    {
+      "pair_id": "P02",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "都纠正减半说法并指出两个变量同时改变及每个配置仅运行一次。X 多给出 160 ms 和 210 ms 的算术说明，Y 以约 38% 已充分回答，阅读体验相当。",
+      "reviewer": 2,
+      "case_id": "C5",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-guide-2",
+        "Y": "chat-control-2"
+      }
+    },
+    {
+      "pair_id": "P01",
+      "facts_X": [],
+      "facts_Y": [],
+      "readability_preference": "tie",
+      "overall_preference": "tie",
+      "materiality": "none",
+      "reason": "两者都立即说明完整演示不可用，准确区分登录已验证、列表未验证和导出仍报错，并拒绝保证十分钟完成；信息次序的小差别不影响决策。",
+      "reviewer": 2,
+      "case_id": "C4",
+      "replicate": 2,
+      "readability_preference_run": "tie",
+      "overall_preference_run": "tie",
+      "run_for_label": {
+        "X": "chat-control-2",
+        "Y": "chat-guide-2"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[
+  {"pair_id":"P14","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都建议先用五分钟处理预约、余下十五分钟休息，并说明连续二十五分钟的核对不适合现在开始；措辞差异不影响安排或理解。"},
+  {"pair_id":"P13","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"都选 B，给出两项达标数值、比 C 少 180 MB 以及 A 错误率超标的理由；中文指标名与字段名的差别不改变阅读体验。"},
+  {"pair_id":"P12","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"X 分段排除 A、比较 C，Y 直接给出 B 比 C 少 180 MB；两者都清楚完整地应用先达标再省内存的条件。"},
+  {"pair_id":"P11","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都解释确认丢失导致重发、event_id 不变、同一事务及唯一约束，并将保证限定为不重复创建任务。Y 补充队列接收过程，X 更紧凑，均能理解。"},
+  {"pair_id":"P10","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"答案完全相同，直接说明已保存但未执行 git commit，符合只确认提交状态的提问。"},
+  {"pair_id":"P09","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都先说明无法完整演示、仅登录确认可用，再列出列表未验证和导出报错，并明确没有可靠完成时间；结尾强调方式不同但结论一致。"},
+  {"pair_id":"P08","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"X 按首次处理和重复处理分步解释，Y 用连贯段落说明相同机制；都保留确认丢失、事务、唯一约束及实际发货保证范围，理解负担相当。"},
+  {"pair_id":"P07","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者对当前二十分钟的建议一致。Y 多一句留到完整二十五分钟空档再核对，X 已说明空档不足，不构成必要信息差异。"},
+  {"pair_id":"P06","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"答案完全相同，明确未提交且文件修改已保存，没有偏离用户确认提交状态的问题。"},
+  {"pair_id":"P05","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"都指出下降约 38%、缓存与 worker_count 同时变化以及单次运行的限制。X 补充减少 160 ms、减半为 210 ms 和相同请求，Y 的现有信息也足以支持相同判断。"},
+  {"pair_id":"P04","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者均保留配置、指标、目标、单次开发机测试、缓存命中数、未做的对照和原始链接，并纠正缓存归因及上线结论。X 表格拆列并标注达标，Y 合并配置列，均清楚可读。"},
+  {"pair_id":"P03","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者均按环境、依赖、配置、后端和服务启动排序，保留命令、配置名、地址及日志。X 增加项目目录提示和行内代码格式，Y 的步骤及前置条件同样清楚。"},
+  {"pair_id":"P02","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"都纠正减半说法并指出两个变量同时改变及每个配置仅运行一次。X 多给出 160 ms 和 210 ms 的算术说明，Y 以约 38% 已充分回答，阅读体验相当。"},
+  {"pair_id":"P01","facts_X":[],"facts_Y":[],"readability_preference":"tie","overall_preference":"tie","materiality":"none","reason":"两者都立即说明完整演示不可用，准确区分登录已验证、列表未验证和导出仍报错，并拒绝保证十分钟完成；信息次序的小差别不影响决策。"}
+]

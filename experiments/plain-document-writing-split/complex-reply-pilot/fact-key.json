@@ -1,0 +1,142 @@
+[
+  {
+    "id": "T1",
+    "facts": [
+      {
+        "id": "F1",
+        "core": true,
+        "claim": "Slack mention 基于 channel_id + thread_ts 生成确定 thread_id；同 Slack 对话复用逻辑线程，不是每条消息一个独立线程。"
+      },
+      {
+        "id": "F2",
+        "core": true,
+        "claim": "材料中的 Slack 入口再次 runs.create(...multitask_strategy='interrupt')；运行中按该策略中断/接续，完成后在同一 thread 新 run。不能写成 Slack 一律排入 pending 队列，或保证立即打断底层shell且回滚副作用。"
+      },
+      {
+        "id": "F3",
+        "core": true,
+        "claim": "thread承载对话/运行关联，sandbox承载仓库文件与命令执行；按thread缓存/metadata复连sandbox，不可达时重建，非每次消息全新环境或永久不变的同一物理进程。"
+      },
+      {
+        "id": "F4",
+        "core": true,
+        "claim": "get_agent组合Deep Agents、模型、sandbox backend、自定义工具与middleware；不要求细述框架内部未给出的机制。"
+      },
+      {
+        "id": "F5",
+        "core": true,
+        "claim": "从sandbox内仓库根目录读取存在的AGENTS.md，并传给construct_system_prompt进入system prompt；不是所有子目录自动递归加载。"
+      },
+      {
+        "id": "F6",
+        "core": true,
+        "claim": "代码修改/工具提交与开PR服务审查工作流；测试/格式检查是prompt要求，after_agent PR middleware本身没有验证测试或CI结果。"
+      },
+      {
+        "id": "F7",
+        "core": true,
+        "claim": "不得保证模型从未调用commit_and_open_pr时兜底总会创建PR：代码没有可解析tool payload即返回，含success键也跳过，另需repo/sandbox与git变更等条件。无需逐项背诵所有分支。"
+      },
+      {
+        "id": "F8",
+        "core": false,
+        "claim": "队列middleware确实存在，模型调用前读取并删除pending_messages再注入user消息；不要把它与当前Slack入口混同。"
+      }
+    ]
+  },
+  {
+    "id": "T2",
+    "facts": [
+      {
+        "id": "F1",
+        "core": true,
+        "claim": "deepagents是可编程且开箱可用的agent harness/SDK，包含planning、文件、执行、子代理、上下文管理；create_deep_agent返回compiled LangGraph graph。不是只有底层模型API或完全没有执行能力。"
+      },
+      {
+        "id": "F2",
+        "core": true,
+        "claim": "Open SWE基于/组合Deep Agents和LangGraph，扩展组织代码工作流，不是必须替代deepagents，也不是README所说fork。"
+      },
+      {
+        "id": "F3",
+        "core": true,
+        "claim": "Open SWE材料明确提供Slack/Linear/GitHub触发、按线程sandbox、repo上下文和PR工作流，因而较贴近题设目标。"
+      },
+      {
+        "id": "F4",
+        "core": true,
+        "claim": "单独用deepagents仍需把组织入口、身份/仓库路由、通信与PR工作流等应用层接起来；不能把harness内置shell/子代理列为完全缺失。"
+      },
+      {
+        "id": "F5",
+        "core": true,
+        "claim": "DeerFlow是通用任务应用+harness，含Gateway/前端、skills、长期记忆、子代理和执行环境，也有沟通渠道；不是完全没有Slack接入。"
+      },
+      {
+        "id": "F6",
+        "core": true,
+        "claim": "给定材料不证明DeerFlow有OpenSWE等价的开PR/代码审查全流程，也不证明它依赖DeepAgents或应三者串联；可扩展不等于已内置。"
+      },
+      {
+        "id": "F7",
+        "core": true,
+        "claim": "选择应基于团队代码助手目标与需补能力，区分已经具备、需要集成和材料未确定；不凭空宣称性能、成本、安全或质量绝对优胜。"
+      },
+      {
+        "id": "F8",
+        "core": false,
+        "claim": "沙箱隔离与质量验证是不同维度；OpenSWE有提示式测试要求，可扩展CI/review门槛，不能保证所有PR自动测试通过。"
+      }
+    ]
+  },
+  {
+    "id": "T3",
+    "facts": [
+      {
+        "id": "F1",
+        "core": true,
+        "claim": "子代理有独立messages，只接收自己的system/skills和委派task等初始化内容，不自动继承主代理全部对话；主代理须在任务或共享文件中提供所需上下文。"
+      },
+      {
+        "id": "F2",
+        "core": true,
+        "claim": "子代理继承父sandbox_state、thread_data、thread_id，能共享同一任务线程的文件环境；独立上下文不等于独立容器/文件副本。完成后最终AI文本作为task工具结果返回主代理用于汇总。"
+      },
+      {
+        "id": "F3",
+        "core": true,
+        "claim": "uploads放输入资料、workspace工作中间文件、outputs交付文件；目录按用户/线程区分，文件存储与模型当前能看到的对话不是同一层。"
+      },
+      {
+        "id": "F4",
+        "core": true,
+        "claim": "上下文压缩在配置阈值触发时用摘要替换旧消息，保留近期/需保留内容；不等于原始文件自动丢失、全部逐字长期记忆或自动将所有文件存档。"
+      },
+      {
+        "id": "F5",
+        "core": true,
+        "claim": "长期记忆在启用时从用户和最终助手消息抽取，经队列/后台更新持久化；不是把所有tool输出和上传全文直接完整记住。"
+      },
+      {
+        "id": "F6",
+        "core": false,
+        "claim": "压缩前memory_flush_hook也会在启用且有符合条件消息时入队，避免只说记忆唯一发生在最终结束；不是压缩本身直接保存完整文件。"
+      },
+      {
+        "id": "F7",
+        "core": true,
+        "claim": "新对话可注入已保存的记忆，但这不自动共享原线程上传文件；不能声称原文件已消失或永远不可访问。"
+      },
+      {
+        "id": "F8",
+        "core": true,
+        "claim": "LocalSandboxProvider按线程映射宿主目录，默认host bash受限制，不是每子代理独立容器；AIO才提供容器执行边界，父子仍可能共享同线程sandbox。"
+      },
+      {
+        "id": "F9",
+        "core": false,
+        "claim": "给定dynamic context代码在新会话首次注入memory/date，后续同日不重复刷新，跨日更新日期；不可凭CLAUDE概述断言每轮重新载入最新记忆。"
+      }
+    ]
+  }
+]

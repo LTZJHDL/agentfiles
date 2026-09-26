@@ -1,0 +1,44 @@
+[
+  {
+    "pair_id": "P01",
+    "task": "T1",
+    "replicate": 1,
+    "X": "R01",
+    "Y": "R02"
+  },
+  {
+    "pair_id": "P02",
+    "task": "T2",
+    "replicate": 1,
+    "X": "R04",
+    "Y": "R03"
+  },
+  {
+    "pair_id": "P03",
+    "task": "T3",
+    "replicate": 1,
+    "X": "R06",
+    "Y": "R05"
+  },
+  {
+    "pair_id": "P04",
+    "task": "T3",
+    "replicate": 2,
+    "X": "R11",
+    "Y": "R12"
+  },
+  {
+    "pair_id": "P05",
+    "task": "T1",
+    "replicate": 2,
+    "X": "R07",
+    "Y": "R08"
+  },
+  {
+    "pair_id": "P06",
+    "task": "T2",
+    "replicate": 2,
+    "X": "R09",
+    "Y": "R10"
+  }
+]

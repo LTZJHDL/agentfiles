@@ -1,0 +1,82 @@
+{
+  "generations": 12,
+  "blind_pairs_checked": 6,
+  "reversed_pairs_checked": 6,
+  "reader_questions": 48,
+  "source_packets": 3,
+  "recorded_provenance": [
+    {
+      "run": "R01",
+      "recorded_guide_read": false
+    },
+    {
+      "run": "R02",
+      "recorded_guide_read": true
+    },
+    {
+      "run": "R03",
+      "recorded_guide_read": true
+    },
+    {
+      "run": "R04",
+      "recorded_guide_read": false
+    },
+    {
+      "run": "R05",
+      "recorded_guide_read": false
+    },
+    {
+      "run": "R06",
+      "recorded_guide_read": true
+    },
+    {
+      "run": "R07",
+      "recorded_guide_read": true
+    },
+    {
+      "run": "R08",
+      "recorded_guide_read": false
+    },
+    {
+      "run": "R09",
+      "recorded_guide_read": false
+    },
+    {
+      "run": "R10",
+      "recorded_guide_read": true
+    },
+    {
+      "run": "R11",
+      "recorded_guide_read": true
+    },
+    {
+      "run": "R12",
+      "recorded_guide_read": false
+    }
+  ],
+  "reader_quote_issues": [],
+  "report_links_checked": [
+    "../comparison.md",
+    "protocol.md",
+    "cases.json",
+    "readability-rubric.md",
+    "reader-questions.json",
+    "blind-comparison.md",
+    "blind-comparison.md",
+    "blind-comparison.md",
+    "../behavior-pilot/report.md",
+    "source-audit.md",
+    "materials/T1.md",
+    "materials/T2.md",
+    "materials/T3.md",
+    "source-revisions.json",
+    "guide-snapshot.json",
+    "blind-comparison.md",
+    "pair-map.json",
+    "generation-manifest.json",
+    "readability-review-1.json",
+    "readability-review-2.json",
+    "summary.json",
+    "validation.json"
+  ]
+}

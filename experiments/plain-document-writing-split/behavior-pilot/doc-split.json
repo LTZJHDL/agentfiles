@@ -1,0 +1,16 @@
+{
+  "loaded_instruction_files": [
+    "C:/share_workspace/agentfiles/experiments/plain-document-writing-split/plain-document-writing/SKILL.md",
+    "C:/share_workspace/agentfiles/experiments/plain-document-writing-split/plain-document-writing/references/human-facing-expression.md"
+  ],
+  "answers": [
+    {
+      "id": "D1",
+      "answer": "方案 B 在本次开发机测试中达到当天目标：p95_ms ≤ 300、峰值内存 ≤ 2 GB；方案 A 的延迟未达标。现有结果不足以证明改善来自缓存，也不足以支持上线。\n\n9 月 22 日，两方案在同一台开发机上使用固定数据集 queries-v3（1000 条请求），各运行一次。\n\n| 方案 | 配置 | p95_ms | error_rate | 峰值内存 |\n| --- | --- | --- | --- | --- |\n| A | worker_count=4 | 420 | 0.2% | 1.2 GB |\n| B | worker_count=8，启用缓存 | 260 | 0.2% | 1.8 GB |\n\nB 的 p95_ms 比 A 降低约 38%，峰值内存增加 0.6 GB。两者 error_rate 均为 0.2%，但当天未设置该指标的验收阈值。B 的日志记录了 650 次缓存命中。\n\nB 同时增加了 worker_count 并启用缓存，无法单独判断缓存的贡献；计划中固定 worker_count、只切换缓存的对照尚未完成。每个方案只有一次运行，且没有生产测试，因此本次结论仅为 B 在这次测试中达标。\n\n详见[原始记录](runs/2026-09-22.md)。"
+    },
+    {
+      "id": "D2",
+      "answer": "以下步骤适用于 Windows PowerShell，项目要求 Python 3.11。\n\n1. 准备 Python 环境。若已有隔离环境，可直接使用；否则创建并激活环境：\n\n   ```powershell\n   python -m venv .venv\n   .venv\\Scripts\\Activate.ps1\n   ```\n\n2. 安装依赖：\n\n   ```powershell\n   python -m pip install -r requirements.txt\n   ```\n\n3. 将 config/example.yaml 复制为 config/local.yaml，作为本地启动配置。\n\n4. 提前启动后端。服务通过 API_BASE_URL 读取后端地址，默认值为 http://localhost:9000。该地址的后端必须已经运行，否则页面虽然能打开，数据请求仍会失败。本说明不包含后端启动步骤。\n\n5. 启动服务：\n\n   ```powershell\n   python app.py --config config/local.yaml\n   ```\n\n启动后，在浏览器打开 http://localhost:8080。服务日志位于 logs/server.log。"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+[
+  {
+    "answer_id": "E12",
+    "task": "T1",
+    "questions": [
+      {
+        "question_id": "Q1",
+        "answer": "运行中，进入待处理队列的消息在下一次模型调用前按顺序合并为用户消息并清空队列，不会立即终止正在执行的 shell；若通过所示 Slack 提及入口触发，则以 interrupt 策略创建运行，不能一概说只排队。结束后在同一讨论串再次提及机器人，会在相同 thread 上启动新的 run，通常复用沙箱。普通未提及机器人的回复不保证处理，材料也没有展示所有 Slack 补充都写入队列。",
+        "support_quote": ["`check_message_queue_before_model` 在下一次模型调用前读取队列，按顺序把内容合并成一条用户消息加入状态，并清空队列。", "入口调用 `runs.create`，配置是 `multitask_strategy=\"interrupt\"`", "使用相同 thread ID 启动新的 run，通常复用该 thread 的沙箱；这是同一任务上下文中的新一轮工作。", "普通回复一句、不 @机器人，也不能保证触发处理。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q2",
+        "answer": "thread 保存持续任务上下文，run 是其中一次运行，sandbox 存放代码并执行命令。补充消息不意味着每次新建环境：同一 thread 可有多次 run 并复用沙箱，沙箱不存在或失联时才可能新建或重建。",
+        "support_quote": ["thread 是持续的任务上下文，run 是其中一次运行，sandbox 是实际存放代码、执行命令的环境。", "同一个 thread 可以有多次 run，并复用沙箱", "没有时新建并克隆仓库，复用时会调用克隆或拉取逻辑。失联时可以重建。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q3",
+        "answer": "沙箱准备完成后、构建 agent 前读取沙箱内仓库根目录的 AGENTS.md，将非空内容加入系统指令，传达代码规范、检查要求和架构约束。不存在或为空则不加入；没有展示递归加载子目录文件的机制。",
+        "support_quote": "`AGENTS.md` 在沙箱准备好之后、构建 agent 之前起作用。程序读取的是沙箱中仓库根目录的 `AGENTS.md`，把非空内容放进 agent 的系统指令，用来传达编码规范、检查要求和架构约束。文件不存在或为空时就不加入；这里没有展示递归加载子目录 `AGENTS.md` 的机制。",
+        "status": "explicit",
+        "navigation": "local"
+      },
+      {
+        "question_id": "Q4",
+        "answer": "不能。兜底代码既不运行测试，也不检查测试通过状态；PR 链接仅证明形成了提交产物，测试是否通过需查看实际检查结果和 CI。",
+        "support_quote": "这段兜底代码没有运行测试，也没有检查测试通过状态。因此，PR 链接证明的是提交产物已经形成；是否通过测试，要看实际检查结果和 CI 状态。",
+        "status": "explicit",
+        "navigation": "local"
+      }
+    ]
+  },
+  {
+    "answer_id": "E02",
+    "task": "T2",
+    "questions": [
+      {
+        "question_id": "Q1",
+        "answer": "Open SWE 使用 deepagents 作为底层 agent 运行组件，通过 create_deep_agent 传入沙箱后端、仓库说明、PR 和消息工具以及运行钩子，组装代码工作流；组合关系是 Open SWE → deepagents → LangGraph。",
+        "support_quote": ["它调用 `create_deep_agent()`，传入沙箱后端、仓库相关系统说明、PR 和消息工具，以及运行前后的处理钩子。", "已有明确组合：Open SWE → deepagents → LangGraph。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q2",
+        "answer": "Open SWE 最直接，已有 Slack/Linear 入口、任务线程与沙箱、提交和 GitHub 草稿 PR 流程。选择较底层的 deepagents 时，还需补沟通工具接入、消息与任务映射、仓库准备、沙箱生命周期、Git/PR 操作、结果回传和团队权限规则。",
+        "support_quote": ["基于 deepagents 的代码助手：Slack/Linear 发起任务、线程复用沙箱、仓库上下文、运行中接收补充要求、提交并开 GitHub 草稿 PR、处理 PR 评论中的反馈", "沟通工具接入、消息与任务的对应关系、仓库准备、沙箱生命周期、Git/PR 操作、结果回传和团队权限规则"],
+        "status": "explicit",
+        "navigation": "local"
+      },
+      {
+        "question_id": "Q3",
+        "answer": "不能。沙箱、子代理和沟通入口不能证明已经具备仓库到 PR 的工程流程；仓库/分支管理、提交与 PR、评审反馈回流和确定性质量检查在材料中尚未确认。",
+        "support_quote": ["面向代码助手的仓库/分支管理、提交与 PR 流程、评审反馈回流和确定性质量检查；这些在给定材料中没有得到确认", "但“有入口、能执行命令”还不能证明已经完成了从仓库到 PR 的工程流程。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q4",
+        "answer": "两种理解都不合适。deepagents 是底层运行骨架，Open SWE 是已采用它的代码助手，DeerFlow 是通用框架加应用，能力与定位不同。选 Open SWE 已经使用 deepagents；DeerFlow 与 Open SWE 的组合需要自行设计，材料没有说明 DeerFlow 依赖 deepagents，也没有现成集成，因此不必全部叠加。",
+        "support_quote": ["Open SWE 是最贴近目标的起点。deepagents 是它已经采用的底层组件；DeerFlow 则提供另一套通用 agent 框架和完整应用", "选择 Open SWE 时已经在使用 deepagents，不需要再把两者当成独立产品拼接一次。", "两者都使用 LangGraph，但材料没有说明 DeerFlow 依赖 deepagents，也没有给出它与 Open SWE 的现成集成方式。"],
+        "status": "inferred",
+        "navigation": "combine"
+      }
+    ]
+  },
+  {
+    "answer_id": "E03",
+    "task": "T3",
+    "questions": [
+      {
+        "question_id": "Q1",
+        "answer": "不会自动继承全部主对话。子代理有新建的消息列表，包含系统说明、技能和任务消息；主代理需在任务中明确提供目标、背景、约束和资料位置。父代理还传入 sandbox、thread_data、thread_id，使子代理在工具允许的范围内使用同一线程文件。",
+        "support_quote": ["代码为子代理新建消息列表，放入其系统说明、技能内容和一条任务消息 `HumanMessage(content=task)`，没有复制主代理此前的消息列表。", "主代理需要在任务里说明研究目标、必要背景、约束和资料位置", "父代理会传入 `sandbox`、`thread_data` 和 `thread_id`。这使子代理能够在相应工具允许的范围内使用同一线程的文件环境。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q2",
+        "answer": "uploads 存上传资料，workspace 存研究笔记和提取结果等工作文件，outputs 存最终报告等交付文件。上下文压缩在长对话内部将较早消息整理为摘要，保留近期及特定消息以腾出空间；它不保证保留全部细节，也不会把上传文件或报告永久保存为记忆。",
+        "support_quote": ["| `/mnt/user-data/uploads/` | 你上传的资料 |", "| `/mnt/user-data/workspace/` | 研究笔记、提取结果等工作文件 |", "| `/mnt/user-data/outputs/` | 最终报告等交付文件 |", "把较早的消息整理成摘要，并保留近期消息及特定需要保留的内容。", "摘要不能保证保存每个细节；这段逻辑也没有把上传文件或报告变成长久记忆。"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q3",
+        "answer": "长期记忆由中间件筛选用户输入和最终回复后交后台队列，默认等待 30 秒合并，再由模型提取、更新和去重；启用时，压缩前钩子也可能将合格消息送入更新队列。记忆通常按用户保存，特定代理可有自己的用户记忆；成功更新且启用注入后，新会话首轮以 HumanMessage 提醒带入筛选后的背景、偏好或事实，并非完整聊天或附件备份。新 thread 对应新目录，不会因此自动取得旧上传文件。",
+        "support_quote": ["如果记忆功能开启，压缩前的钩子会筛选即将被压缩的消息，满足条件时送入记忆更新队列。", "正常回复完成后，记忆中间件筛选用户输入和最终回复，再交给后台队列处理；默认有 30 秒的合并等待时间，然后由模型提取、更新和去重。", "记忆通常按用户保存；特定代理还可有自己的用户记忆。", "若记忆已成功更新且注入开启，模型可能得到上次研究留下的背景或偏好。", "实际动态上下文代码在新会话首轮用独立的 `HumanMessage` 放入含记忆和日期的提醒。", "新的 `thread_id` 对应新的上传、工作和输出目录。旧文件即使仍在磁盘上，也不代表已进入新线程的文件视图"],
+        "status": "explicit",
+        "navigation": "combine"
+      },
+      {
+        "question_id": "Q4",
+        "answer": "子代理上下文隔离是消息列表各自独立，不自动继承主对话；线程目录隔离是将文件路径映射到不同线程的宿主机目录，同线程可复用文件环境；容器隔离是容器内执行。这里本地模式实现线程路径映射和同线程 LocalSandbox 复用，子代理继承父线程信息，并不各自创建独立容器，也不是安全隔离边界；AioSandboxProvider 才提供容器内执行。",
+        "support_quote": ["聊天上下文分开，文件环境却可以共用。", "本地模式的“线程隔离”主要体现为路径映射", "把 `/mnt/user-data/...` 映射到该线程的宿主机目录，同一线程的调用复用相应 `LocalSandbox`。子代理继承父线程的信息，并不会因此各自创建一个独立容器。`AioSandboxProvider` 才提供容器内执行；本地模式不是安全隔离边界，所以默认关闭宿主机 `bash`。"],
+        "status": "explicit",
+        "navigation": "combine"
+      }
+    ]
+  }
+]

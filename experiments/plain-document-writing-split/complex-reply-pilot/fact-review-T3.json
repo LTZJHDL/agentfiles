@@ -1,0 +1,66 @@
+[
+  {
+    "answer_id": "E03",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"明确说明新建子代理消息列表只含系统说明、技能和 task，不复制主代理历史，要求委派时交代背景及资料位置；符合 T3-S04:424–445。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"说明继承 sandbox、thread_data、thread_id，共用线程文件环境，并以任务工具结果回传而非合并完整历史；符合 T3-S04、S05:258–307、S06:367–373。","impact":"none"},
+      {"id":"F3","status":"partial","evidence":"三个目录用途、按线程归属及文件与当前上下文的区别均正确（T3-S01、S03、S12）；未单独说明文件路径还带 user_id（S12:92–99）。这是与当前提问无实质冲突的合理省略。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"正确描述配置触发、摘要加保留消息替换当前状态，并说明不会把上传文件或报告变成长期记忆；符合 T3-S03、S07:130–149、S14。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"说明用户输入与最终回复经后台队列提取、去重和持久化，默认等待 30 秒，并否认完整聊天或附件备份；符合 T3-S02、S09。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"明确提到启用记忆且满足条件时，压缩前筛选消息并入队，不保证逐句保存；符合 T3-S08:14–33、S14:121–123。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"区分新对话可注入已保存记忆与旧线程文件访问，保留旧文件可能仍在磁盘的可能性，并说明材料未展示迁移机制或保留期限；符合 T3-S02、S12、S13。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"正确说明 local:abc、线程路径映射与实例复用，否认每子代理独立容器，指出本地 bash 默认关闭及 AIO 容器执行；符合 T3-S01:650、S05、S13。","impact":"none"},
+      {"id":"F9","status":"correct","evidence":"以 S11 代码修正概述：首轮独立 HumanMessage 注入记忆与日期，同日不重新注入，跨日仅补日期；符合 T3-S10:107–116、S11:170–196。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "关键结论与给定代码一致，覆盖子代理上下文、共享文件、压缩、记忆和新会话边界。未发现事实错误；未展开文件路径的用户维度属于合理省略。"
+  },
+  {
+    "answer_id": "E04",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"明确说明初始消息只含系统说明、技能和任务，不复制主代理历史，并要求任务提供背景与路径；符合 T3-S04:424–445。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"列出父级 sandbox、thread_data、thread_id，区分上下文独立与文件共享，明确 result.result 返回而非合并全部消息；符合 T3-S04、S05、S06。","impact":"none"},
+      {"id":"F3","status":"partial","evidence":"目录用途、当前线程文件归属及清单不等于全文入上下文均正确（T3-S01、S03、S12）；省略文件路径的 user_id 维度（S12:92–99），不影响用户所问边界。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"正确描述触发阈值、摘要加保留消息、技能与动态提醒保留，并明确不删除文件、不自动形成长期记忆；符合 T3-S03、S07、S14。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"说明启用后筛选用户输入和最终回复，由后台模型提取，默认约 30 秒防抖，不完整归档工具输出或附件；符合 T3-S02、S09。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"提及压缩前筛选待摘要消息进入记忆队列；符合 T3-S08、S14。未逐项列出 thread_id 和双侧消息检查属于合理省略。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"区分已有记忆注入和旧文件访问，不断言旧文件消失，建议重新提供资料或明确安排访问，并限定材料未展示自动复用机制；符合 T3-S02、S12、S13。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"描述按 thread_id 复用本地沙箱、宿主机目录映射、本地 bash 默认禁用和 AIO 容器执行，未将容器按子代理分配；符合 T3-S01、S05、S13。","impact":"none"},
+      {"id":"F9","status":"correct","evidence":"正确以独立 HumanMessage、同日跳过与跨日只更新日期解释实际注入，并指出更新与注入开关；符合 T3-S02、S10、S11。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "核心机制及相互关系与材料一致，正确区分消息上下文、文件和持久记忆。未发现事实错误；文件路径用户维度的省略不构成实质缺陷。"
+  },
+  {
+    "answer_id": "E06",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"明确子代理消息由系统提示、技能和 task 构成，不复制主代理历史，委派应传研究目标、约束与资料位置；符合 T3-S04。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"说明继承父级 sandbox、thread_data、thread_id，可在工具权限内共用线程文件，任务结果返回而非拼接完整内部对话；符合 T3-S04–S06。","impact":"none"},
+      {"id":"F3","status":"partial","evidence":"正确给出三个目录用途、thread_id 归属及磁盘文件与模型消息的区别（T3-S01、S03、S12）；未说明文件路径额外的 user_id 维度（S12:92–99），属于合理省略。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"说明启用后的阈值触发、摘要加保留消息替换，指出细节可能不再位于当前上下文且文件需读取；符合 T3-S03、S07、S14。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"说明启用后在运行结束筛选用户和最终助手消息，经后台队列与模型提取写入本地 memory.json，默认 30 秒防抖，不逐字保存全部历史及附件；符合 T3-S02、S09。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"说明启用记忆时压缩前筛选旧消息入队，只提供提取机会而非保证保存细节；符合 T3-S08、S14。未枚举全部入队检查不影响结论。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"说明适用用户及代理范围内新对话可注入有限记忆，旧文件是否留存不同于新对话能否读取，未假定跨线程机制或保留期限；符合 T3-S02、S12、S13。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"正确解释 local:abc、按线程映射宿主目录、复用 LocalSandbox、本地 bash 默认关闭和 AIO 容器执行；符合 T3-S01、S04、S13。","impact":"none"},
+      {"id":"F9","status":"correct","evidence":"正确描述首轮独立 HumanMessage 含记忆与日期，同日后续不重复、跨日只更新日期，并否定每轮刷新；符合 T3-S10、S11。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "所有关键边界均与代码及材料一致，未把持久记忆等同于上传附件访问，也未把上下文隔离等同于容器隔离。未发现事实错误；文件路径用户维度未展开属于合理省略。"
+  },
+  {
+    "answer_id": "E10",
+    "facts": [
+      {"id":"F1","status":"correct","evidence":"说明执行器从新消息列表开始，加入系统说明、技能和任务 HumanMessage，无主代理历史复制，需明确传递背景及路径；符合 T3-S04。","impact":"none"},
+      {"id":"F2","status":"correct","evidence":"说明父级 sandbox、thread_data、thread_id 传入，文件可共享但须读取，完成后任务工具把结果交主代理汇总；符合 T3-S04–S06。","impact":"none"},
+      {"id":"F3","status":"partial","evidence":"三个目录用途、线程归属以及文件清单不等于全文进入上下文均正确（T3-S01、S03、S12）；省略文件路径还依据 user_id（S12:92–99），属合理省略。","impact":"none"},
+      {"id":"F4","status":"correct","evidence":"正确说明配置阈值触发旧消息摘要、近期消息和技能提醒保留，不等于文件搬入记忆或上传被删除；符合 T3-S03、S07、S14。","impact":"none"},
+      {"id":"F5","status":"correct","evidence":"说明启用后筛选用户与最终助手消息、后台排队提取、默认约 30 秒等待，不保存全部工具输出和附件全文；符合 T3-S02、S09。","impact":"none"},
+      {"id":"F6","status":"correct","evidence":"提到压缩旧消息前的入队钩子只提供提取机会；符合 T3-S08、S14。未详列入队条件是合理省略。","impact":"none"},
+      {"id":"F7","status":"correct","evidence":"说明新会话可能带入已保存并选中注入的记忆，不自动挂载原线程文件；保留旧文件可能仍在磁盘的情况，建议明确提供文件；符合 T3-S02、S12、S13。","impact":"none"},
+      {"id":"F8","status":"correct","evidence":"区分对话标识与操作系统线程或容器，解释本地实例复用和路径映射、bash 默认禁用以及 AIO 容器执行，并否定每子代理自动有容器；符合 T3-S01、S05、S13。","impact":"none"},
+      {"id":"F9","status":"correct","evidence":"明确首次交互独立 HumanMessage 注入，非 system prompt、非每轮刷新，同一会话跨日只补日期；符合 T3-S10、S11。未逐字陈述同日分支不影响准确性。","impact":"none"}
+    ],
+    "other_issues": [],
+    "overall": "关键事实准确，遵循代码优先原则解释记忆注入，未把未展示的跨线程文件机制当作既定能力。未发现事实错误；文件路径用户维度的省略无实质影响。"
+  }
+]

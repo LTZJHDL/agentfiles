@@ -1,0 +1,15 @@
+{
+  "loaded_instruction_files": [
+    "C:/share_workspace/agentfiles/codex/skills/plain-document-writing/SKILL.md"
+  ],
+  "answers": [
+    {
+      "id": "D1",
+      "answer": "9 月 22 日的测试中，方案 B 达到了当天的延迟和内存目标，方案 A 的延迟未达标。但此次结果不足以证明缓存的独立效果，也不足以支持上线。\n\n测试使用固定数据集 `queries-v3` 的 1000 条请求，两种方案在同一台开发机上各运行一次。验收目标为 `p95_ms ≤ 300` 且峰值内存 ≤ 2 GB。\n\n| 方案 | worker_count | 缓存配置 | p95_ms | error_rate | 峰值内存 | 是否达标 |\n| --- | --- | --- | --- | --- | --- | --- |\n| A | 4 | 未说明 | 420 | 0.2% | 1.2 GB | 否 |\n| B | 8 | 启用 | 260 | 0.2% | 1.8 GB | 是 |\n\nB 的 p95_ms 比 A 降低约 38%，峰值内存增加 0.6 GB；两者 error_rate 均为 0.2%，当天未设置该指标的验收阈值。B 的日志记录了 650 次缓存命中，但 B 同时启用了缓存并将 worker_count 从 4 增至 8，无法据此分离缓存的贡献。\n\n计划中的“固定 worker_count、只切换缓存”对照尚未完成，且目前没有生产测试。现有结论仅支持 B 在本次开发机测试中达标。\n\n详见[原始记录](runs/2026-09-22.md)。"
+    },
+    {
+      "id": "D2",
+      "answer": "## 本地启动（Windows PowerShell）\n\n项目要求 Python 3.11。以下命令在项目目录中执行。\n\n1. 创建并激活隔离环境。若已有隔离环境，可直接使用并跳到下一步。\n\n   ```powershell\n   python -m venv .venv\n   .venv\\Scripts\\Activate.ps1\n   ```\n\n2. 安装依赖。\n\n   ```powershell\n   python -m pip install -r requirements.txt\n   ```\n\n3. 将 `config/example.yaml` 复制为 `config/local.yaml`，作为服务的本地配置文件。\n\n4. 确认后端已经运行。服务读取 `API_BASE_URL`，默认值为 `http://localhost:9000`；该地址对应的后端必须提前启动，否则页面虽然可以打开，数据请求仍会失败。本说明不包含后端启动步骤。\n\n5. 启动服务。\n\n   ```powershell\n   python app.py --config config/local.yaml\n   ```\n\n启动后，访问 http://localhost:8080 打开界面。服务日志位于 `logs/server.log`。"
+    }
+  ]
+}

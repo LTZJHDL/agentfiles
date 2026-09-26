@@ -1,0 +1,100 @@
+[
+  {
+    "pair_id": "P01",
+    "case_id": "C4",
+    "replicate": 2,
+    "X": "chat-guide-2",
+    "Y": "chat-control-2"
+  },
+  {
+    "pair_id": "P02",
+    "case_id": "C5",
+    "replicate": 2,
+    "X": "chat-control-2",
+    "Y": "chat-guide-2"
+  },
+  {
+    "pair_id": "P03",
+    "case_id": "D2",
+    "replicate": 1,
+    "X": "doc-split",
+    "Y": "doc-original"
+  },
+  {
+    "pair_id": "P04",
+    "case_id": "D1",
+    "replicate": 1,
+    "X": "doc-split",
+    "Y": "doc-original"
+  },
+  {
+    "pair_id": "P05",
+    "case_id": "C5",
+    "replicate": 1,
+    "X": "chat-control-1",
+    "Y": "chat-guide-1"
+  },
+  {
+    "pair_id": "P06",
+    "case_id": "C1",
+    "replicate": 1,
+    "X": "chat-control-1",
+    "Y": "chat-guide-1"
+  },
+  {
+    "pair_id": "P07",
+    "case_id": "C6",
+    "replicate": 2,
+    "X": "chat-guide-2",
+    "Y": "chat-control-2"
+  },
+  {
+    "pair_id": "P08",
+    "case_id": "C2",
+    "replicate": 2,
+    "X": "chat-control-2",
+    "Y": "chat-guide-2"
+  },
+  {
+    "pair_id": "P09",
+    "case_id": "C4",
+    "replicate": 1,
+    "X": "chat-control-1",
+    "Y": "chat-guide-1"
+  },
+  {
+    "pair_id": "P10",
+    "case_id": "C1",
+    "replicate": 2,
+    "X": "chat-control-2",
+    "Y": "chat-guide-2"
+  },
+  {
+    "pair_id": "P11",
+    "case_id": "C2",
+    "replicate": 1,
+    "X": "chat-guide-1",
+    "Y": "chat-control-1"
+  },
+  {
+    "pair_id": "P12",
+    "case_id": "C3",
+    "replicate": 2,
+    "X": "chat-guide-2",
+    "Y": "chat-control-2"
+  },
+  {
+    "pair_id": "P13",
+    "case_id": "C3",
+    "replicate": 1,
+    "X": "chat-guide-1",
+    "Y": "chat-control-1"
+  },
+  {
+    "pair_id": "P14",
+    "case_id": "C6",
+    "replicate": 1,
+    "X": "chat-control-1",
+    "Y": "chat-guide-1"
+  }
+]
