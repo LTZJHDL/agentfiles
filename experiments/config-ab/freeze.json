@@ -1,0 +1,33 @@
+{
+  "experiment_version": "config-ab-pilot-v1",
+  "tasks": {
+    "feature": {
+      "source_sha256": "faba3b48da8f7fe4858c0c4b5dc7c931a6ea1180e682dbf3d05e7f1d089b66f9",
+      "file_count": 16,
+      "prompt_sha256": "acda4288d84d0d5b0d34effd3cef277076263b210220d5334e008d2d85c9aa41"
+    },
+    "bug": {
+      "source_sha256": "46da7c87a38f77e0ec87267456350ce8aa0707ff6e55585dfd4b8f55342e85b2",
+      "file_count": 16,
+      "prompt_sha256": "d3e9380c1f2d84ef2563e00c4961d43753b05e5d92096431a7804a0259e33070"
+    }
+  },
+  "conditions": {
+    "A": {
+      "snapshot_sha256": "6998b0abd3510c9159d020129e5db66e3408363afe5e715388767c9ca63da9cc"
+    },
+    "B": {
+      "snapshot_sha256": "dd36477517de8d369b787d9d50b629f369a886fbd183c459d5e38994fb17052d"
+    }
+  },
+  "evaluator_files": [
+    "evaluate.py",
+    "benchlib.py",
+    "evaluation/__init__.py",
+    "evaluation/common.py",
+    "evaluation/test_feature.py",
+    "evaluation/test_bug.py",
+    "evaluation/rubric.md"
+  ],
+  "evaluator_sha256": "53ad6ea579fb0e32b09348321d5f1f38525f253ccf009aefef22ae5a9212303e"
+}

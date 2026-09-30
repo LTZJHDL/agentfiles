@@ -1,0 +1,71 @@
+{
+  "experiment_version": "config-ab-pilot-v1",
+  "checked_at_utc": "2026-09-29T13:48:23.970784+00:00",
+  "python": "3.12.14",
+  "purpose": "Fixture and evaluator calibration only; no Codex A/B runs were performed.",
+  "cases": [
+    {
+      "case": "feature-start",
+      "expected_automated_pass": false,
+      "automated_pass": false,
+      "acceptance_passed": 1,
+      "acceptance_total": 9,
+      "project_tests_returncode": 0
+    },
+    {
+      "case": "feature-reference",
+      "expected_automated_pass": true,
+      "automated_pass": true,
+      "acceptance_passed": 9,
+      "acceptance_total": 9,
+      "project_tests_returncode": 0
+    },
+    {
+      "case": "bug-start",
+      "expected_automated_pass": false,
+      "automated_pass": false,
+      "acceptance_passed": 1,
+      "acceptance_total": 8,
+      "project_tests_returncode": 0
+    },
+    {
+      "case": "bug-reference",
+      "expected_automated_pass": true,
+      "automated_pass": true,
+      "acceptance_passed": 8,
+      "acceptance_total": 8,
+      "project_tests_returncode": 0
+    },
+    {
+      "case": "bug-identity-only",
+      "expected_automated_pass": false,
+      "automated_pass": false,
+      "acceptance_passed": 3,
+      "acceptance_total": 8,
+      "project_tests_returncode": 0
+    },
+    {
+      "case": "bug-filter-order-only",
+      "expected_automated_pass": false,
+      "automated_pass": false,
+      "acceptance_passed": 2,
+      "acceptance_total": 8,
+      "project_tests_returncode": 0
+    }
+  ],
+  "checks": {
+    "same_task_A_B_source_trees_match": true,
+    "workspaces_exclude_experiment_materials": true,
+    "existing_workspace_refused": true,
+    "evaluation_preserves_git_status": true,
+    "partial_repairs_rejected_without_harness_errors": true,
+    "subtest_errors_distinguished_from_assertion_failures": true,
+    "untracked_candidate_sources_archived": true,
+    "nonempty_saved_patches_parse_with_git": true
+  },
+  "detail_directory": ".scratch\\selfcheck-po3lpwai",
+  "limitations": [
+    "Synthetic, small pilot project; no evidence yet about delegation behavior or real task cost.",
+    "Reference implementations are calibration examples, not unique design requirements."
+  ]
+}

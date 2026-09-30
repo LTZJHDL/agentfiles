@@ -1,0 +1,66 @@
+{
+  "captured_at_utc": "2026-09-29T13:34:27.299968+00:00",
+  "source_commit": "51cb0f8",
+  "conditions": {
+    "A": {
+      "source": "C:\\Users\\LTZJH\\.codex",
+      "roles_on_disk": {
+        "explorer": {
+          "model": "gpt-5.6-luna",
+          "effort": "medium"
+        }
+      },
+      "default_subagent_model": "gpt-6-astra",
+      "default_subagent_effort": "medium",
+      "observed_main_defaults_not_part_of_treatment": {
+        "model": "gpt-6-astra",
+        "model_reasoning_effort": "xhigh",
+        "service_tier": "default"
+      }
+    },
+    "B": {
+      "source": "C:\\share_workspace\\agentfiles\\codex",
+      "roles_on_disk": {
+        "explorer": {
+          "model": "gpt-6-luna",
+          "effort": "medium"
+        },
+        "kami": {
+          "model": "gpt-6-astra",
+          "effort": "max"
+        },
+        "operator": {
+          "model": "gpt-6-luna",
+          "effort": "high"
+        },
+        "professor": {
+          "model": "gpt-6-astra",
+          "effort": "medium"
+        },
+        "worker": {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      },
+      "default_subagent_model": "gpt-6-astra",
+      "default_subagent_effort": "xhigh",
+      "observed_main_defaults_not_part_of_treatment": {
+        "model": "gpt-5.6-sol",
+        "model_reasoning_effort": "max",
+        "service_tier": null
+      }
+    }
+  },
+  "fixed_main_settings_for_pilot": {
+    "model": "gpt-6-astra",
+    "model_reasoning_effort": "xhigh",
+    "speed": "Standard",
+    "max_concurrent_threads_per_session": 10
+  },
+  "notes": [
+    "Snapshots describe files on disk, not proof of runtime role loading.",
+    "Only AGENTS.md, role files and listed agent settings are treatment variables.",
+    "Do not replace the whole live config.toml with the repository config.",
+    "Condition B includes default-subagent effort xhigh rather than A medium; this is a whole-package comparison."
+  ]
+}

@@ -1,0 +1,5 @@
+source,external_id,day,category,value,note
+north,gauge-01,2026-01-10,rain,10,morning observation
+north,gauge-02,2026-01-11,rain,7,
+south,snow-01,2026-01-12,snow,5,weekly reading
+east,gauge-03,2026-01-31,rain,3,

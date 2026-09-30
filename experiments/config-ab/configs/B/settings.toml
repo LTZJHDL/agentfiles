@@ -1,0 +1,16 @@
+# Relevant configuration excerpt only; merge these tables into the active config.
+
+[agents]
+max_concurrent_threads_per_session = 10
+default_subagent_model = "gpt-6-astra"
+default_subagent_reasoning_effort = "xhigh"
+
+[features]
+multi_agent = true
+
+[features.multi_agent_v2]
+hide_spawn_agent_metadata = true
+expose_spawn_agent_model_overrides = false
+min_wait_timeout_ms = 10000
+default_wait_timeout_ms = 60000
+max_wait_timeout_ms = 300000
