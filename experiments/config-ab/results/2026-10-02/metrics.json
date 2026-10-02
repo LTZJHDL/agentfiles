@@ -1,0 +1,907 @@
+{
+  "analysis_date": "2026-10-02",
+  "scope": "Initial development turn plus all its descendants; later commit turns excluded",
+  "rates_source": "https://learn.chatgpt.com/docs/pricing",
+  "rates_checked_date": "2026-10-02",
+  "standard_credit_rates_per_million": {
+    "gpt-6-astra": [
+      250,
+      25,
+      1250
+    ],
+    "gpt-6.1-sol": [
+      50,
+      2.5,
+      250
+    ],
+    "gpt-6-luna": [
+      2.5,
+      0.25,
+      12.5
+    ],
+    "gpt-5.6-luna": [
+      5,
+      0.5,
+      30
+    ]
+  },
+  "proxy_limitations": "Assumes Standard speed; historical speed unverified. Not observed credit charges or subscription allowance usage.",
+  "runs": [
+    {
+      "run": "run-01",
+      "task": "feature",
+      "condition": "A",
+      "thread_id": "01a0f7ea-981b-7370-8eae-b2fe1c13c258",
+      "root_turn_id": "01a0f7ea-aa2c-72d0-a425-24f454f55c8c",
+      "baseline_commit": "e516edc4a74bdd29e3dc6c4e5dbd0242dedb2a85",
+      "baseline_tree": "7d2e706f675bbf3453e5911e8e735309684222c5",
+      "source_matches_freeze": true,
+      "prompt_matches_after_whitespace_normalization": true,
+      "agents_md_matches_snapshot_after_whitespace_normalization": true,
+      "head_commit": "3e785ac29650131986e9dad5b2246e9b49cf3d7c",
+      "final_status": "",
+      "diff_numstat": "35\t4\tREADME.md\n7\t3\tdocs/architecture.md\n11\t0\tdocs/data-contract.md\n19\t3\tfieldledger/cli.py\n30\t14\tfieldledger/importer.py\n6\t0\tfieldledger/store.py\n261\t0\ttests/test_preview.py",
+      "automated_pass": true,
+      "root_duration_ms": 535009,
+      "request_count_all_threads": 20,
+      "usage_all_threads": {
+        "input_tokens": 870095,
+        "cached_input_tokens": 766336,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14201,
+        "reasoning_output_tokens": 3595,
+        "total_tokens": 884296
+      },
+      "standard_credit_proxy_all_threads": 62.8494,
+      "standard_credit_proxy_children": 19.02355,
+      "threads": [
+        {
+          "thread_id": "01a0f7ea-981b-7370-8eae-b2fe1c13c258",
+          "agent_path": "/root",
+          "role": "main",
+          "parent_thread_id": null,
+          "model": "gpt-6-astra",
+          "effort": "xhigh",
+          "cli_version": "0.155.0-alpha.16",
+          "duration_ms": 535009,
+          "started_at_utc": "2026-10-01T14:42:26+00:00",
+          "completed_at_utc": "2026-10-01T14:51:21+00:00",
+          "time_to_first_token_ms": 112865,
+          "request_count": 15,
+          "usage": {
+            "input_tokens": 689664,
+            "cached_input_tokens": 627584,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 10093,
+            "reasoning_output_tokens": 3487,
+            "total_tokens": 699757
+          },
+          "standard_credit_proxy": 43.82585,
+          "tool_calls": {
+            "exec": 11,
+            "spawn_agent": 1,
+            "send_message": 1,
+            "list_agents": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-01T14:45:16.701Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "preview_tests",
+                "agent_type": "worker",
+                "fork_turns": "none"
+              }
+            },
+            {
+              "timestamp": "2026-10-01T14:48:30.956Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "preview_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-01T14:49:09.937Z",
+              "name": "list_agents",
+              "arguments": {}
+            }
+          ],
+          "ui_command_execution_count": 13,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-01T14:44:26.277Z",
+            "primary": {
+              "used_percent": 4.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-01T14:51:21.477Z",
+            "primary": {
+              "used_percent": 5.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0f7ed-4330-7592-8092-c519252cb642",
+          "agent_path": "/root/preview_tests",
+          "role": "worker",
+          "parent_thread_id": "01a0f7ea-981b-7370-8eae-b2fe1c13c258",
+          "model": "gpt-6-astra",
+          "effort": "medium",
+          "cli_version": "0.155.0-alpha.16",
+          "duration_ms": 270337,
+          "started_at_utc": "2026-10-01T14:45:16+00:00",
+          "completed_at_utc": "2026-10-01T14:49:47+00:00",
+          "time_to_first_token_ms": 115476,
+          "request_count": 5,
+          "usage": {
+            "input_tokens": 180431,
+            "cached_input_tokens": 138752,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4108,
+            "reasoning_output_tokens": 108,
+            "total_tokens": 184539
+          },
+          "standard_credit_proxy": 19.02355,
+          "tool_calls": {
+            "exec": 3,
+            "send_message": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-01T14:49:36.259Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            }
+          ],
+          "ui_command_execution_count": 3,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-01T14:47:15.652Z",
+            "primary": {
+              "used_percent": 4.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-01T14:49:47.183Z",
+            "primary": {
+              "used_percent": 5.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        }
+      ]
+    },
+    {
+      "run": "run-02",
+      "task": "bug",
+      "condition": "A",
+      "thread_id": "01a0f80b-43b0-76c1-9adc-d51d425ed45b",
+      "root_turn_id": "01a0f80b-5668-7cb3-a889-fe5732cef2a4",
+      "baseline_commit": "0a69e30760a93749265d79d4b5aa73cd54d688ae",
+      "baseline_tree": "da5bb011028c8b0176f86e1f1f23ff396271946a",
+      "source_matches_freeze": true,
+      "prompt_matches_after_whitespace_normalization": true,
+      "agents_md_matches_snapshot_after_whitespace_normalization": true,
+      "head_commit": "b52cd85e5c2df34119fb541c074071b4359d4c82",
+      "final_status": "",
+      "diff_numstat": "4\t2\tfieldledger/reports.py\n0\t27\tfieldledger/store.py\n137\t0\ttests/test_ledger.py",
+      "automated_pass": true,
+      "root_duration_ms": 476333,
+      "request_count_all_threads": 16,
+      "usage_all_threads": {
+        "input_tokens": 737893,
+        "cached_input_tokens": 652416,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 10853,
+        "reasoning_output_tokens": 2855,
+        "total_tokens": 748746
+      },
+      "standard_credit_proxy_all_threads": 43.43085,
+      "standard_credit_proxy_children": 0.1697,
+      "threads": [
+        {
+          "thread_id": "01a0f80b-43b0-76c1-9adc-d51d425ed45b",
+          "agent_path": "/root",
+          "role": "main",
+          "parent_thread_id": null,
+          "model": "gpt-6-astra",
+          "effort": "xhigh",
+          "cli_version": "0.155.0-alpha.16",
+          "duration_ms": 476333,
+          "started_at_utc": "2026-10-01T15:18:07+00:00",
+          "completed_at_utc": "2026-10-01T15:26:04+00:00",
+          "time_to_first_token_ms": 110490,
+          "request_count": 14,
+          "usage": {
+            "input_tokens": 676791,
+            "cached_input_tokens": 608896,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 8852,
+            "reasoning_output_tokens": 2407,
+            "total_tokens": 685643
+          },
+          "standard_credit_proxy": 43.26115,
+          "tool_calls": {
+            "exec": 12,
+            "spawn_agent": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-01T15:20:35.414Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "verify_incident_data",
+                "agent_type": "explorer",
+                "fork_turns": "none"
+              }
+            }
+          ],
+          "ui_command_execution_count": 17,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-01T15:20:23.773Z",
+            "primary": {
+              "used_percent": 5.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-01T15:26:04.048Z",
+            "primary": {
+              "used_percent": 5.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0f80d-976b-7771-bcf7-ba2cc8fa8d2d",
+          "agent_path": "/root/verify_incident_data",
+          "role": "explorer",
+          "parent_thread_id": "01a0f80b-43b0-76c1-9adc-d51d425ed45b",
+          "model": "gpt-5.6-luna",
+          "effort": "medium",
+          "cli_version": "0.155.0-alpha.16",
+          "duration_ms": 154839,
+          "started_at_utc": "2026-10-01T15:20:35+00:00",
+          "completed_at_utc": "2026-10-01T15:23:10+00:00",
+          "time_to_first_token_ms": 115479,
+          "request_count": 2,
+          "usage": {
+            "input_tokens": 61102,
+            "cached_input_tokens": 43520,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2001,
+            "reasoning_output_tokens": 448,
+            "total_tokens": 63103
+          },
+          "standard_credit_proxy": 0.1697,
+          "tool_calls": {
+            "exec": 1
+          },
+          "collaboration_calls": [],
+          "ui_command_execution_count": 3,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-01T15:22:37.700Z",
+            "primary": {
+              "used_percent": 5.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-01T15:23:10.408Z",
+            "primary": {
+              "used_percent": 5.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        }
+      ]
+    },
+    {
+      "run": "run-03",
+      "task": "feature",
+      "condition": "B",
+      "thread_id": "01a0fa81-85b2-7070-916b-df503eb8166d",
+      "root_turn_id": "01a0fa81-aa36-7720-9b4a-642a9f4d354c",
+      "baseline_commit": "68353d58439095cea417d108320d7f4f017ca961",
+      "baseline_tree": "7d2e706f675bbf3453e5911e8e735309684222c5",
+      "source_matches_freeze": true,
+      "prompt_matches_after_whitespace_normalization": true,
+      "agents_md_matches_snapshot_after_whitespace_normalization": true,
+      "head_commit": "2af05c234508024a341dfd84d7beb866b773dc85",
+      "final_status": "",
+      "diff_numstat": "28\t13\tREADME.md\n7\t3\tdocs/architecture.md\n14\t4\tdocs/data-contract.md\n19\t3\tfieldledger/cli.py\n32\t14\tfieldledger/importer.py\n10\t1\tfieldledger/store.py\n268\t0\ttests/test_preview.py",
+      "automated_pass": true,
+      "root_duration_ms": 573671,
+      "request_count_all_threads": 43,
+      "usage_all_threads": {
+        "input_tokens": 1897344,
+        "cached_input_tokens": 1803648,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 20085,
+        "reasoning_output_tokens": 5530,
+        "total_tokens": 1917429
+      },
+      "standard_credit_proxy_all_threads": 52.718773,
+      "standard_credit_proxy_children": 5.673323,
+      "threads": [
+        {
+          "thread_id": "01a0fa81-85b2-7070-916b-df503eb8166d",
+          "agent_path": "/root",
+          "role": "main",
+          "parent_thread_id": null,
+          "model": "gpt-6-astra",
+          "effort": "xhigh",
+          "cli_version": "0.159.2",
+          "duration_ms": 573671,
+          "started_at_utc": "2026-10-02T02:46:36+00:00",
+          "completed_at_utc": "2026-10-02T02:56:10+00:00",
+          "time_to_first_token_ms": 107176,
+          "request_count": 22,
+          "usage": {
+            "input_tokens": 1045737,
+            "cached_input_tokens": 1001728,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 8800,
+            "reasoning_output_tokens": 3628,
+            "total_tokens": 1054537
+          },
+          "standard_credit_proxy": 47.04545,
+          "tool_calls": {
+            "exec": 14,
+            "spawn_agent": 3,
+            "send_message": 4
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:49:04.524Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "preview_tests",
+                "agent_type": "worker",
+                "fork_turns": "none"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:49:19.985Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "preview_docs",
+                "agent_type": "worker",
+                "fork_turns": "none"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:50:27.624Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "preview_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:51:17.392Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "preview_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:52:02.805Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "preview_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:52:15.213Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "preview_review",
+                "agent_type": "explorer",
+                "fork_turns": "none"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:53:31.507Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "preview_review"
+              }
+            }
+          ],
+          "ui_command_execution_count": 16,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:48:29.992Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:56:10.521Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0fa83-eb1c-7772-8d1c-4f028b4c0b69",
+          "agent_path": "/root/preview_tests",
+          "role": "worker",
+          "parent_thread_id": "01a0fa81-85b2-7070-916b-df503eb8166d",
+          "model": "gpt-6.1-sol",
+          "effort": "high",
+          "cli_version": "0.159.2",
+          "duration_ms": 352537,
+          "started_at_utc": "2026-10-02T02:49:04+00:00",
+          "completed_at_utc": "2026-10-02T02:54:57+00:00",
+          "time_to_first_token_ms": 117478,
+          "request_count": 8,
+          "usage": {
+            "input_tokens": 329762,
+            "cached_input_tokens": 313088,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4802,
+            "reasoning_output_tokens": 256,
+            "total_tokens": 334564
+          },
+          "standard_credit_proxy": 2.81692,
+          "tool_calls": {
+            "exec": 5,
+            "send_message": 2
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:51:19.688Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:54:42.974Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            }
+          ],
+          "ui_command_execution_count": 4,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:50:59.203Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:54:57.229Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0fa84-2786-78e1-b58f-8801cb00cb57",
+          "agent_path": "/root/preview_docs",
+          "role": "worker",
+          "parent_thread_id": "01a0fa81-85b2-7070-916b-df503eb8166d",
+          "model": "gpt-6.1-sol",
+          "effort": "high",
+          "cli_version": "0.159.2",
+          "duration_ms": 285642,
+          "started_at_utc": "2026-10-02T02:49:20+00:00",
+          "completed_at_utc": "2026-10-02T02:54:05+00:00",
+          "time_to_first_token_ms": 112018,
+          "request_count": 8,
+          "usage": {
+            "input_tokens": 327693,
+            "cached_input_tokens": 310912,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4522,
+            "reasoning_output_tokens": 545,
+            "total_tokens": 332215
+          },
+          "standard_credit_proxy": 2.74683,
+          "tool_calls": {
+            "exec": 6,
+            "send_message": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:53:43.499Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            }
+          ],
+          "ui_command_execution_count": 6,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:51:16.780Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:54:05.792Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0fa86-d3f8-7f33-8883-c3a7b8409bcb",
+          "agent_path": "/root/preview_review",
+          "role": "explorer",
+          "parent_thread_id": "01a0fa81-85b2-7070-916b-df503eb8166d",
+          "model": "gpt-6-luna",
+          "effort": "medium",
+          "cli_version": "0.159.2",
+          "duration_ms": 204410,
+          "started_at_utc": "2026-10-02T02:52:15+00:00",
+          "completed_at_utc": "2026-10-02T02:55:39+00:00",
+          "time_to_first_token_ms": 114699,
+          "request_count": 5,
+          "usage": {
+            "input_tokens": 194152,
+            "cached_input_tokens": 177920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1961,
+            "reasoning_output_tokens": 1101,
+            "total_tokens": 196113
+          },
+          "standard_credit_proxy": 0.109573,
+          "tool_calls": {
+            "exec": 3,
+            "send_message": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:55:32.828Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            }
+          ],
+          "ui_command_execution_count": 3,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:54:08.187Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:55:39.792Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        }
+      ]
+    },
+    {
+      "run": "run-04",
+      "task": "bug",
+      "condition": "B",
+      "thread_id": "01a0fa82-ee0a-7db2-b990-6783013d7157",
+      "root_turn_id": "01a0fa83-021f-7260-a6ae-31120c039f75",
+      "baseline_commit": "0f93f99aaa5489405a5f8ba2ea8bab8d22afdb8e",
+      "baseline_tree": "da5bb011028c8b0176f86e1f1f23ff396271946a",
+      "source_matches_freeze": true,
+      "prompt_matches_after_whitespace_normalization": true,
+      "agents_md_matches_snapshot_after_whitespace_normalization": true,
+      "head_commit": "b47d97e34facb2c4d5c93f1f2fdfc8506df25380",
+      "final_status": "",
+      "diff_numstat": "3\t2\tfieldledger/reports.py\n0\t27\tfieldledger/store.py\n149\t0\ttests/test_report_regressions.py",
+      "automated_pass": true,
+      "root_duration_ms": 634124,
+      "request_count_all_threads": 41,
+      "usage_all_threads": {
+        "input_tokens": 1808723,
+        "cached_input_tokens": 1691264,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 12547,
+        "reasoning_output_tokens": 3021,
+        "total_tokens": 1821270
+      },
+      "standard_credit_proxy_all_threads": 56.719969,
+      "standard_credit_proxy_children": 2.685519,
+      "threads": [
+        {
+          "thread_id": "01a0fa82-ee0a-7db2-b990-6783013d7157",
+          "agent_path": "/root",
+          "role": "main",
+          "parent_thread_id": null,
+          "model": "gpt-6-astra",
+          "effort": "xhigh",
+          "cli_version": "0.159.2",
+          "duration_ms": 634124,
+          "started_at_utc": "2026-10-02T02:48:04+00:00",
+          "completed_at_utc": "2026-10-02T02:58:39+00:00",
+          "time_to_first_token_ms": 115573,
+          "request_count": 27,
+          "usage": {
+            "input_tokens": 1248250,
+            "cached_input_tokens": 1188608,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 7527,
+            "reasoning_output_tokens": 2234,
+            "total_tokens": 1255777
+          },
+          "standard_credit_proxy": 54.03445,
+          "tool_calls": {
+            "exec": 15,
+            "spawn_agent": 2,
+            "send_message": 4,
+            "wait_agent": 4,
+            "list_agents": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:50:52.767Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "contract_review",
+                "agent_type": "explorer",
+                "fork_turns": "none"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:52:27.461Z",
+              "name": "spawn_agent",
+              "arguments": {
+                "task_name": "regression_tests",
+                "agent_type": "worker",
+                "fork_turns": "none"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:53:10.556Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "contract_review"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:53:20.572Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "regression_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:53:41.546Z",
+              "name": "wait_agent",
+              "arguments": {
+                "timeout_ms": 10000
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:54:17.810Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "regression_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:54:25.294Z",
+              "name": "wait_agent",
+              "arguments": {
+                "timeout_ms": 30000
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:55:14.439Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "regression_tests"
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:55:26.550Z",
+              "name": "wait_agent",
+              "arguments": {
+                "timeout_ms": 10000
+              }
+            },
+            {
+              "timestamp": "2026-10-02T02:55:41.772Z",
+              "name": "list_agents",
+              "arguments": {}
+            },
+            {
+              "timestamp": "2026-10-02T02:55:56.364Z",
+              "name": "wait_agent",
+              "arguments": {
+                "timeout_ms": 30000
+              }
+            }
+          ],
+          "ui_command_execution_count": 18,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:50:08.412Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:58:39.022Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0fa85-91e9-7230-b3c3-e793db9d2701",
+          "agent_path": "/root/contract_review",
+          "role": "explorer",
+          "parent_thread_id": "01a0fa82-ee0a-7db2-b990-6783013d7157",
+          "model": "gpt-6-luna",
+          "effort": "medium",
+          "cli_version": "0.159.2",
+          "duration_ms": 189797,
+          "started_at_utc": "2026-10-02T02:50:52+00:00",
+          "completed_at_utc": "2026-10-02T02:54:02+00:00",
+          "time_to_first_token_ms": 112504,
+          "request_count": 6,
+          "usage": {
+            "input_tokens": 238346,
+            "cached_input_tokens": 197376,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1376,
+            "reasoning_output_tokens": 278,
+            "total_tokens": 239722
+          },
+          "standard_credit_proxy": 0.168969,
+          "tool_calls": {
+            "exec": 4,
+            "send_message": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:53:58.779Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            }
+          ],
+          "ui_command_execution_count": 4,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:52:48.805Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:54:02.723Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        },
+        {
+          "thread_id": "01a0fa87-03d5-71d2-9ce1-717c18cef6f4",
+          "agent_path": "/root/regression_tests",
+          "role": "worker",
+          "parent_thread_id": "01a0fa82-ee0a-7db2-b990-6783013d7157",
+          "model": "gpt-6.1-sol",
+          "effort": "high",
+          "cli_version": "0.159.2",
+          "duration_ms": 258410,
+          "started_at_utc": "2026-10-02T02:52:27+00:00",
+          "completed_at_utc": "2026-10-02T02:56:46+00:00",
+          "time_to_first_token_ms": 114000,
+          "request_count": 8,
+          "usage": {
+            "input_tokens": 322127,
+            "cached_input_tokens": 305280,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3644,
+            "reasoning_output_tokens": 509,
+            "total_tokens": 325771
+          },
+          "standard_credit_proxy": 2.51655,
+          "tool_calls": {
+            "exec": 6,
+            "send_message": 1
+          },
+          "collaboration_calls": [
+            {
+              "timestamp": "2026-10-02T02:56:36.341Z",
+              "name": "send_message",
+              "arguments": {
+                "target": "/root"
+              }
+            }
+          ],
+          "ui_command_execution_count": 6,
+          "usage_limit_first_observed": {
+            "timestamp": "2026-10-02T02:54:17.211Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "usage_limit_last_observed": {
+            "timestamp": "2026-10-02T02:56:46.021Z",
+            "primary": {
+              "used_percent": 6.0,
+              "window_minutes": 10080,
+              "resets_at": 1791366297
+            },
+            "secondary": null
+          },
+          "base_instructions_sha256": "35bd51b5f577cb7b24cd5f4629e49e37cb724ab57754ce6f8f202001635bab8a"
+        }
+      ]
+    }
+  ]
+}

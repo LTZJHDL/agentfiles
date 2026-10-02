@@ -1,0 +1,203 @@
+diff --git a/fieldledger/reports.py b/fieldledger/reports.py
+index 60d8923..a39f972 100644
+--- a/fieldledger/reports.py
++++ b/fieldledger/reports.py
+@@ -48,5 +48,6 @@ def report_database(
+     end: str | None = None, category: str | None = None,
+ ) -> dict:
+     validate_range(start, end)
+-    records = store.report_records(db_path, start, end, category)
+-    return build_report(records)
++    # Resolve current versions before filtering so old revisions cannot reappear.
++    records = store.read_current(db_path)
++    return build_report(records, start, end, category)
+diff --git a/fieldledger/store.py b/fieldledger/store.py
+index ed3fccd..0f3abd8 100644
+--- a/fieldledger/store.py
++++ b/fieldledger/store.py
+@@ -75,30 +75,3 @@ def read_current(path: str | Path) -> list[Record]:
+         return current_records(connection)
+     finally:
+         connection.close()
+-
+-
+-def report_records(
+-    path: str | Path, start: str | None = None,
+-    end: str | None = None, category: str | None = None,
+-) -> list[Record]:
+-    """Load records for a report using its query constraints."""
+-    database = Path(path)
+-    if not database.exists():
+-        return []
+-    connection = sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)
+-    try:
+-        rows = connection.execute("""
+-            SELECT source, external_id, day, category, value, note
+-            FROM revisions
+-            WHERE revision_id IN (
+-                SELECT MAX(revision_id) FROM revisions
+-                WHERE (? IS NULL OR day >= ?)
+-                  AND (? IS NULL OR day <= ?)
+-                  AND (? IS NULL OR category = ?)
+-                GROUP BY external_id
+-            )
+-            ORDER BY source, external_id
+-        """, (start, start, end, end, category, category))
+-        return [Record(*row) for row in rows]
+-    finally:
+-        connection.close()
+diff --git a/tests/test_report_regressions.py b/tests/test_report_regressions.py
+new file mode 100644
+index 0000000..05d93a3
+--- /dev/null
++++ b/tests/test_report_regressions.py
+@@ -0,0 +1,149 @@
++import csv
++from contextlib import closing
++import json
++from pathlib import Path
++import sqlite3
++import subprocess
++import sys
++import tempfile
++import unittest
++
++from fieldledger.importer import import_csv
++from fieldledger.reports import report_database
++
++
++PROJECT = Path(__file__).resolve().parents[1]
++HEADER = ["source", "external_id", "day", "category", "value", "note"]
++EMPTY = {"count": 0, "total": 0, "groups": []}
++
++
++class ReportRegressionTest(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++        self.db = self.root / "ledger.sqlite"
++
++    def cli_json(self, *args):
++        result = subprocess.run(
++            [sys.executable, "-m", "fieldledger", "--db", str(self.db), *args,
++             "--json"],
++            cwd=PROJECT, capture_output=True, text=True, encoding="utf-8",
++        )
++        self.assertEqual(result.returncode, 0, result.stderr)
++        self.assertEqual(result.stderr, "")
++        return json.loads(result.stdout)
++
++    def import_rows(self, rows):
++        path = self.root / "input.csv"
++        with path.open("w", encoding="utf-8", newline="") as stream:
++            writer = csv.writer(stream)
++            writer.writerow(HEADER)
++            writer.writerows(rows)
++        return import_csv(path, self.db)
++
++    def test_incident_cli_preserves_current_snapshot_and_full_history(self):
++        # Every command starts a separate process, as in the reported incident.
++        initial = PROJECT / "examples" / "incident" / "initial.csv"
++        corrections = initial.with_name("corrections.csv")
++        self.assertEqual(self.cli_json("import", str(initial)), {
++            "inserted": 4, "updated": 0, "unchanged": 0, "invalid": 0,
++            "errors": [],
++        })
++        january = ["--from", "2026-01-01", "--to", "2026-01-31"]
++        initial_bytes = self.db.read_bytes()
++        with self.subTest(snapshot="initial January"):
++            self.assertEqual(self.cli_json("report", *january), {
++                "count": 4, "total": 25, "groups": [
++                    {"day": "2026-01-10", "category": "rain", "count": 1, "total": 10},
++                    {"day": "2026-01-11", "category": "rain", "count": 1, "total": 7},
++                    {"day": "2026-01-12", "category": "snow", "count": 1, "total": 5},
++                    {"day": "2026-01-31", "category": "rain", "count": 1, "total": 3},
++                ],
++            })
++        self.assertEqual(self.db.read_bytes(), initial_bytes)
++        self.assertEqual(self.cli_json("import", str(corrections)), {
++            "inserted": 0, "updated": 2, "unchanged": 0, "invalid": 0,
++            "errors": [],
++        })
++        before_queries = self.db.read_bytes()
++        january_groups = [
++            {"day": "2026-01-10", "category": "rain", "count": 1, "total": 14},
++            {"day": "2026-01-11", "category": "rain", "count": 1, "total": 7},
++            {"day": "2026-01-31", "category": "rain", "count": 1, "total": 3},
++        ]
++        with self.subTest(snapshot="corrected January"):
++            self.assertEqual(self.cli_json("report", *january), {
++                "count": 3, "total": 24, "groups": january_groups,
++            })
++        with self.subTest(snapshot="unfiltered"):
++            self.assertEqual(self.cli_json("report"), {
++                "count": 4, "total": 29, "groups": january_groups + [
++                    {"day": "2026-02-02", "category": "snow", "count": 1, "total": 5},
++                ],
++            })
++        self.assertEqual(self.cli_json("list"), [
++            {"source": "east", "external_id": "fixed", "day": "2026-01-31",
++             "category": "rain", "value": 3, "note": ""},
++            {"source": "north", "external_id": "moving", "day": "2026-02-02",
++             "category": "snow", "value": 5, "note": ""},
++            {"source": "north", "external_id": "shared", "day": "2026-01-10",
++             "category": "rain", "value": 14, "note": ""},
++            {"source": "south", "external_id": "shared", "day": "2026-01-11",
++             "category": "rain", "value": 7, "note": ""},
++        ])
++        with closing(sqlite3.connect(
++            self.db.resolve().as_uri() + "?mode=ro", uri=True,
++        )) as connection:
++            self.assertEqual(connection.execute(
++                "SELECT revision_id, source, external_id, day, category, value, note "
++                "FROM revisions ORDER BY revision_id"
++            ).fetchall(), [
++                (1, "north", "shared", "2026-01-10", "rain", 10, ""),
++                (2, "south", "shared", "2026-01-11", "rain", 7, ""),
++                (3, "north", "moving", "2026-01-12", "snow", 5, ""),
++                (4, "east", "fixed", "2026-01-31", "rain", 3, ""),
++                (5, "north", "moving", "2026-02-02", "snow", 5, ""),
++                (6, "north", "shared", "2026-01-10", "rain", 14, ""),
++            ])
++        self.assertEqual(self.db.read_bytes(), before_queries)
++
++    def test_identity_includes_source_without_concatenating_text_fields(self):
++        self.import_rows([
++            ["北:方", "编:一", "2026-01-01", "rain", 2, ""],
++            ["南", "编:一", "2026-01-01", "rain", 3, ""],
++            ["北", "方:编:一", "2026-01-01", "rain", 5, ""],
++        ])
++        self.assertEqual(report_database(self.db), {
++            "count": 3, "total": 10, "groups": [
++                {"day": "2026-01-01", "category": "rain", "count": 3, "total": 10},
++            ],
++        })
++
++    def test_filters_apply_after_latest_revision_even_when_day_moves_backwards(self):
++        self.import_rows([["north", "one", "2026-01-31", "rain", 10, "old"]])
++        self.import_rows([["north", "one", "2026-01-01", "snow", 14, "corrected"]])
++        current = {"count": 1, "total": 14, "groups": [
++            {"day": "2026-01-01", "category": "snow", "count": 1, "total": 14},
++        ]}
++        cases = [
++            ({}, current),
++            ({"start": "2026-01-01", "end": "2026-01-01"}, current),
++            ({"start": "2026-01-01"}, current),
++            ({"end": "2026-01-01"}, current),
++            ({"start": "2026-01-31"}, EMPTY),
++            ({"start": "2026-01-31", "end": "2026-01-31"}, EMPTY),
++            ({"category": "snow"}, current),
++            ({"category": "rain"}, EMPTY),
++            ({"category": "SNOW"}, EMPTY),
++            ({"end": "2025-12-31"}, EMPTY),
++        ]
++        before_queries = self.db.read_bytes()
++        for filters, expected in cases:
++            with self.subTest(filters=filters):
++                self.assertEqual(report_database(self.db, **filters), expected)
++        self.assertEqual(self.db.read_bytes(), before_queries)
++
++
++if __name__ == "__main__":
++    unittest.main()

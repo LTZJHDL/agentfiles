@@ -1,0 +1,202 @@
+diff --git a/fieldledger/reports.py b/fieldledger/reports.py
+index 60d8923..b1b8005 100644
+--- a/fieldledger/reports.py
++++ b/fieldledger/reports.py
+@@ -48,5 +48,7 @@ def report_database(
+     end: str | None = None, category: str | None = None,
+ ) -> dict:
+     validate_range(start, end)
+-    records = store.report_records(db_path, start, end, category)
+-    return build_report(records)
++    # Resolve revisions before filtering so excluded current versions cannot
++    # cause older versions to reappear in a report.
++    records = store.read_current(db_path)
++    return build_report(records, start, end, category)
+diff --git a/fieldledger/store.py b/fieldledger/store.py
+index ed3fccd..0f3abd8 100644
+--- a/fieldledger/store.py
++++ b/fieldledger/store.py
+@@ -75,30 +75,3 @@ def read_current(path: str | Path) -> list[Record]:
+         return current_records(connection)
+     finally:
+         connection.close()
+-
+-
+-def report_records(
+-    path: str | Path, start: str | None = None,
+-    end: str | None = None, category: str | None = None,
+-) -> list[Record]:
+-    """Load records for a report using its query constraints."""
+-    database = Path(path)
+-    if not database.exists():
+-        return []
+-    connection = sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)
+-    try:
+-        rows = connection.execute("""
+-            SELECT source, external_id, day, category, value, note
+-            FROM revisions
+-            WHERE revision_id IN (
+-                SELECT MAX(revision_id) FROM revisions
+-                WHERE (? IS NULL OR day >= ?)
+-                  AND (? IS NULL OR day <= ?)
+-                  AND (? IS NULL OR category = ?)
+-                GROUP BY external_id
+-            )
+-            ORDER BY source, external_id
+-        """, (start, start, end, end, category, category))
+-        return [Record(*row) for row in rows]
+-    finally:
+-        connection.close()
+diff --git a/tests/test_ledger.py b/tests/test_ledger.py
+index fba7e34..986f473 100644
+--- a/tests/test_ledger.py
++++ b/tests/test_ledger.py
+@@ -1,4 +1,6 @@
+ import csv
++from contextlib import closing
++from itertools import product
+ import json
+ from pathlib import Path
+ import sqlite3
+@@ -193,6 +195,141 @@ class LedgerTest(unittest.TestCase):
+         self.assertEqual(report_database(self.db)["count"], 1)
+         self.assertEqual(report_database(self.db)["total"], 14)
+ 
++    def test_incident_reports_match_current_records(self):
++        incident = Path(__file__).resolve().parents[1] / "examples" / "incident"
++        for filename, summary, expected in [
++            ("initial.csv", {"inserted": 4, "updated": 0, "unchanged": 0,
++                             "invalid": 0, "errors": []}, {
++                "count": 4, "total": 25, "groups": [
++                    {"day": "2026-01-10", "category": "rain", "count": 1, "total": 10},
++                    {"day": "2026-01-11", "category": "rain", "count": 1, "total": 7},
++                    {"day": "2026-01-12", "category": "snow", "count": 1, "total": 5},
++                    {"day": "2026-01-31", "category": "rain", "count": 1, "total": 3},
++                ],
++            }),
++            ("corrections.csv", {"inserted": 0, "updated": 2, "unchanged": 0,
++                                 "invalid": 0, "errors": []}, {
++                "count": 3, "total": 24, "groups": [
++                    {"day": "2026-01-10", "category": "rain", "count": 1, "total": 14},
++                    {"day": "2026-01-11", "category": "rain", "count": 1, "total": 7},
++                    {"day": "2026-01-31", "category": "rain", "count": 1, "total": 3},
++                ],
++            }),
++        ]:
++            result = self.cli("import", str(incident / filename), "--json")
++            self.assertEqual(result.returncode, 0, result.stderr)
++            self.assertEqual(json.loads(result.stdout), summary)
++            listing = self.cli("list", "--json")
++            self.assertEqual(listing.returncode, 0, listing.stderr)
++            january = [record for record in json.loads(listing.stdout)
++                       if "2026-01-01" <= record["day"] <= "2026-01-31"]
++            self.assertEqual(len(january), expected["count"])
++            self.assertEqual(sum(record["value"] for record in january), expected["total"])
++            with self.subTest(filename=filename):
++                result = self.cli("report", "--from", "2026-01-01",
++                                  "--to", "2026-01-31", "--json")
++                self.assertEqual(result.returncode, 0, result.stderr)
++                self.assertEqual(json.loads(result.stdout), expected)
++
++    def test_report_distinguishes_sources_with_same_external_id(self):
++        self.write_rows([
++            ["north", "shared", "2026-01-10", "rain", "10", ""],
++            ["south", "shared", "2026-01-10", "rain", "7", ""],
++        ])
++        import_csv(self.csv, self.db)
++        self.assertEqual(report_database(self.db), {
++            "count": 2, "total": 17, "groups": [
++                {"day": "2026-01-10", "category": "rain", "count": 2, "total": 17},
++            ],
++        })
++
++    def test_report_does_not_revive_history_when_current_date_is_outside_filter(self):
++        self.write_rows([
++            ["north", "moving", "2026-01-12", "snow", "5", ""],
++            ["north", "moving", "2026-02-02", "snow", "5", ""],
++        ])
++        import_csv(self.csv, self.db)
++        self.assertEqual(report_database(self.db, start="2026-01-01", end="2026-01-31"),
++                         {"count": 0, "total": 0, "groups": []})
++
++    def test_report_identity_allows_delimiters_unicode_and_case(self):
++        rows = [
++            ["北:方", "站", "2026-01-10", "rain", "1", ""],
++            ["北", "方:站", "2026-01-10", "rain", "2", ""],
++            ["North", "shared", "2026-01-10", "rain", "4", ""],
++            ["north", "shared", "2026-01-10", "rain", "8", ""],
++            ["north", "Shared", "2026-01-10", "rain", "16", ""],
++        ]
++        import_csv(self.write_rows(rows), self.db)
++        self.assertEqual(report_database(self.db), {
++            "count": 5, "total": 31, "groups": [
++                {"day": "2026-01-10", "category": "rain", "count": 5, "total": 31},
++            ],
++        })
++
++    def test_report_filter_combinations_use_current_snapshot_and_preserve_history(self):
++        initial = [
++            ["north", "out-before", "2026-01-01", "rain", "10", "initial"],
++            ["north", "out-after", "2026-01-31", "rain", "20", "initial"],
++            ["north", "in-start", "2025-12-31", "rain", "30", "initial"],
++            ["north", "in-end", "2026-02-01", "rain", "40", "initial"],
++            ["north", "category-out", "2026-01-15", "rain", "50", "initial"],
++            ["north", "category-in", "2026-01-15", "snow", "60", "initial"],
++        ]
++        corrections = [
++            ["north", "out-before", "2025-12-31", "rain", "11", "corrected"],
++            ["north", "out-after", "2026-02-01", "rain", "21", "corrected"],
++            ["north", "in-start", "2026-01-01", "rain", "31", "corrected"],
++            ["north", "in-end", "2026-01-31", "rain", "41", "corrected"],
++            ["north", "category-out", "2026-01-15", "snow", "-51", "corrected"],
++            ["north", "category-in", "2026-01-15", "rain", "61", "corrected"],
++        ]
++        import_csv(self.write_rows(initial), self.db)
++        import_csv(self.write_rows(corrections), self.db)
++        before_queries = self.db.read_bytes()
++        listing = self.cli("list", "--json")
++        self.assertEqual(listing.returncode, 0, listing.stderr)
++        expected_current = [dict(zip(HEADER, row)) for row in corrections]
++        for record in expected_current:
++            record["value"] = int(record["value"])
++        expected_current.sort(key=lambda record: (record["source"], record["external_id"]))
++        self.assertEqual(json.loads(listing.stdout), expected_current)
++
++        for start, end, category in product(
++            [None, "2026-01-01", "2026-01-31", "2026-02-02"],
++            [None, "2025-12-30", "2026-01-01", "2026-01-31"],
++            [None, "rain", "snow", "RAIN"],
++        ):
++            if start is not None and end is not None and start > end:
++                continue
++            with self.subTest(start=start, end=end, category=category):
++                selected = [r for r in expected_current
++                            if (start is None or r["day"] >= start)
++                            and (end is None or r["day"] <= end)
++                            and (category is None or r["category"] == category)]
++                expected_groups = []
++                for day, name in sorted({(r["day"], r["category"]) for r in selected}):
++                    values = [r["value"] for r in selected
++                              if (r["day"], r["category"]) == (day, name)]
++                    expected_groups.append({"day": day, "category": name,
++                                            "count": len(values), "total": sum(values)})
++                self.assertEqual(report_database(self.db, start, end, category), {
++                    "count": len(selected), "total": sum(r["value"] for r in selected),
++                    "groups": expected_groups,
++                })
++
++        self.assertEqual(self.db.read_bytes(), before_queries)
++        with closing(sqlite3.connect(self.db)) as connection:
++            history = connection.execute(
++                "SELECT revision_id, source, external_id, day, category, value, note "
++                "FROM revisions ORDER BY revision_id"
++            ).fetchall()
++        self.assertEqual(history, [
++            (revision_id, source, external_id, day, category, int(value), note)
++            for revision_id, (source, external_id, day, category, value, note)
++            in enumerate(initial + corrections, start=1)
++        ])
++
+     def test_missing_database_queries_are_empty_and_do_not_create_file(self):
+         listing = self.cli("list", "--json")
+         report = self.cli("report", "--json")

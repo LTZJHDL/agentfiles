@@ -1,0 +1,518 @@
+diff --git a/README.md b/README.md
+index e8585df..b9d00d7 100644
+--- a/README.md
++++ b/README.md
+@@ -2,20 +2,51 @@
+ 
+ Field Ledger 是一个使用 Python 标准库和 SQLite 的观测记录命令行工具。它保存导入修订，列出当前记录，并按日期和分类汇总。需要 Python 3.11 或以上版本，无需安装依赖。
+ 
+-在本目录运行：
++在本目录先预览。下面的 `python` 指本机 Python 解释器；在 Windows PowerShell 中可将它替换为 `& 'C:\Users\LTZJH\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'`。
+ 
+ ```console
+-python -m fieldledger --db observations.sqlite import examples/demo.csv --json
++python -m fieldledger --db observations.sqlite import examples/demo.csv --dry-run
++```
++
++如果数据库尚不存在，示例预览输出为：
++
++```text
++Preview only: no changes saved.
++inserted=4 updated=0 unchanged=0 invalid=0
++To import and save these changes, rerun the same command without --dry-run.
++```
++
++`inserted`、`updated`、`unchanged`、`invalid` 分别表示新增、更新、未变化和无效行数。无效行的记录序号和原因显示在 stderr；序号从表头后的 2 开始，含换行的备注仍算一条记录。先检查这些结果，必要时修改 CSV 并重新预览。确认要保存后，移除 `--dry-run`，使用相同数据库和 CSV 正式导入：
++
++```console
++python -m fieldledger --db observations.sqlite import examples/demo.csv
+ python -m fieldledger --db observations.sqlite list --json
++```
++
++预览不会创建或修改数据库、初始化表或追加修订；数据库和父目录不存在时也不会创建它们，而是按空数据库预览。已有数据库只需可读。正式导入需要可写数据库，且父目录须已存在。`--db` 放在子命令之前，默认使用当前目录的 `observations.sqlite`。
++
++预览也支持 JSON，适合脚本读取：
++
++```console
++python -m fieldledger --db observations.sqlite import observations.csv --dry-run --json
++```
++
++JSON 的 stdout 只包含一个对象，含 `inserted`、`updated`、`unchanged`、`invalid`、`errors` 和 `dry_run: true`。每条 `errors` 包含 `row` 和 `message`；没有错误时为空数组。正式导入的 JSON 保持原有五项，不添加 `dry_run` 字段。省略 `--json` 可查看文本输出。使用 `python -m fieldledger import --help` 查看选项。
++
++预览与正式导入共用解析、校验和变更判断规则。同一文件中的重复标识按文件顺序处理，后续有效行以先前有效行处理后的状态为准，因此这些计数统计的是行，不是最终不同记录的数量。数据库和输入没有变化时，预览与随后成功执行的正式导入的四个计数及 `errors` 完全一致。工具面向没有并发写入的本地使用；预览不会锁定后续状态，也不验证写入权限或保证之后的磁盘写入成功。
++
++继续查询和验证：
++
++```console
+ python -m fieldledger --db observations.sqlite report --from 2026-01-01 --to 2026-01-31 --category rain --json
+ python -m unittest discover -s tests -v
+ ```
+ 
+-省略 `--json` 可查看文本输出。`--db` 放在子命令之前，默认使用当前目录的 `observations.sqlite`；数据库的父目录须已存在。查询不存在的数据库会返回空结果，不创建文件。
++查询不存在的数据库会返回空结果，不创建文件。
+ 
+ CSV 的必需列是 `source,external_id,day,category,value`，可选列为 `note`。字段首尾空白会被去掉。`source` 和 `external_id` 共同确定记录身份；重复导入相同内容不会增加修订。改变值、日期、分类或备注会追加一个完整版本。额外具名列被忽略。
+ 
+-导入结果包含新增、更新、未变化和无效行的数量，以及无效行诊断。退出码 `0` 表示成功，`1` 表示存在被跳过的无效行，`2` 表示输入或执行失败。有无效行时，其余有效行仍会在同一次事务中提交。缺列、重复列名或文件读取失败不会创建或更改数据库。
++预览和正式导入沿用同样的退出码：`0` 表示成功且没有无效行，`1` 表示存在被跳过的无效行，`2` 表示整份输入或执行失败。退出码 `1` 不会阻止正式导入保存其余有效行，这些有效行仍在同一次事务中提交；预览始终不保存。缺列、重复列名或文件读取失败时，stderr 说明原因，stdout 不输出摘要，也不会创建或更改数据库。
+ 
+ 日期范围包含两个端点；分类精确匹配。统计从每条记录的最新版本出发，所有总数和分组使用相同的筛选结果。完整规则见 [数据约定](docs/data-contract.md)，内部职责见 [架构说明](docs/architecture.md)。
+ 
+diff --git a/docs/architecture.md b/docs/architecture.md
+index 9cda624..8ac96a1 100644
+--- a/docs/architecture.md
++++ b/docs/architecture.md
+@@ -10,13 +10,17 @@ SQLite 的 `revisions` 表只追加版本。相同内容不会重复写入；旧
+ 
+ 1. `cli.py` 解析命令，选择服务，格式化结果，将预期异常映射到 stderr 和退出码。
+ 2. `csv_input.py` 完整读取 CSV，先检查表头，再逐条解析。`model.py` 统一处理字段规范化、日期和整数校验。
+-3. `importer.py` 读取当前视图，按有效行原顺序比较内容，累计摘要并追加新版本。
++3. `importer.py` 根据当前视图和有效行生成导入计划，累计摘要并收集需要追加的版本。预览返回计划摘要；正式导入在一次事务中写入计划内的新版本。
+ 4. `store.py` 管理数据库连接、事务、追加操作和当前视图。`history_records` 按修订编号返回完整历史。
+ 5. `reports.py` 筛选当前记录并分组，列表和统计都通过存储层取得同一种当前视图。
+ 
+ 整份 CSV 在打开可写数据库之前读完，确保读取或表头失败没有数据库副作用。行级错误保存 CSV 记录序号，而不是物理行号；含换行的备注仍然只占一个记录。有效行在一次事务中提交，后面的重复身份相对于同批次前面的有效行判断。写入失败会回滚该批次的全部新增版本。
+ 
+-查询使用只读连接；数据库不存在时直接返回空记录序列。写连接负责初始化表和索引。数据库操作使用参数绑定，身份字段可以含 Unicode 和分隔符，不需要拼接成字符串键。
++`import_csv(..., dry_run=True)` 完整读取 CSV 后，通过 `store.read_current` 获取预览基线；默认调用继续执行正式导入。两种模式共用 `_plan_import`，它只更新内存中的身份映射、摘要和待追加版本列表，不执行数据库操作。预览不进入写连接，也不依赖回滚；正式导入在写连接中读取当前视图、生成计划并追加版本。CLI 只给预览 JSON 添加 `dry_run: true`，原有正式导入的摘要结构保持不变。
++
++查询和预览使用 SQLite `mode=ro` 连接；数据库不存在或尚无修订表时返回空记录序列，不创建文件或父目录。写连接负责初始化表和索引。数据库操作使用参数绑定，身份字段可以含 Unicode 和分隔符，不需要拼接成字符串键。
++
++预览的基线不会保留到后续正式导入；两次操作之间的外部修改会影响结果。工具只处理无并发写入的本地场景。预览验证输入和业务变更，不尝试执行写入，所以不能预测权限、磁盘或额外数据库触发器导致的写入失败。
+ 
+ ## 统计边界
+ 
+@@ -26,4 +30,4 @@ SQLite 的 `revisions` 表只追加版本。相同内容不会重复写入；旧
+ 
+ ## 验证
+ 
+-测试通过临时数据库及真实命令行覆盖导入摘要、校验失败、空查询、修订、列表排序和统计。事务测试使用 SQLite 触发器制造第二行写入失败，检查第一行也被回滚。测试不依赖网络、第三方库或已存在的数据库。
++测试通过临时数据库及真实命令行覆盖导入摘要、校验失败、空查询、修订、列表排序和统计。预览测试对照随后正式导入的摘要，覆盖文件内重复身份、规范化、行级错误和缺失数据库，并检查数据库内容及历史不变、只读访问、文本提示和 JSON 接口。事务测试使用 SQLite 触发器制造第二行写入失败，检查第一行也被回滚。测试不依赖网络、第三方库或已存在的数据库。
+diff --git a/docs/data-contract.md b/docs/data-contract.md
+index cf7a0f8..dcfe80d 100644
+--- a/docs/data-contract.md
++++ b/docs/data-contract.md
+@@ -18,6 +18,16 @@ UTF-8 CSV（允许 BOM）必须包含 `source,external_id,day,category,value` 
+ 
+ 导入摘要的 JSON 对象包含 `inserted`、`updated`、`unchanged`、`invalid` 四个计数，以及 `errors` 数组。每条错误包含 `row` 和非空的 `message`。`row` 按 CSV 记录计数，从表头后的 2 开始，不是含换行字段的物理行号。没有无效行时退出码为 0，有无效行时为 1；有效行仍然导入。人类可读输出表达同样的信息。
+ 
++## 导入预览
++
++`import CSV --dry-run` 使用正式导入的解析、校验和变更判断规则，按文件顺序在内存中处理有效行。对相同数据库和输入，在没有外部修改且正式导入成功执行的情况下，预览和随后正式导入的 `inserted`、`updated`、`unchanged`、`invalid`、`errors` 完全一致。计数按行累计，同一标识可以在一份输入中产生多次更新。
++
++预览只读取已有数据库，不初始化表、不追加修订，不通过写入后回滚实现。数据库不存在或尚无修订表时按空数据库处理，不创建数据库或缺失的父目录。整份输入错误同样没有数据库副作用。
++
++`--dry-run --json` 返回原有五项摘要字段，并包含 `dry_run: true`；正式导入的 JSON 不包含 `dry_run`。文本预览明确说明尚未保存，并提示移除 `--dry-run` 后再次执行以正式导入。行级诊断和退出码与导入一致：没有无效行时为 0，有无效行时为 1，整份输入或执行失败时为 2。
++
++预览不检查正式导入的写入权限，不保证后续写入能够成功，也不会为后续导入保留数据库状态。本工具只支持没有并发写入的本地使用场景。
++
+ ## 查询与统计
+ 
+ `list --json` 返回当前记录组成的 JSON 数组，每项恰好包含上述六个字段，按 `(source, external_id)` 排序。历史版本不重复出现在列表里。
+@@ -31,6 +41,7 @@ UTF-8 CSV（允许 BOM）必须包含 `source,external_id,day,category,value` 
+ 从项目根目录运行 Python 3.11 或以上版本，无需安装依赖：
+ 
+ ```text
++python -m fieldledger --db observations.sqlite import observations.csv --dry-run --json
+ python -m fieldledger --db observations.sqlite import observations.csv --json
+ python -m fieldledger --db observations.sqlite list --json
+ python -m fieldledger --db observations.sqlite report --from 2026-01-01 --to 2026-01-31 --category rain --json
+diff --git a/fieldledger/cli.py b/fieldledger/cli.py
+index 707d290..2c4ca3a 100644
+--- a/fieldledger/cli.py
++++ b/fieldledger/cli.py
+@@ -15,8 +15,18 @@ def parser() -> argparse.ArgumentParser:
+     root = argparse.ArgumentParser(description="Import and summarize field observations")
+     root.add_argument("--db", default="observations.sqlite", help="SQLite database path")
+     commands = root.add_subparsers(dest="command", required=True)
+-    ingest = commands.add_parser("import", help="Import observation revisions from CSV")
+-    ingest.add_argument("csv_path")
++    ingest = commands.add_parser(
++        "import", help="Import or preview observation revisions from CSV",
++        description="Import CSV revisions, or preview counts and row errors without saving.",
++        epilog="To save, remove --dry-run and rerun the same command. "
++               "Invalid rows are skipped; valid rows are saved on import.",
++    )
++    ingest.add_argument("csv_path", help="UTF-8 CSV file to import")
++    ingest.add_argument(
++        "--dry-run", action="store_true",
++        help="Preview only: do not create or modify the database. A missing database "
++             "is treated as empty. Can be combined with --json.",
++    )
+     listing = commands.add_parser("list", help="List current observations")
+     report = commands.add_parser("report", help="Summarize current observations")
+     report.add_argument("--from", dest="start")
+@@ -31,10 +41,14 @@ def print_result(command: str, result: dict | list, as_json: bool) -> None:
+     if as_json:
+         print(json.dumps(result, ensure_ascii=False))
+     elif command == "import":
++        if result.get("dry_run"):
++            print("Preview only: no changes saved.")
+         print(" ".join(f"{key}={result[key]}" for key in
+                        ("inserted", "updated", "unchanged", "invalid")))
+         for error in result["errors"]:
+             print(f"row {error['row']}: {error['message']}", file=sys.stderr)
++        if result.get("dry_run"):
++            print("To import and save these changes, rerun the same command without --dry-run.")
+     elif command == "list":
+         for record in result:
+             print("\t".join(str(record[key]) for key in
+@@ -51,8 +65,10 @@ def main(argv: list[str] | None = None) -> int:
+     try:
+         status = 0
+         if args.command == "import":
+-            summary = import_csv(args.csv_path, args.db)
++            summary = import_csv(args.csv_path, args.db, dry_run=args.dry_run)
+             result = summary.as_dict()
++            if args.dry_run:
++                result["dry_run"] = True
+             status = 1 if summary.invalid else 0
+         elif args.command == "list":
+             result = [record.as_dict() for record in store.read_current(args.db)]
+diff --git a/fieldledger/importer.py b/fieldledger/importer.py
+index 510a9f6..7b02e6a 100644
+--- a/fieldledger/importer.py
++++ b/fieldledger/importer.py
+@@ -4,7 +4,8 @@ from dataclasses import dataclass, field
+ from pathlib import Path
+ 
+ from . import store
+-from .csv_input import RowError, read_csv
++from .csv_input import ParsedInput, RowError, read_csv
++from .model import Record
+ 
+ 
+ @dataclass
+@@ -28,20 +29,35 @@ class ImportSummary:
+         }
+ 
+ 
+-def import_csv(csv_path: str | Path, db_path: str | Path) -> ImportSummary:
+-    parsed = read_csv(csv_path)
++def _plan_import(parsed: ParsedInput, existing: list[Record]) -> tuple[ImportSummary, list[Record]]:
++    """Compare in file order, including changes earlier in this same input."""
+     summary = ImportSummary(errors=parsed.errors)
++    current = {record.key: record for record in existing}
++    revisions = []
++    for record in parsed.records:
++        previous = current.get(record.key)
++        if previous == record:
++            summary.unchanged += 1
++            continue
++        revisions.append(record)
++        if previous is None:
++            summary.inserted += 1
++        else:
++            summary.updated += 1
++        current[record.key] = record
++    return summary, revisions
++
++
++def import_csv(
++    csv_path: str | Path, db_path: str | Path, *, dry_run: bool = False,
++) -> ImportSummary:
++    """Preview or commit the same plan; preview never opens a writable database."""
++    parsed = read_csv(csv_path)
++    if dry_run:
++        summary, _ = _plan_import(parsed, store.read_current(db_path))
++        return summary
+     with store.connect(db_path) as connection:
+-        current = {record.key: record for record in store.current_records(connection)}
+-        for record in parsed.records:
+-            previous = current.get(record.key)
+-            if previous == record:
+-                summary.unchanged += 1
+-                continue
++        summary, revisions = _plan_import(parsed, store.current_records(connection))
++        for record in revisions:
+             store.append_revision(connection, record)
+-            if previous is None:
+-                summary.inserted += 1
+-            else:
+-                summary.updated += 1
+-            current[record.key] = record
+     return summary
+diff --git a/fieldledger/store.py b/fieldledger/store.py
+index 0f3abd8..b237fdb 100644
+--- a/fieldledger/store.py
++++ b/fieldledger/store.py
+@@ -72,6 +72,12 @@ def read_current(path: str | Path) -> list[Record]:
+         return []
+     connection = sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)
+     try:
++        # A new, empty SQLite file has the same baseline as a missing database.
++        # Only writable connections initialize the revisions schema.
++        if connection.execute(
++            "SELECT 1 FROM sqlite_master WHERE name = 'revisions'"
++        ).fetchone() is None:
++            return []
+         return current_records(connection)
+     finally:
+         connection.close()
+diff --git a/tests/test_preview.py b/tests/test_preview.py
+new file mode 100644
+index 0000000..8f2cff9
+--- /dev/null
++++ b/tests/test_preview.py
+@@ -0,0 +1,261 @@
++import csv
++import json
++from pathlib import Path
++import sqlite3
++import subprocess
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++from fieldledger import store
++from fieldledger.importer import import_csv
++from fieldledger.model import InputError
++
++
++HEADER = ["source", "external_id", "day", "category", "value", "note"]
++SUMMARY_KEYS = {"inserted", "updated", "unchanged", "invalid", "errors"}
++
++
++class PreviewTest(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++        self.db = self.root / "ledger.sqlite"
++        self.csv = self.root / "input.csv"
++
++    def write_rows(self, rows, header=HEADER):
++        with self.csv.open("w", encoding="utf-8", newline="") as stream:
++            writer = csv.writer(stream)
++            writer.writerow(header)
++            writer.writerows(rows)
++
++    def cli(self, *args):
++        return subprocess.run(
++            [sys.executable, "-m", "fieldledger", "--db", str(self.db), *args],
++            capture_output=True, text=True, encoding="utf-8",
++            cwd=Path(__file__).resolve().parents[1],
++        )
++
++    def baseline(self):
++        self.write_rows([
++            ["north", "one", "2026-01-10", "rain", "10", "original"],
++            ["north", "one", "2026-02-10", "snow", "20", "current"],
++            ["north", "steady", "2026-01-10", "rain", "3", ""],
++        ])
++        import_csv(self.csv, self.db)
++
++    def snapshot(self):
++        connection = sqlite3.connect(self.db.resolve().as_uri() + "?mode=ro", uri=True)
++        try:
++            schema = connection.execute(
++                "SELECT type, name, tbl_name, sql FROM sqlite_master ORDER BY name"
++            ).fetchall()
++            history = connection.execute("SELECT * FROM revisions ORDER BY revision_id").fetchall()
++            sequence = connection.execute("SELECT * FROM sqlite_sequence ORDER BY name").fetchall()
++        finally:
++            connection.close()
++        return self.db.read_bytes(), self.db.stat().st_mtime_ns, schema, history, sequence
++
++    def preview_then_import(self, exit_code=0):
++        preview = self.cli("import", str(self.csv), "--dry-run", "--json")
++        self.assertEqual(preview.returncode, exit_code, preview.stderr)
++        result = json.loads(preview.stdout)  # Rejects any prose or additional JSON values.
++        self.assertEqual(set(result), SUMMARY_KEYS | {"dry_run"})
++        self.assertIs(result.pop("dry_run"), True)
++        actual = self.cli("import", str(self.csv), "--json")
++        self.assertEqual(actual.returncode, exit_code, actual.stderr)
++        saved = json.loads(actual.stdout)
++        self.assertEqual(set(saved), SUMMARY_KEYS)
++        self.assertEqual(result, saved)
++        return result
++
++    def test_existing_history_preview_matches_import_and_preserves_database(self):
++        self.baseline()
++        self.write_rows([
++            ["north", "one", "2026-02-10", "snow", "20", "current"],
++            ["north", "one", "2026-01-10", "rain", "10", "original"],
++            ["north", "new", "2026-01-10", "rain", "7", ""],
++            ["north", "bad", "2026-02-30", "rain", "1", ""],
++        ])
++        before = self.snapshot()
++        directory = set(self.root.iterdir())
++        preview = import_csv(self.csv, self.db, dry_run=True).as_dict()
++        self.assertEqual(self.snapshot(), before)
++        self.assertEqual(set(self.root.iterdir()), directory)
++        self.assertEqual([preview[k] for k in ("inserted", "updated", "unchanged", "invalid")],
++                         [1, 1, 1, 1])
++        self.assertEqual(self.preview_then_import(exit_code=1), preview)
++
++    def test_repeated_identities_use_file_order_and_ignore_invalid_intermediate_row(self):
++        self.baseline()
++        self.write_rows([
++            ["north", "one", "2026-02-10", "snow", "30", "current"],
++            ["north", "one", "2026-02-10", "snow", "invalid", "current"],
++            ["north", "one", "2026-02-10", "snow", "30", "current"],
++            ["north", "one", "2026-02-10", "snow", "20", "current"],
++            ["north", "one", "2026-02-10", "snow", "20", "current"],
++            ["北:方", "站", "2026-01-10", "rain", "1", ""],
++            ["北", "方:站", "2026-01-10", "rain", "1", ""],
++            ["北|方", "站", "2026-01-10", "rain", "2", ""],
++            ["北", "方|站", "2026-01-10", "rain", "2", ""],
++            ["北:方", "站", "2026-01-10", "rain", "2", ""],
++            ["北:方", "站", "2026-01-10", "rain", "2", ""],
++        ])
++        summary = self.preview_then_import(exit_code=1)
++        self.assertEqual([summary[k] for k in ("inserted", "updated", "unchanged", "invalid")],
++                         [4, 3, 3, 1])
++        self.assertEqual(summary["errors"][0]["row"], 3)
++
++    def test_normalization_bom_extra_named_column_and_optional_note(self):
++        self.write_rows([["北方", "station:一", "2026-01-10", "rain", "10", ""]])
++        import_csv(self.csv, self.db)
++        self.csv.write_text(
++            "\ufeffsource,external_id,day,category,value,ignored\n"
++            " 北方 , station:一 , 2026-01-10 , rain , +0010 ,extra\n",
++            encoding="utf-8",
++        )
++        self.assertEqual(self.preview_then_import(), {
++            "inserted": 0, "updated": 0, "unchanged": 1, "invalid": 0, "errors": [],
++        })
++
++    def test_multiline_notes_use_csv_record_numbers(self):
++        self.write_rows([
++            ["north", "one", "2026-01-10", "rain", "1", " two\nlines "],
++            ["north", "bad", "not-a-date", "rain", "1", ""],
++            ["north", "short"],
++            ["north", "extra", "2026-01-10", "rain", "1", "", "extra"],
++        ])
++        summary = self.preview_then_import(exit_code=1)
++        self.assertEqual(summary["inserted"], 1)
++        self.assertEqual(summary["invalid"], 3)
++        self.assertEqual([error["row"] for error in summary["errors"]], [3, 4, 5])
++        self.assertTrue(all(error["message"] for error in summary["errors"]))
++        self.assertEqual(store.read_current(self.db)[0].note, "two\nlines")
++
++    def test_missing_database_and_missing_parents_are_not_created(self):
++        self.write_rows([["north", "one", "2026-01-10", "rain", "1", ""]])
++        for database in [self.db, self.root / "absent" / "nested" / "ledger.sqlite"]:
++            with self.subTest(database=database):
++                self.db = database
++                before = set(self.root.rglob("*"))
++                self.assertEqual(import_csv(self.csv, self.db, dry_run=True).inserted, 1)
++                result = self.cli("import", str(self.csv), "--dry-run", "--json")
++                self.assertEqual(result.returncode, 0, result.stderr)
++                self.assertEqual(json.loads(result.stdout)["inserted"], 1)
++                self.assertEqual(set(self.root.rglob("*")), before)
++
++    def test_whole_input_errors_leave_missing_database_absent(self):
++        invalid_inputs = [
++            b"", b"source,external_id\nnorth,one\n",
++            b"source,external_id,day,category,value,value\n",
++            b"source,external_id,day,category,value,\n",
++            b"source,external_id,day,category,value\n\xff",
++            b'source,external_id,day,category,value\n"unterminated',
++        ]
++        for database in [self.db, self.root / "absent" / "nested" / "ledger.sqlite"]:
++            self.db = database
++            for content in invalid_inputs:
++                with self.subTest(database=database, content=content):
++                    self.csv.write_bytes(content)
++                    before = set(self.root.rglob("*"))
++                    result = self.cli("import", str(self.csv), "--dry-run", "--json")
++                    self.assertEqual(result.returncode, 2)
++                    self.assertEqual(result.stdout, "")
++                    self.assertTrue(result.stderr.strip())
++                    self.assertEqual(set(self.root.rglob("*")), before)
++            with self.subTest(database=database, missing_input=True):
++                before = set(self.root.rglob("*"))
++                result = self.cli("import", str(self.root / "missing.csv"), "--dry-run", "--json")
++                self.assertEqual(result.returncode, 2)
++                self.assertEqual(result.stdout, "")
++                self.assertTrue(result.stderr.strip())
++                self.assertEqual(set(self.root.rglob("*")), before)
++
++    def test_whole_input_error_preserves_existing_database(self):
++        self.baseline()
++        before = self.snapshot()
++        self.csv.write_bytes(b"source,external_id,day,category,value\n\xff")
++        with self.assertRaises(InputError):
++            import_csv(self.csv, self.db, dry_run=True)
++        self.assertEqual(self.snapshot(), before)
++
++    def test_all_invalid_rows_and_header_only_do_not_create_database(self):
++        for rows, expected_exit in [([], 0), ([["north", "short"], ["", "bad"]], 1)]:
++            with self.subTest(rows=rows):
++                self.write_rows(rows)
++                result = self.cli("import", str(self.csv), "--dry-run", "--json")
++                self.assertEqual(result.returncode, expected_exit, result.stderr)
++                summary = json.loads(result.stdout)
++                self.assertIs(summary["dry_run"], True)
++                self.assertEqual([summary[k] for k in ("inserted", "updated", "unchanged")], [0, 0, 0])
++                self.assertEqual(summary["invalid"], len(rows))
++                self.assertEqual(len(summary["errors"]), len(rows))
++                self.assertFalse(self.db.exists())
++
++    def test_service_preview_only_uses_readonly_connections_and_never_appends(self):
++        self.baseline()
++        self.write_rows([["north", "one", "2026-01-10", "rain", "99", ""]])
++        before = self.snapshot()
++        real_connect = sqlite3.connect
++
++        def readonly_connect(database, *args, **kwargs):
++            self.assertTrue(kwargs.get("uri"), "preview opened a non-URI connection")
++            self.assertIn("mode=ro", str(database), "preview opened a writable connection")
++            return real_connect(database, *args, **kwargs)
++
++        with patch.object(store, "connect", side_effect=AssertionError("writable store connection")), \
++                patch.object(store, "append_revision", side_effect=AssertionError("revision append")), \
++                patch.object(sqlite3, "connect", side_effect=readonly_connect):
++            summary = import_csv(self.csv, self.db, dry_run=True)
++        self.assertEqual(summary.updated, 1)
++        self.assertEqual(self.snapshot(), before)
++
++    def test_existing_empty_sqlite_file_is_read_without_initializing_schema(self):
++        sqlite3.connect(self.db).close()
++        self.write_rows([["north", "one", "2026-01-10", "rain", "1", ""]])
++        before = self.db.read_bytes(), self.db.stat().st_mtime_ns
++        self.assertEqual(import_csv(self.csv, self.db, dry_run=True).inserted, 1)
++        self.assertEqual((self.db.read_bytes(), self.db.stat().st_mtime_ns), before)
++        self.assertEqual(self.preview_then_import()["inserted"], 1)
++
++    def test_readonly_database_file_can_be_previewed(self):
++        self.db = self.root / "观测 #100%.sqlite"
++        self.baseline()
++        self.write_rows([["north", "one", "2026-01-10", "rain", "99", ""]])
++        before = self.snapshot()
++        original_mode = self.db.stat().st_mode
++        self.db.chmod(0o444)
++        try:
++            result = self.cli("import", str(self.csv), "--json", "--dry-run")
++            self.assertEqual(result.returncode, 0, result.stderr)
++            self.assertEqual(json.loads(result.stdout), {
++                "inserted": 0, "updated": 1, "unchanged": 0, "invalid": 0,
++                "errors": [], "dry_run": True,
++            })
++            self.assertEqual(self.snapshot(), before)
++        finally:
++            self.db.chmod(original_mode)
++
++    def test_human_preview_explains_unsaved_changes_and_how_to_import(self):
++        self.write_rows([
++            ["north", "one", "2026-01-10", "rain", "1", ""],
++            ["north", "bad", "2026-01-10", "rain", "oops", ""],
++        ])
++        result = self.cli("import", str(self.csv), "--dry-run")
++        self.assertEqual(result.returncode, 1, result.stderr)
++        self.assertIn("preview", result.stdout.lower())
++        self.assertRegex(result.stdout.lower(), r"(no changes saved|not saved|nothing saved|unsaved)")
++        self.assertIn("inserted=1", result.stdout)
++        self.assertIn("invalid=1", result.stdout)
++        self.assertRegex(result.stdout.lower(), r"(without|remove|omit).*--dry-run")
++        self.assertIn("row 3:", result.stderr)
++        self.assertFalse(self.db.exists())
++        help_result = self.cli("import", "--help")
++        self.assertEqual(help_result.returncode, 0, help_result.stderr)
++        self.assertIn("--dry-run", help_result.stdout)
++
++
++if __name__ == "__main__":
++    unittest.main()
