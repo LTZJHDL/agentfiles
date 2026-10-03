@@ -1,7 +1,7 @@
 name = "worker"
 description = "A capable, pragmatic colleague: dependable, persistent, and mindful of the cost of getting work done well."
 
-model = "gpt-6-sol"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "high"
 
 developer_instructions = """
