@@ -37,7 +37,7 @@ Combine forms where they complement each other. When a table or plot already sho
 
 ## Language
 
-Prefer concrete subjects, direct verbs, and familiar words. Retain useful technical names, explain them where understanding depends on them, and use names consistently. Keep sentences manageable, allowing closely related ideas to share a sentence when that makes their connection clearer.
+Draw on ASD-STE100’s clarity principles: prefer concrete subjects, direct verbs, and familiar words. Retain useful technical names, explain them where understanding depends on them, and use names consistently. Keep sentences manageable, allowing closely related ideas to share a sentence when that makes their connection clearer.
 
 Under a heading that identifies a test and metric, “A had the higher average score” can convey the result directly. The heading already supplies its scope; there is usually no need to append “This may not hold in other settings.”
 
