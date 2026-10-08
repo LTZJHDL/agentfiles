@@ -1,0 +1,6 @@
+interface:
+  display_name: "Plain Document Writing"
+  short_description: "Draft, translate, and revise clear, reader-focused documents"
+  default_prompt: "Use $plain-document-writing to write, translate, or revise a document that its intended readers can easily understand and use, preserving factual accuracy and technical meaning."
+policy:
+  allow_implicit_invocation: true
