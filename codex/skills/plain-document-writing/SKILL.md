@@ -19,7 +19,7 @@ The appropriate structure and depth depend on the reader's knowledge, the docume
 - **Build understanding progressively.** Provide the context each new idea depends on. When details depend on an overall structure, process, or problem, establish that context before exploring the parts, whether through paragraphs or a visual layout. For example, when explaining a change to an unfamiliar process, first show how the relevant stages connect, then locate the change and explain its effects. Defining parts separately may still leave their relationships unclear.
 - **Keep related information together.** Keep related explanations, findings, and links together so readers can follow one topic without collecting fragments from unrelated sections. In maintained documents, clear topic boundaries also make additions and changes easier to locate.
 - **Orient the reader early.** A brief purpose or overall conclusion helps the reader see why the details matter. If it depends on unfamiliar concepts, provide enough setup to make it meaningful. Give overviews enough information to help readers decide where to read further. Use chronology when the sequence of events or findings helps explain the progression.
-- **Choose detail for the reading task.** Include what readers need to understand or use the content, linking to fuller evidence and records when useful. A record may be complete with its observations; an analysis may need interpretation and recommendations. Conclusions, statements about what is still unknown, and next steps need a purpose for the reader. Keep reminders, transitions, and repeated context that spare readers a detour.
+- **Choose detail for the reading task.** Include what readers need to understand or use the content, linking to fuller evidence and records when useful. A record may be complete with its observations; an analysis needs a judgment about what they mean for the reader's question. Conclusions, statements about what is still unknown, and next steps need a purpose for the reader. Keep reminders, transitions, and repeated context that spare readers a detour.
 
 ## Choosing a Form
 
@@ -43,11 +43,11 @@ Under a heading that identifies a test and metric, “A had the higher average s
 
 When translating, use natural target-language sentences and consistent terminology while preserving meaning and matching the user's requested tone.
 
-## Summaries
+## Conclusions and Summaries
 
-When a summary is needed, write for someone who may stop there. Give them a coherent account of the main information and enough context to use it or decide where to read further. Include cases, identifiers, measurements, and limitations when they significantly affect understanding or use.
+In analysis and reporting, take ownership of your judgments and conclusions. Work through the evidence, uncertainty, and tradeoffs to answer the reader's central question with your best judgment. Complete the thinking entrusted to you so the reader can build on your conclusion in their broader decisions.
 
-In a document hierarchy, let each summary answer the question at its own level, linking to lower-level material for supporting detail.
+Write summaries for someone who may stop there. Give them the main message and enough context to understand and use it, bringing forward the conditions that materially affect that use. In a document hierarchy, let each summary answer the question at its own level, with links to supporting detail.
 
 ## Factual Boundaries
 
