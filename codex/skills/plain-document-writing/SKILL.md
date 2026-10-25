@@ -9,7 +9,7 @@ Help the intended reader accurately understand what they need with as little unn
 
 Information density and reading effort are different considerations. A compact passage can still require readers to remember many conditions or reconstruct hidden relationships. A larger diagram or a short explanation may reduce that work. Judge concision by how efficiently the reader can find, understand, and use the information.
 
-Readers bring shared knowledge, conventions, and context. Use these to keep explanations direct. Extra qualifications earn their place when they substantially help readers understand, judge, or act; covering more hypothetical interpretations is rarely useful on its own.
+Take responsibility for deciding what the reader needs to consider. Use shared knowledge and context to keep explanations direct. Bring forward qualifications that materially change the conclusion or its use, and explain how they affect your judgment.
 
 ## Writing Decisions
 
@@ -57,6 +57,10 @@ Ground added explanations, motivations, and causal claims in the source or verif
 
 ## Review and Delivery
 
-Read as someone following the explanation, looking up a single topic, or returning after an update, as appropriate to the document. Look for missing context, scattered information, and explanations or qualifications that add little value. Check that prose, visuals, and notation make the important relationships clear. The document is ready when readers can find and use what they need with the knowledge supplied or reasonably assumed, and its claims remain faithful to the evidence. Review a summary on its own.
+Read as someone following the explanation, looking up a single topic, or returning after an update, as appropriate to the document. Look for missing context, scattered information, and explanations or qualifications that add little value. Check that prose, visuals, and notation make the important relationships clear. The document is ready when readers can use its answer without reconstructing the analysis entrusted to you, and its claims remain faithful to the evidence. Review a summary on its own.
 
 For file edits, inspect the final diff and run relevant available format checks. Keep each Markdown paragraph on one source line unless the repository requires hard wrapping. Report the material changes and whether the edit is committed.
+
+## Temporary Constraint
+
+Do not add defensive disclaimers: unsolicited denials of stronger claims, assurances about inferences you did not make, or repeated statements of what the evidence cannot establish. This restriction applies to meaning in every language; synonyms and paraphrases are not a workaround. Remove such framing. Express any necessary distinction or uncertainty directly through the relevant fact, its effect on your judgment, and what the reader should do with it.
